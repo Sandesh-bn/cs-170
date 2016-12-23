@@ -1,0 +1,53 @@
+class ArrayCircularQueue{
+	private String[] q;
+	private int front, rear, size;
+	ArrayCircularQueue(int capacity){
+		q = new String[capacity];
+		front = 0;
+		rear = 0;
+		size = 0;
+	}
+	
+	public boolean empty(){
+		return size == 0;
+	}
+	public int capacity(){
+		return q.length;
+	}
+	
+	public void enqueue(){
+		if (q.length == size)
+			throw new QueueOverFlowException();
+		size++;
+		q[rear++] = s;
+		if (rear == q.length)
+			rear = 0;
+	}
+	public String peek(){
+		if (empty())
+			throw new EmptyQueueException();
+		return q[front];
+	}
+	
+	public String dequeue(){
+		if (empty())
+			throw new EmptyQueueException();
+		size--;
+		String frontValue = q[front];
+		q[front++] = null;
+		if (front == q.length)
+			front = 0;
+		return frontValue;
+	}
+	
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		sb.append("front = " + front + ", Rear: " + rear);
+		for (int k = 0;k < q.length; k++){
+			if (q[k] != null)
+				sb.append(k + ": " + q[k] + " ");
+			else
+				sb.append(k + "? ");
+		}
+	}
+}

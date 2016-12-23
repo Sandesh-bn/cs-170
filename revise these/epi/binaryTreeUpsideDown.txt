@@ -1,0 +1,19 @@
+// binary tree upside down
+//http://bangbingsyb.blogspot.com/2014/11/leetcode-binary-tree-upside-down.html
+public TreeNode upsideDownBinaryTree(TreeNode root){
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        TreeNode head = new TreeNode(0);
+        TreeNode cur = head;
+        while(root!=null){
+            stack.push(root);
+            root = root.left;
+        }
+        while(!stack.isEmpty()){
+            TreeNode node = stack.pop();
+            cur.right = node;
+            if(!stack.isEmpty())
+                node.left = stack.peek().right;
+            cur = cur.right;
+        }
+        return head.right;
+    }

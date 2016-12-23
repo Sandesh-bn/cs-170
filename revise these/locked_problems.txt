@@ -1,0 +1,355 @@
+// binary tree upside down
+//http://bangbingsyb.blogspot.com/2014/11/leetcode-binary-tree-upside-down.html
+public TreeNode upsideDownBinaryTree(TreeNode root){
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        TreeNode head = new TreeNode(0);
+        TreeNode cur = head;
+        while(root!=null){
+            stack.push(root);
+            root = root.left;
+        }
+        while(!stack.isEmpty()){
+            TreeNode node = stack.pop();
+            cur.right = node;
+            if(!stack.isEmpty())
+                node.left = stack.peek().right;
+            cur = cur.right;
+        }
+        return head.right;
+    }
+
+//read4
+public int read(char[] buf, int n) {
+	if (n <= 0)
+		return 0;
+	char[] tmp = new char[4];
+	int j = 0;
+	while (true) {
+		int readCount = read4(tmp);
+		for (int i = 0; i < readCount && j < n; i++)
+			buf[j++] = tmp[i];
+		if (j == n || readCount < 4)
+			break;
+	}
+	return j;
+}
+
+
+// longest substring with atmost two distinct characters
+public int lengthOfLongestSubstringTwoDistinct(String s) {
+    
+    Map<Character, Integer> map = new HashMap<>();
+    int longest = 0, ptr = 0;
+    for (int i = 0; i < s.length(); i++){
+    	if (!map.containsKey(s.charAt(i)) && map.size() == 2){
+    		int leftMost = Collections.min(map.values());
+    		map.remove(s.charAt(leftMost));
+    		char temp = (char)map.keySet().toArray()[0];
+    		ptr = s.indexOf(temp, leftMost);
+    	}
+    	map.put(s.charAt(i), i);
+    	longest = Math.max(longest, i - ptr + 1);
+    }
+    return longest;
+}
+
+
+
+// two sum 3 III datastructure design
+public class TwoSum {
+        List<Integer> list = new ArrayList<>();
+
+	public void add(int number) {
+	    list.add(number);
+	}
+
+	public boolean find(int value) {
+	    Set<Integer> set = new HashSet<>();
+	    for (int n : list){
+	        if (set.contains(value - n)){ return true; }
+	        set.add(n);
+	    }
+	    return false;
+	}
+}
+
+
+
+
+Reverse Words in a String 
+see leetcode submission. more easier solution
+public void reverseWords(char[] s) {
+    if (null == s || s.length == 0) {
+        return;
+    }
+    reverse(s, 0, s.length - 1);
+    for (int start = 0, i = 0; i <= s.length; i++) {
+        if (i == s.length || s[i] == ' ') {
+            reverse(s, start, i - 1);
+            start = i + 1;
+        }
+    }
+}
+ 
+private void reverse(char[] s, int start, int end) {
+    for (; start < end; start++, end--) {
+        char c = s[start];
+        s[start] = s[end];
+        s[end] = c;
+    }
+}
+
+
+//SHORTEST WORD DISTANCE
+public int shortestDistance(String[] words, String word1, String word2) {
+        int minDistance = Integer.MAX_VALUE, idx1 = -1, idx2 = -1;
+        
+        for(int i=0; i<words.length; i++){
+            if(word1.equals(words[i])){
+                idx1 = i;
+            }
+            else if(word2.equals(words[i])){
+                idx2 = i;
+            }
+            
+            if(idx1 != -1 && idx2 != -1 ){
+                minDistance = Math.min(minDistance, Math.abs(idx1 - idx2));
+            }
+        }
+        
+        return minDistance;
+    
+}
+    SHORTEST WORD STISTANCE ii 2 ie. you have a list of words and you have to find the shortest distance between words. this method will be called multiple times.
+    https://discuss.leetcode.com/topic/24245/java-solution-using-hashmap
+    https://discuss.leetcode.com/topic/47508/simple-straightforward-java-solution-hashmap
+    
+
+
+    SHORTEST WORD DISTANCE III 3  find shortest distance between two words. two words can be the same.
+    http://buttercola.blogspot.com/2015/08/leetcode-shortest-word-distance-iii.html
+
+    public int shortestDistance(String[] words, String word1, String word2){
+    	int index1 = -1, index2 = -1;
+    	int minDistance = Integer.MAX_VALUE;
+
+    	for (int i = 0; i < words.length; i++){
+    		String curr = words[i];
+    		if (curr.equals(word1))
+    			index1 = i;
+    		else if (curr.equals(word2))
+    			index2 = i;
+
+    		if (index1 != -1 && index2 != -1 && index1 != indexB)
+    			minDistance = Math.min(minDistance, Math.abs(index1 - index2));
+
+    		if (word1.equals(word2))
+    			index2 = index1
+    	}
+    	return minDistance;
+    }
+
+
+    group shifted strings
+    http://www.programcreek.com/2014/05/leetcode-group-shifted-strings-java/
+    use this :https://discuss.leetcode.com/topic/28559/around-13-lines-code-in-java
+    
+    before coding, you paste the below code in repl.it and explain how you will construct the hashmap
+    to store similar strings. say that you will use rotated string idea to create the map:
+    import java.util.*;
+    class Main {
+      public static void main(String[] args) {
+        System.out.println("hello world");
+        String values[] = {"abc", "bcd", "acef", "xyz", "az", "ba", "a", "z"};
+         List<List<String>> res = new ArrayList<List<String>>();
+        HashMap<String, List<String>> map = new HashMap<String, List<String>>();
+        for (String s : values) {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < s.length(); i++) {
+                int l = (s.charAt(i) - s.charAt(0) + 26) % 26;
+                sb.append(l + " ");
+                
+            }
+            String str = sb.toString();
+            if (!map.containsKey(str)) {
+                List<String> tem = new ArrayList<String>();
+                map.put(str, tem);
+            }
+            map.get(str).add(s);
+        }
+        System.out.println(map);
+        
+      }
+    }
+
+    
+
+
+    univalue subtree
+http://www.geeksforgeeks.org/find-count-of-singly-subtrees/
+public class Solution {
+    public int countUnivalSubtrees(TreeNode root) {
+        unival(root);
+        return count;
+    }
+     
+    private boolean unival(TreeNode root) {
+        if(root == null)
+            return true;
+        if(root.left ==null && root.right == null) {
+            count++;
+            return true;
+        }
+        boolean left = unival(root.left);
+        boolean right = unival(root.right);
+        if(left && right && (root.left == null || root.left.val == root.val) && (root.right == null || root.right.val == root.val)) {
+            count++;
+            return true;
+        }
+        return false;
+    }
+     
+    private int count = 0;
+}
+
+
+
+
+meeting rooms
+http://buttercola.blogspot.com/2015/08/leetcode-meeting-rooms.html
+use this: https://discuss.leetcode.com/topic/20959/ac-clean-java-solution
+
+meeting rooms - 2
+idea: The idea is to group those non-overlapping meetings in the same room and then count how many rooms we need.
+idea: https://discuss.leetcode.com/topic/20958/ac-java-solution-using-min-heap
+use this code: https://discuss.leetcode.com/topic/20958/ac-java-solution-using-min-heap
+
+
+paint house
+https://discuss.leetcode.com/topic/21311/simple-java-dp-solution
+http://buttercola.blogspot.com/2015/08/leetcode-paint-house.html
+
+
+palindrome partition
+http://buttercola.blogspot.com/2015/08/leetcode-palindrome-permutation.html
+
+ 
+
+LARGEST BST SUBTREE
+TUSHAR'S VIDEO 2:00
+code: https://discuss.leetcode.com/topic/58254/easy-java-solution
+while explaining explain like tushar is doing except that when the subtree is not valid
+it returns null instead of an array.
+
+public class Solution {
+    private int result = 0;
+    
+    public int largestBSTSubtree(TreeNode root) {
+        //call helper
+        returnLargest(root);
+        return result;
+    }
+    
+    private int[] returnLargest(TreeNode root) {
+        if (root == null) {
+            // if root is null, set min to MAX_VALUE and max to MIN_VALUE
+            int[] invalidNode = {Integer.MAX_VALUE, Integer.MIN_VALUE, 0}
+            return invalidNode;
+        }
+        
+        // Postorder recursively check lst and rst
+        int[] leftSubTree = returnLargest(root.left);
+        int[] rightSubTree = returnLargest(root.right);
+
+        // if either one of the child is invalid current node is not root of bst
+        if (leftSubTree == null || rightSubtree == null) 
+            return null;
+        
+        //check if current node is > largest lst child and 
+        // curren node is < least right child
+
+        if (left[1] < root.val && right[0] > root.val) {
+            // increment result by 1 + size of lst + size of rst
+            result = Math.max(result, left[2]+1+right[2]);
+
+            // if left/right child is null, use current value as boundary
+            // return least element and largest element in the subtree with current node
+            // as root.
+            int leftMin = root.left == null? root.val : left[0];
+            int rightMax = root.right == null ? root.val : right[1];
+            
+            // return {min, max, size} to its parent
+            return new int[]{leftMin, rightMax, left[2]+1+right[2]};
+        }
+
+        // otherwise current node is invalid returnn null.
+        return null;
+        
+    }
+}
+
+
+
+NESTED LIST WEIGHT SUM
+https://discuss.leetcode.com/topic/41413/simple-java-bfs-2ms-solution-with-queue
+https://discuss.leetcode.com/topic/41458/java-iterative-solution
+https://discuss.leetcode.com/topic/41476/easy-solution-java
+https://discuss.leetcode.com/topic/41738/java-dfs-and-bfs-simple-code
+https://discuss.leetcode.com/topic/50715/easy-to-understand-java-solution
+https://discuss.leetcode.com/topic/54008/easy-and-clean-java-ac-solutionhttps://discuss.leetcode.com/topic/41495/java-solution-similar-to-tree-level-order-traversal/41413/simple-java-bfs-2ms-solution-with-queue
+
+https://discuss.leetcode.com/topic/41495/java-solution-similar-to-tree-level-order-traversal
+
+
+LONGEST SUBSTRING WITH ATMOST K DISTINCT CHARACTERS
+https://discuss.leetcode.com/topic/54663/java-solution-ac-35ms-run-time
+https://discuss.leetcode.com/topic/54367/java-solution-ac-47ms-run-time
+
+https://discuss.leetcode.com/topic/42954/15-line-42ms-java-solution-using-hashmap
+https://discuss.leetcode.com/topic/42941/java-general-method-easy-understanding-modified-based-on-longest-substring-with-at-most-2-distinct-characters
+https://discuss.leetcode.com/topic/41750/generic-solution-in-java-that-can-be-used-for-unicode
+https://discuss.leetcode.com/topic/41668/easy-to-understand-java-solution
+http://www.geeksforgeeks.org/find-the-longest-substring-with-k-unique-characters-in-a-given-string/
+
+
+MOVING AVERAGE FROM DATA STREAM
+https://tenderleo.gitbooks.io/leetcode-solutions-/content/GoogleEasy/346.html
+http://www.geeksforgeeks.org/average-of-a-stream-of-numbers/
+https://discuss.leetcode.com/topic/44142/simple-java-solution-with-array-oj-has-very-week-test-cases
+https://discuss.leetcode.com/topic/44543/java-clean-solution-using-a-queue
+https://discuss.leetcode.com/topic/45829/simple-java-solution-use-queue
+
+
+SNAKE GAME
+https://discuss.leetcode.com/topic/48626/java-deque-and-hashset-design-with-detailed-comments
+https://discuss.leetcode.com/topic/47108/java-solution-of-snakegame-276ms
+https://discuss.leetcode.com/topic/55597/java-deque-queue-set-solution
+
+
+LOGGER RATE LIMITER
+EASy; https://discuss.leetcode.com/topic/48483/super-easy-java-hashmap-solution
+https://discuss.leetcode.com/topic/48615/a-solution-that-only-keeps-part-of-the-messages
+
+
+SORT TRANSFORMED ARRAY
+https://discuss.leetcode.com/topic/48487/share-my-simple-java-solution-similar-to-merge-sort
+https://discuss.leetcode.com/topic/48444/accepted-java-solution-two-pointer
+https://discuss.leetcode.com/topic/50373/simple-java-solution-using-priority-queue
+
+BOMB ENEMY
+https://discuss.leetcode.com/topic/51035/super-straightforward-java-solution
+https://discuss.leetcode.com/topic/48583/3-o-mn-java-solution
+
+FIND LEAVES OF BINARY TREE
+https://discuss.leetcode.com/topic/49228/java-simple-solution-with-postorder-traversal
+
+
+DESIGN HIT COUNTER
+https://discuss.leetcode.com/topic/60471/java-scalable-solution-using-hashmap-and-linkedlist
+https://discuss.leetcode.com/topic/55693/my-easy-java-solution-beating-88
+https://discuss.leetcode.com/topic/48804/simple-java-solution-using-deque
+https://discuss.leetcode.com/topic/48912/sliding-window-and-java-deque
+https://discuss.leetcode.com/topic/49392/my-java-solution
+https://discuss.leetcode.com/topic/60186/beat-81-java-solution-use-arraylist
+https://discuss.leetcode.com/topic/49523/which-approach-is-the-right-one-in-an-interview/14
+

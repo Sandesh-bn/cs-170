@@ -1,0 +1,202 @@
+
+Dataset  cs170_NN_small_test_1 has an accuracy of 0.855 using only the good features... 3  11  17  19
+using all features gives an accuracy of 0.69
+
+Dataset  cs170_NN_small_test_2 has an accuracy of 0.84 using only the good features... 18  21   3  11
+using all features gives an accuracy of 0.63
+
+Dataset  cs170_NN_small_test_3 has an accuracy of 0.81 using only the good features... 2   6  15  19
+using all features gives an accuracy of 0.6
+
+Dataset  cs170_NN_small_test_4 has an accuracy of 0.79 using only the good features... 17   3   8   6
+using all features gives an accuracy of 0.57
+
+Dataset  cs170_NN_small_test_5 has an accuracy of 0.825 using only the good features... 11  12  17  15
+using all features gives an accuracy of 0.595
+
+Dataset  cs170_NN_small_test_6 has an accuracy of 0.815 using only the good features... 14  16  15   7
+using all features gives an accuracy of 0.545
+
+Dataset  cs170_NN_small_test_7 has an accuracy of 0.83 using only the good features... 14   5   8  11
+using all features gives an accuracy of 0.57
+
+Dataset  cs170_NN_small_test_8 has an accuracy of 0.83 using only the good features... 17  11  14   4
+using all features gives an accuracy of 0.64
+
+Dataset  cs170_NN_small_test_9 has an accuracy of 0.84 using only the good features... 14  16   8  15
+using all features gives an accuracy of 0.625
+
+Dataset  cs170_NN_small_test_10 has an accuracy of 0.79 using only the good features... 3  16  11   4
+using all features gives an accuracy of 0.675
+
+Dataset  cs170_NN_small_test_11 has an accuracy of 0.76 using only the good features... 15  19  10  18
+using all features gives an accuracy of 0.665
+
+Dataset  cs170_NN_small_test_12 has an accuracy of 0.82 using only the good features... 19   4  12  21
+using all features gives an accuracy of 0.63
+
+Dataset  cs170_NN_small_test_13 has an accuracy of 0.805 using only the good features... 3  16   7  19
+using all features gives an accuracy of 0.59
+
+Dataset  cs170_NN_small_test_14 has an accuracy of 0.795 using only the good features... 11   2  16  20
+using all features gives an accuracy of 0.675
+
+Dataset  cs170_NN_small_test_15 has an accuracy of 0.775 using only the good features... 10  16   8  17
+using all features gives an accuracy of 0.595
+
+Dataset  cs170_NN_small_test_16 has an accuracy of 0.81 using only the good features... 7   2  21   4
+using all features gives an accuracy of 0.65
+
+Dataset  cs170_NN_small_test_17 has an accuracy of 0.79 using only the good features... 3  20  21  14
+using all features gives an accuracy of 0.655
+
+Dataset  cs170_NN_small_test_18 has an accuracy of 0.835 using only the good features... 5  11  19   6
+using all features gives an accuracy of 0.65
+
+Dataset  cs170_NN_small_test_19 has an accuracy of 0.825 using only the good features... 9  18  21   2
+using all features gives an accuracy of 0.655
+
+Dataset  cs170_NN_small_test_20 has an accuracy of 0.82 using only the good features... 7  14   3   5
+using all features gives an accuracy of 0.595
+
+Dataset  cs170_NN_small_test_21 has an accuracy of 0.895 using only the good features... 8  16  15   2
+using all features gives an accuracy of 0.695
+
+Dataset  cs170_NN_small_test_22 has an accuracy of 0.82 using only the good features... 18   4   7  12
+using all features gives an accuracy of 0.59
+
+Dataset  cs170_NN_small_test_23 has an accuracy of 0.82 using only the good features... 21   6  15  17
+using all features gives an accuracy of 0.565
+
+Dataset  cs170_NN_small_test_24 has an accuracy of 0.805 using only the good features... 5   4  20   7
+using all features gives an accuracy of 0.515
+
+Dataset  cs170_NN_small_test_25 has an accuracy of 0.86 using only the good features... 2  12   5   4
+using all features gives an accuracy of 0.605
+
+Dataset  cs170_NN_small_test_26 has an accuracy of 0.835 using only the good features... 7  17   8   9
+using all features gives an accuracy of 0.68
+
+Dataset  cs170_NN_small_test_27 has an accuracy of 0.845 using only the good features... 16  12  15   6
+using all features gives an accuracy of 0.665
+
+Dataset  cs170_NN_small_test_28 has an accuracy of 0.825 using only the good features... 2  18  11  10
+using all features gives an accuracy of 0.585
+
+Dataset  cs170_NN_small_test_29 has an accuracy of 0.805 using only the good features... 20  17  18  12
+using all features gives an accuracy of 0.675
+
+Dataset  cs170_NN_small_test_30 has an accuracy of 0.845 using only the good features... 12   5  21   7
+using all features gives an accuracy of 0.66
+
+Dataset  cs170_NN_small_test_31 has an accuracy of 0.82 using only the good features... 3   6   4  14
+using all features gives an accuracy of 0.675
+
+
+
+
+
+
+
+************Small Data above this line**************************************************
+
+
+
+
+
+************Big Data below this line**************************************************
+
+
+
+Dataset  cs170_NN_test_1 has an accuracy of 0.809 using only the good features... 12  20  17  21
+using all features gives an accuracy of 0.492
+
+Dataset  cs170_NN_test_2 has an accuracy of 0.831 using only the good features... 18  21  15  10
+using all features gives an accuracy of 0.544
+
+Dataset  cs170_NN_test_3 has an accuracy of 0.808 using only the good features... 18  15  10   7
+using all features gives an accuracy of 0.531
+
+Dataset  cs170_NN_test_4 has an accuracy of 0.819 using only the good features... 4   7  15  20
+using all features gives an accuracy of 0.542
+
+Dataset  cs170_NN_test_5 has an accuracy of 0.819 using only the good features... 5  11  19  12
+using all features gives an accuracy of 0.547
+
+Dataset  cs170_NN_test_6 has an accuracy of 0.808 using only the good features... 21  10  14  18
+using all features gives an accuracy of 0.5
+
+Dataset  cs170_NN_test_7 has an accuracy of 0.813 using only the good features... 13   4  20  12
+using all features gives an accuracy of 0.559
+
+Dataset  cs170_NN_test_8 has an accuracy of 0.804 using only the good features... 11   2  14  17
+using all features gives an accuracy of 0.557
+
+Dataset  cs170_NN_test_9 has an accuracy of 0.808 using only the good features... 9  21  15   4
+using all features gives an accuracy of 0.53
+
+Dataset  cs170_NN_test_10 has an accuracy of 0.828 using only the good features... 9  12  10  15
+using all features gives an accuracy of 0.549
+
+Dataset  cs170_NN_test_11 has an accuracy of 0.821 using only the good features... 2  11  10   4
+using all features gives an accuracy of 0.533
+
+Dataset  cs170_NN_test_12 has an accuracy of 0.801 using only the good features... 11   6   3  13
+using all features gives an accuracy of 0.539
+
+Dataset  cs170_NN_test_13 has an accuracy of 0.824 using only the good features... 13   3   6   7
+using all features gives an accuracy of 0.522
+
+Dataset  cs170_NN_test_14 has an accuracy of 0.841 using only the good features... 8  12  13  19
+using all features gives an accuracy of 0.519
+
+Dataset  cs170_NN_test_15 has an accuracy of 0.833 using only the good features... 5   9  19  13
+using all features gives an accuracy of 0.547
+
+Dataset  cs170_NN_test_16 has an accuracy of 0.818 using only the good features... 16  12  18  10
+using all features gives an accuracy of 0.541
+
+Dataset  cs170_NN_test_17 has an accuracy of 0.818 using only the good features... 12   7  11   4
+using all features gives an accuracy of 0.57
+
+Dataset  cs170_NN_test_18 has an accuracy of 0.803 using only the good features... 19   5   3  16
+using all features gives an accuracy of 0.497
+
+Dataset  cs170_NN_test_19 has an accuracy of 0.875 using only the good features... 10  16  13   7
+using all features gives an accuracy of 0.543
+
+Dataset  cs170_NN_test_20 has an accuracy of 0.823 using only the good features... 19  15   3  21
+using all features gives an accuracy of 0.516
+
+Dataset  cs170_NN_test_21 has an accuracy of 0.812 using only the good features... 3  15  10  12
+using all features gives an accuracy of 0.551
+
+Dataset  cs170_NN_test_22 has an accuracy of 0.837 using only the good features... 7   3  13  11
+using all features gives an accuracy of 0.538
+
+Dataset  cs170_NN_test_23 has an accuracy of 0.824 using only the good features... 2   3  16  18
+using all features gives an accuracy of 0.559
+
+Dataset  cs170_NN_test_24 has an accuracy of 0.827 using only the good features... 16   4   7   3
+using all features gives an accuracy of 0.533
+
+Dataset  cs170_NN_test_25 has an accuracy of 0.818 using only the good features... 19  12  14   9
+using all features gives an accuracy of 0.566
+
+Dataset  cs170_NN_test_26 has an accuracy of 0.83 using only the good features... 13  17   3  11
+using all features gives an accuracy of 0.543
+
+Dataset  cs170_NN_test_27 has an accuracy of 0.814 using only the good features... 6  17   7  18
+using all features gives an accuracy of 0.543
+
+Dataset  cs170_NN_test_28 has an accuracy of 0.811 using only the good features... 6   9  16  15
+using all features gives an accuracy of 0.536
+
+Dataset  cs170_NN_test_29 has an accuracy of 0.821 using only the good features... 19   8  21  17
+using all features gives an accuracy of 0.528
+
+Dataset  cs170_NN_test_30 has an accuracy of 0.808 using only the good features... 18   9  15   5
+using all features gives an accuracy of 0.555
+
+Dataset  cs170_NN_test_31 has an accuracy of 0.833 using only the good features... 15  12   8  18
+using all features gives an accuracy of 0.535
