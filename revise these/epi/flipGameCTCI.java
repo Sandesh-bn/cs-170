@@ -5,7 +5,7 @@ curr_run holds the number of current adjacent sequence of 1s
 previous holds the number of previous adjacent sequence of 1s
 
  public static int returnMax(int num){
-    int previous = 0, current_run = 0, current_max = 1;
+    int previous = 0, current_run = 0, maxSoFar = 1;
     while (num != 0){
       int current_bit = num & 1;
       num = num >> 1;
@@ -15,7 +15,7 @@ previous holds the number of previous adjacent sequence of 1s
         previous = current_run;
         current_run = 0;
       }
-      current_max = Math.max(current_max, previous + current_run + 1);
+      maxSoFar = Math.max(maxSoFar, previous + current_run + 1);
     }
-    return current_max;
+    return maxSoFar;
   }

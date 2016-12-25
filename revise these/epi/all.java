@@ -6624,6 +6624,3939 @@ public class Solution {
 }
 */
 
+$$$
+Given an array of integers, find if the array contains any duplicates. Your function should return true if any value appears at least twice in the array, and it should return false if every element is distinct.
+
+public class Solution {
+    public boolean containsDuplicate(int[] nums) {
+        Set<Integer> uniq = new HashSet<>();
+        for (int num: nums)
+            if(!uniq.add(num))return true;
+        return false;
+    }
+}
+
+Given an array of integers and an integer k, find out whether there are two distinct indices i and j in the array such that nums[i] = nums[j] and the difference between i and j is at most k.
+public class Solution {
+    public boolean containsNearbyDuplicate(int[] nums, int k) {
+     
+     
+     Map<Integer, Integer> map = new HashMap<>();
+     for (int i = 0; i < nums.length; i++){
+         if (map.containsKey(nums[i]) && (Math.abs(map.get(nums[i]) - i) <= k))
+            return true;
+        map.put(nums[i], i);
+     }
+     return false;
+     
+    
+   
+}
+
+
+
+In a complete binary tree every level, except possibly the last, is completely filled, and all nodes in the last level are as far left as possible. It can have between 1 and 2h nodes inclusive at the last level h.
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public int countNodes(TreeNode root) {
+        if (root == null)
+            return 0;
+        int leftHeight = findLeftHeight(root);
+        int rightHeight = findRightHeight(root);
+        
+        if (leftHeight == rightHeight)
+            return (2 << (leftHeight - 1)) - 1; // you will get TLE if you use Math.pow(2, leftHeight);
+        
+        return countNodes(root.left) + countNodes(root.right) + 1;
+    }
+    
+    public int findLeftHeight(TreeNode root){
+        if (root == null)
+            return 0;
+        int leftHeight = 1;
+        while (root.left != null){
+            leftHeight++;
+            root = root.left;
+        }
+        return leftHeight;
+    }
+    
+    public int findRightHeight(TreeNode root){
+        if (root == null)
+            return 0;
+        int rightHeight = 1;
+        while (root.right != null){
+            rightHeight++;
+            root = root.right;
+        }
+        return rightHeight;
+    }
+}
+
+/*
+public int countNodes(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+         
+        int leftHeight = findLeftHeight(root);
+        int rightHeight = findRightHeight(root);
+         
+        if (leftHeight == rightHeight) {
+            return (2 << (leftHeight - 1)) - 1;
+        }
+         
+        return countNodes(root.left) + countNodes(root.right) + 1;
+    }
+     
+    private int findLeftHeight(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+         
+        int height = 1;
+         
+        while (root.left != null) {
+            height++;
+            root = root.left;
+        }
+         
+        return height;
+    }
+     
+    private int findRightHeight(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+         
+        int height = 1;
+         
+        while (root.right != null) {
+            height++;
+            root = root.right;
+        }
+         
+        return height;
+    }
+}
+*/
+
+
+
+rectangle area
+review
+
+
+maximal area
+Given a 2D binary matrix filled with 0's and 1's, find the largest square containing only 1's and return its area.
+
+For example, given the following matrix:
+
+1 0 1 0 0
+1 0 1 1 1
+1 1 1 1 1
+1 0 0 1 0
+Return 4.
+
+public class Solution {
+    public int maximalSquare(char[][] matrix) {
+        int M = matrix.length;
+        if (M == 0) return 0;
+        int N = matrix[0].length;
+        int result = 0;
+        int dp[][] = new int[M + 1][N + 1];
+        for (int i = 1; i <= M; i++){
+            for (int j = 1; j <= N; j++){
+              
+                
+                // if matrix has 1 in that slot, dp =  minimum of all the surround 3 slots + 1
+                if (matrix[i - 1][j - 1] == '1'){
+                    int temp = Math.min(dp[i - 1][j], dp[i][j - 1]);
+                    dp[i][j] = Math.min(temp, dp[i - 1][j - 1]) + 1;
+                    result = Math.max(result, dp[i][j]);
+                }
+            }
+        }
+        return result * result;
+    }
+}
+
+
+
+mplement a basic calculator to evaluate a simple expression string.
+
+The expression string may contain open ( and closing parentheses ), the plus + or minus sign -, non-negative integers and empty spaces .
+
+You may assume that the given expression is always valid.
+
+Some examples:
+"1 + 1" = 2
+" 2-1 + 2 " = 3
+"(1+(4+5+2)-3)+(6+8)" = 23
+public class Solution {
+    public int calculate(String s) {
+     Deque<Integer> stack = new LinkedList<>();
+     int result = 0, sign = 1;
+     stack.push(1);
+     for (int i = 0; i < s.length(); i++){
+         char ch = s.charAt(i);
+         
+         if (ch == ' ')continue;
+         else if (ch == '('){
+             stack.push(stack.peek() * sign);
+             sign = 1;
+         }
+         else if (ch == ')')
+            stack.pop();
+         else if (ch == '+')
+            sign = 1;
+         else if (ch == '-')
+            sign = -1;
+         else {
+             int temp = ch - '0';
+             //i += 1;
+             //while (i < s.length() && Character.isDigit(s.charAt(i)))
+               // temp = temp * 10 + s.charAt(i++) - '0';
+             while (i + 1 < s.length() && Character.isDigit(s.charAt(i + 1)))
+                temp = temp * 10 + s.charAt(++i) - '0';
+             result += sign * stack.peek() *  temp;
+         }
+     }
+     return result;
+    }
+}
+
+
+Implement the following operations of a stack using queues.
+
+push(x) -- Push element x onto stack.
+pop() -- Removes the element on top of the stack.
+top() -- Get the top element.
+empty() -- Return whether the stack is empty.
+Notes:
+You must use only standard operations of a queue -- which means only push to back, peek/pop from front, size, and is empty operations are valid.
+Depending on your language, queue may not be supported natively. You may simulate a queue by using a list or deque (double-ended queue), as long as you use only standard operations of a queue.
+You may assume that all operations are valid (for example, no pop or top operations will be called on an empty stack).
+Update (2015-06-11):
+The class name of the Java function had been updated to MyStack instead of Stack
+
+class MyStack {
+    // Push element x onto stack.
+    Queue<Integer> q1 = new LinkedList<>();
+    Queue<Integer> q2 = new LinkedList<>();
+    public void push(int x) {
+        q1.offer(x);
+    }
+
+    // Removes the element on top of the stack.
+    public void pop() {
+        while(q1.size() > 1) q2.offer(q1.poll());
+        q1.poll();
+        while(!q2.isEmpty()) q1.offer(q2.poll());
+    }
+
+    // Get the top element.
+    public int top() {
+        while(q1.size() > 1) q2.offer(q1.poll());
+        int ret = q1.poll();
+        q2.offer(ret);
+       while(!q2.isEmpty()) q1.offer(q2.poll());
+        return ret;
+    }
+
+    // Return whether the stack is empty.
+    public boolean empty() {
+        return q1.isEmpty() && q2.isEmpty();
+    }
+}
+
+
+Invert a binary tree.
+
+     4
+   /   \
+  2     7
+ / \   / \
+1   3 6   9
+to
+     4
+   /   \
+  7     2
+ / \   / \
+9   6 3   1
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        if (root == null) return null;
+        TreeNode tempRight = root.right;
+        root.right = root.left;
+        root.left = tempRight;
+        invertTree(root.left);
+        invertTree(root.right);
+        return root;
+    }
+    
+    
+}
+
+
+
+Implement a basic calculator to evaluate a simple expression string.
+
+The expression string contains only non-negative integers, +, -, *, / operators and empty spaces . The integer division should truncate toward zero.
+
+You may assume that the given expression is always valid.
+
+Some examples:
+"3+2*2" = 7
+" 3/2 " = 1
+" 3+5 / 2 " = 5
+
+public class Solution {
+    public int calculate(String s) {
+        Deque<Integer> stack = new LinkedList<>();
+        int num = 0;
+        char sign = '+';
+        for (char ch: s.toCharArray()){
+            if (ch == ' ')
+                continue;
+            if(Character.isDigit(ch))
+                num = num * 10 + (ch - '0');
+            else {
+                if (sign == '+')
+                    stack.push(num);
+                else if (sign == '-')
+                    stack.push(-num);
+                else if (sign == '*')
+                    stack.push(stack.pop() * num);
+                else
+                    stack.push(stack.pop() / num);
+                num = 0;
+                sign = ch;
+            }
+        }
+        if (sign == '+')
+            stack.push(num);
+        else if (sign == '-')
+            stack.push(-num);
+        else if (sign == '*')
+            stack.push(stack.pop() * num);
+        else
+            stack.push(stack.pop() / num);
+        
+        
+        int result = 0;
+        while (!stack.isEmpty())
+            result += stack.pop();
+        return result;
+    }
+}
+
+
+
+Given a singly linked list, determine if it is a palindrome.
+
+Follow up:
+Could you do it in O(n) time and O(1) space?
+
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public boolean isPalindrome(ListNode head) {
+        /*
+        if (head == null || head.next == null)return true;
+        int len = 0;
+        
+        ListNode curr = head;
+        while (curr != null){
+            len += 1;
+            curr = curr.next;
+        }
+        curr = head;
+        ListNode prev = null, front = null;
+        for (int i = 0; i < len / 2; i++){
+            front = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = front;
+        }
+        if (len % 2 != 0)
+            curr = curr.next;
+        
+        while (curr != null){
+            if (curr.val != prev.val)
+                return false;
+            curr = curr.next;
+            prev = prev.next;
+        }
+        return true;
+        */
+        
+        
+        // DOESN'T MODIFY THE LIST. IE DOESN NOT REVERSE THE FIRST HALF
+        if (head == null || head.next == null)return true;
+        Stack<Integer> stack = new Stack<>();
+        ListNode curr = head, tail = null;
+        int len = 0;
+        while (curr != null){
+            len++;
+            curr = curr.next;
+        }
+        curr = head;
+        for (int i = 0; i < len / 2; i++){
+            stack.push(curr.val);
+            tail = curr;
+            curr = curr.next;
+        }
+        if (curr == head)  // handle the case [1, 2]
+            stack.push(curr.val);
+        if (len % 2 != 0)
+            curr = curr.next;
+        while (curr != null && !stack.isEmpty()){
+            if (stack.pop() != curr.val) return false;
+            curr = curr.next;
+        }
+        return true;
+        
+       
+    }
+}
+
+
+
+
+Implement the following operations of a queue using stacks.
+
+push(x) -- Push element x to the back of queue.
+pop() -- Removes the element from in front of queue.
+peek() -- Get the front element.
+empty() -- Return whether the queue is empty.
+Notes:
+You must use only standard operations of a stack -- which means only push to top, peek/pop from top, size, and is empty operations are valid.
+Depending on your language, stack may not be supported natively. You may simulate a stack by using a list or deque (double-ended queue), as long as you use only standard operations of a stack.
+You may assume that all operations are valid (for example, no pop or peek operations will be called on an empty queue).
+Subscribe to see which companies asked this question
+
+class MyQueue {
+    // Push element x to the back of queue.
+    Stack<Integer> s1 = new Stack<>();
+    Stack<Integer> s2 = new Stack<>();
+    public void push(int x) {
+        s1.push(x);
+    }
+
+    // Removes the element from in front of queue.
+    public void pop() {
+        while(!s1.isEmpty())
+            s2.push(s1.pop());
+        s2.pop();
+        while(!s2.isEmpty())
+            s1.push(s2.pop());
+    }
+
+    // Get the front element.
+    public int peek() {
+        while(!s1.isEmpty()){
+            s2.push(s1.pop());
+        }
+        int ret = s2.peek();
+        while (!s2.isEmpty()){
+            s1.push(s2.pop());
+        }
+        return ret;
+    }
+
+    // Return whether the queue is empty.
+    public boolean empty() {
+        return s1.isEmpty();
+    }
+}
+
+
+Given an integer, write a function to determine if it is a power of two.
+
+public class Solution {
+    public boolean isPowerOfTwo(int n) {
+        return (n > 0) && ((n & (n - 1)) == 0);
+    }
+}
+
+
+Given a binary search tree, write a function kthSmallest to find the kth smallest element in it.
+
+Note: 
+You may assume k is always valid, 1 ≤ k ≤ BST's total elements.
+
+Follow up:
+What if the BST is modified (insert/delete operations) often and you need to find the kth smallest frequently? How would you optimize the kthSmallest routine?
+
+Show Hint 
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public int kthSmallest(TreeNode root, int k) {
+        Deque<TreeNode> stack = new LinkedList<>();
+        while (!stack.isEmpty() || root != null){
+            while (root != null){
+                stack.push(root);
+                root = root.left;
+            }
+            root = stack.pop();
+            if (--k == 0) return root.val;
+            root = root.right;
+        }
+        return -1;
+     
+    }
+}
+
+Given an integer array of size n, find all elements that appear more than ⌊ n/3 ⌋ times. The algorithm should run in linear time and in O(1) space.
+
+
+public class Solution {
+    public List<Integer> majorityElement(int[] nums) {
+       
+        
+        int count1 = 0, count2 = 0, candidate1 = 0, candidate2 = 0;
+        for (int num: nums){
+            if (num == candidate1)
+                count1++;
+            else if (num == candidate2)
+                count2++;
+            else if (count1 == 0){
+                count1 = 1;
+                candidate1 = num;
+            }
+            else if (count2 == 0){
+                count2 = 1;
+                candidate2 = num;
+            }
+            else {
+                count1--;count2--;
+            }
+        }
+        count1 = 0;count2 = 0;
+        List<Integer> result = new ArrayList<>();
+        for (int num: nums){
+            if (num == candidate1)count1++;
+            else if (num == candidate2)count2++;
+        }
+        if (count1 > nums.length/3)result.add(candidate1);
+        if (count2 > nums.length/3)result.add(candidate2);
+        return result;
+       
+       
+    }
+}
+
+
+
+Write a program to check whether a given number is an ugly number.
+
+Ugly numbers are positive numbers whose prime factors only include 2, 3, 5. For example, 6, 8 are ugly while 14 is not ugly since it includes another prime factor 7.
+
+Note that 1 is typically treated as an ugly number.
+
+ if (num < 1)
+         return false;
+         
+       while (num % 2 == 0)
+          num /= 2;
+    
+       while (num % 3 == 0)
+          num /= 3;
+          
+       while (num % 5 == 0)
+          num /= 5;
+          
+       return (num == 1);
+	   
+	   
+Given an array of numbers nums, in which exactly two elements appear only once and all the other elements appear exactly twice. Find the two elements that appear only once.
+
+For example:
+
+Given nums = [1, 2, 1, 3, 2, 5], return [3, 5].
+
+Note:
+The order of the result is not important. So in the above example, [5, 3] is also correct.
+Your algorithm should run in linear runtime complexity. Could you implement it using only constant space complexity?
+
+public class Solution {
+    public int[] singleNumber(int[] nums) {
+        Set<Integer> uniq = new HashSet<>();
+        for (int num: nums)
+            if (!uniq.add(num))
+                uniq.remove(num);
+        int[] ret = new int[2];
+        Iterator iter = uniq.iterator();
+        int i = 0;
+        while(iter.hasNext())
+            ret[i++] = (int)iter.next();
+        return ret;
+    }
+}
+
+public class Solution {
+    public int[] singleNumber(int[] nums) {
+        Set<Integer> uniq = new HashSet<>();
+        for (int num: nums)
+            if (!uniq.add(num))
+                uniq.remove(num);
+        
+        Object[] arr = uniq.toArray();
+        int[] ret = new int[arr.length];
+        ret[0] =(int)arr[0];
+        ret[1] = (int)arr[1];
+        return ret;
+    }
+}
+
+
+Given a non-negative integer num, repeatedly add all its digits until the result has only one digit.
+
+For example:
+
+Given num = 38, the process is like: 3 + 8 = 11, 1 + 1 = 2. Since 2 has only one digit, return it.
+
+Follow up:
+Could you do it without any loop/recursion in O(1) runtime?
+
+ int sum = 0;
+        
+        boolean isValid = true;
+        HashSet<Integer> sumValue = new HashSet<Integer>();
+        
+        while (num > 9 && isValid){
+            sum = 0;
+            
+            while (num > 0){
+                sum += num % 10;
+                num /= 10;
+            }
+            
+            if (sumValue.contains(sum))
+                isValid = false;
+            num = sum;
+        }
+        
+        return (isValid)?num:Integer.MIN_VALUE;
+        
+		
+		
+	Given a binary tree, return all root-to-leaf paths.
+
+For example, given the following binary tree:
+
+   1
+ /   \
+2     3
+ \
+  5
+All root-to-leaf paths are:
+
+["1->2->5", "1->3"]
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+   
+    
+    public List<String> binaryTreePaths(TreeNode root){
+        List<String> result = new ArrayList<>();
+        if (root != null)
+            dfs(result, "", root);
+        return result;
+    }
+    
+    public void dfs(List<String> result, String path, TreeNode root){
+        if (root.left == null && root.right == null)
+            result.add(path + root.val);
+        if (root.left != null)
+            dfs(result, path + root.val + "->", root.left);
+        if (root.right != null)
+            dfs(result, path + root.val + "->", root.right);
+    }
+    
+    
+    
+}
+
+
+Write an efficient algorithm that searches for a value in an m x n matrix. This matrix has the following properties:
+
+Integers in each row are sorted in ascending from left to right.
+Integers in each column are sorted in ascending from top to bottom.
+For example,
+
+Consider the following matrix:
+
+[
+  [1,   4,  7, 11, 15],
+  [2,   5,  8, 12, 19],
+  [3,   6,  9, 16, 22],
+  [10, 13, 14, 17, 24],
+  [18, 21, 23, 26, 30]
+]
+Given target = 5, return true.
+
+Given target = 20, return false.
+
+
+public class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        
+        
+        int i = 0, j = matrix[0].length - 1;
+        while (i < matrix.length && j >= 0){
+            if (matrix[i][j] == target)
+                return true;
+            if (matrix[i][j] > target)
+                j--;
+            else
+                i++;
+        }
+        return false;
+    }
+}
+
+
+
+Given an array of n integers where n > 1, nums, return an array output such that output[i] is equal to the product of all the elements of nums except nums[i].
+
+Solve it without division and in O(n).
+
+For example, given [1,2,3,4], return [24,12,8,6].
+
+public class Solution {
+    public int[] productExceptSelf(int[] nums) {
+       /* trace this
+       */
+       
+       
+       
+       int[] result = new int[nums.length];
+       int temp = 1;
+       for (int i = 0; i < result.length; i++){
+           result[i] = temp;
+           temp *= nums[i];
+       }
+       temp = 1;
+       for (int i = nums.length - 1; i >= 0; i--){
+           result[i] *= temp;
+           temp *= nums[i];
+       }
+       return result;
+       
+   
+    }
+}
+
+
+Write a function to delete a node (except the tail) in a singly linked list, given only access to that node.
+
+Supposed the linked list is 1 -> 2 -> 3 -> 4 and you are given the third node with value 3, the linked list should become 1 -> 2 -> 4 after calling your function.
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public void deleteNode(ListNode node) {
+        node.val = node.next.val;
+        node.next = node.next.next;
+    }
+}
+
+
+Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.
+
+According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two nodes v and w as the lowest node in T that has both v and w as descendants (where we allow a node to be a descendant of itself).”
+
+        _______3______
+       /              \
+    ___5__          ___1__
+   /      \        /      \
+   6      _2       0       8
+         /  \
+         7   4
+For example, the lowest common ancestor (LCA) of nodes 5 and 1 is 3. Another example is LCA of nodes 5 and 4 is 5, since a node can be a descendant of itself according to the LCA definition.
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (p == root || q == root || root == null) return root;
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        if (left == null && right == null) return null;
+        if (left != null && right != null) return root;
+        return (left != null)?left:right;
+        
+    }
+}
+
+
+Given a binary search tree (BST), find the lowest common ancestor (LCA) of two given nodes in the BST.
+
+According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two nodes v and w as the lowest node in T that has both v and w as descendants (where we allow a node to be a descendant of itself).”
+
+        _______6______
+       /              \
+    ___2__          ___8__
+   /      \        /      \
+   0      _4       7       9
+         /  \
+         3   5
+For example, the lowest common ancestor (LCA) of nodes 2 and 8 is 6. Another example is LCA of nodes 2 and 4 is 2, since a node can be a descendant of itself according to the LCA definition.
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null) return null;
+        if (root.val < p.val && root.val < q.val)
+            return lowestCommonAncestor(root.right, p, q);
+        if (root.val > p.val && root.val > q.val)
+            return lowestCommonAncestor(root.left, p, q);
+        return root;
+        
+      
+    }
+}
+
+
+
+
+Given an array containing n distinct numbers taken from 0, 1, 2, ..., n, find the one that is missing from the array.
+
+For example,
+Given nums = [0, 1, 3] return 2.
+
+Note:
+Your algorithm should run in linear runtime complexity. Could you implement it using only constant extra space complexity?
+
+public class Solution {
+    public int missingNumber(int[] nums) {
+        int res = 0;
+        for (int num: nums) res ^= num;
+        for (int i = 0; i <= nums.length; i++)
+            res ^= i;
+        return res;
+    }
+}
+
+Convert a non-negative integer to its english words representation. Given input is guaranteed to be less than 231 - 1.
+
+For example,
+123 -> "One Hundred Twenty Three"
+12345 -> "Twelve Thousand Three Hundred Forty Five"
+1234567 -> "One Million Two Hundred Thirty Four Thousand Five Hundred Sixty Seven"
+
+
+public class Solution {
+   // another more challenging way: https://discuss.leetcode.com/topic/27315/6ms-java-solution
+    
+    private final String[] oneToNine = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"};
+    
+    private final String[] TenToNineteen = {"Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
+    
+    private final String[] Tens = {"", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};
+    
+    public String numberToWords(int num){
+        if (num == 0)return "Zero"; // base case
+        return convert(num);
+    }
+    
+    public String convert(int num){
+        String result = new String();
+        if (num < 10)
+            result = oneToNine[num];// 1 - 9
+        else if (num < 20) 
+            result = TenToNineteen[num - 10]; // 10 - 19
+        else if (num < 100)
+            result = Tens[num / 10] + " " + oneToNine[num % 10];//20 - 30 .. break it into tens + units
+        else if (num < 1000)
+            result = oneToNine[num / 100] + " Hundred " + convert(num % 100); // break it into hundreds + fun(last two digits). since the above two lines handle the situation for numbers < 100, call fun recursively on last two digits.
+        else if (num < 1000000)
+            result = convert(num / 1000) + " Thousand " + convert(num % 1000);// break it into thousands + fun(last 3 digits)
+        else if (num < 1000000000)
+            result = convert(num / 1000000) + " Million " + convert(num  % 1000000);
+        else
+            result = convert(num / 1000000000) + " Billion " + convert(num % 1000000000);
+        
+        return result.trim();
+            
+    }
+}
+
+Given an array of citations (each citation is a non-negative integer) of a researcher, write a function to compute the researcher's h-index.
+
+According to the definition of h-index on Wikipedia: "A scientist has index h if h of his/her N papers have at least h citations each, and the other N − h papers have no more than h citations each."
+
+For example, given citations = [3, 0, 6, 1, 5], which means the researcher has 5 papers in total and each of them had received 3, 0, 6, 1, 5 citations respectively. Since the researcher has 3 papers with at least 3 citations each and the remaining two with no more than 3 citations each, his h-index is 3.
+
+Note: If there are several possible values for h, the maximum one is taken as the h-index.
+
+public class Solution {
+    public int hIndex(int[] citations) {
+     int N = citations.length;
+     int[] temp = new int[N + 1];
+     for (int num: citations){
+         if (num > N)
+            temp[N]++;
+        else
+           temp[num]++;
+     }
+     
+     int i = N;
+     int ret = 0;
+     while (i >= 0){
+         ret += temp[i];
+         if (ret >= i)
+           return i;
+         else 
+           i--;
+     }
+     return ret;
+    }
+}
+
+
+You are a product manager and currently leading a team to develop a new product. Unfortunately, the latest version of your product fails the quality check. Since each version is developed based on the previous version, all the versions after a bad version are also bad.
+
+Suppose you have n versions [1, 2, ..., n] and you want to find out the first bad one, which causes all the following ones to be bad.
+
+You are given an API bool isBadVersion(version) which will return whether version is bad. Implement a function to find the first bad version. You should minimize the number of calls to the API.
+
+/* The isBadVersion API is defined in the parent class VersionControl.
+      boolean isBadVersion(int version); */
+
+public class Solution extends VersionControl {
+    public int firstBadVersion(int n) {
+        int start = 0, end = n;
+        while (start < end){
+            int mid = start + (end - start)/2;
+            if (isBadVersion(mid))
+                end = mid;
+            else
+                start = mid + 1;
+        }
+        return start;
+       
+    }
+}
+
+
+Given a positive integer n, find the least number of perfect square numbers (for example, 1, 4, 9, 16, ...) which sum to n.
+
+For example, given n = 12, return 3 because 12 = 4 + 4 + 4; given n = 13, return 2 because 13 = 4 + 9.
+
+public class Solution {
+    public int numSquares(int n) {
+        if(n <= 0){
+		return 0;
+	}
+	
+	int[] dp = new int[n+1];
+	Arrays.fill(dp, Integer.MAX_VALUE);
+	dp[0] = 0;
+	dp[1] = 1;
+	
+	//to compute least perfect for n we compute top down for each 
+	//possible value sum from 2 to n
+	for(int i = 2; i<=n; i++){
+		//for a particular value i we can break it as sum of a perfect square j*j and 
+		//all perfect squares from solution of the remainder (i-j*j)
+		for(int j = 1; j*j<=i; j++){
+			dp[i] = Math.min(dp[i], 1+dp[i-j*j]);
+		}
+	}
+	
+	return dp[n];
+    }
+}
+
+
+Given an array nums, write a function to move all 0's to the end of it while maintaining the relative order of the non-zero elements.
+
+For example, given nums = [0, 1, 0, 3, 12], after calling your function, nums should be [1, 3, 12, 0, 0].
+
+Note:
+You must do this in-place without making a copy of the array.
+Minimize the total number of operations.
+Credits:
+
+public class Solution {
+    public void moveZeroes(int[] nums) {
+       /*
+        int i = 0, j = nums.length - 1;
+        while (i < j){
+            while (i < j && nums[i] != 0)
+                i++;
+            while (i < j && nums[j] == 0)
+                j--;
+            if (i >= j)break;
+            if (i < j){
+                int temp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = temp;
+                i++;
+                j--;
+            }
+        }
+        */
+        for (int i = 0; i < nums.length; i++){
+            int j = i;
+            while (j > 0 && nums[j] != 0 && nums[j - 1] == 0){
+                int temp = nums[j];
+                nums[j] = nums[j - 1];
+                nums[j - 1] = temp;
+                j--;
+            }
+        }
+        
+        
+    }
+}
+
+
+iven an array nums containing n + 1 integers where each integer is between 1 and n (inclusive), prove that at least one duplicate number must exist. Assume that there is only one duplicate number, find the duplicate one.
+
+Note:
+You must not modify the array (assume the array is read only).
+You must use only constant, O(1) extra space.
+Your runtime complexity should be less than O(n2).
+There is only one duplicate number in the array, but it could be repeated more than once.
+
+
+public class Solution {
+    public int findDuplicate(int[] nums) {
+        for (int num: nums){
+            int val = Math.abs(num);
+            if (nums[val] < 0) return val;
+            nums[val] = -nums[val];
+        }
+        return nums[nums.length - 1];
+    }
+}
+
+
+Given a pattern and a string str, find if str follows the same pattern.
+
+Here follow means a full match, such that there is a bijection between a letter in pattern and a non-empty word in str.
+
+Examples:
+pattern = "abba", str = "dog cat cat dog" should return true.
+pattern = "abba", str = "dog cat cat fish" should return false.
+pattern = "aaaa", str = "dog cat cat dog" should return false.
+pattern = "abba", str = "dog dog dog dog" should return false.
+Notes:
+You may assume pattern contains only lowercase letters, and str contains lowercase letters separated by a single space.
+
+public class Solution {
+    public boolean wordPattern(String pattern, String str) {
+        
+        
+        Map map = new HashMap();
+        char[] characters = pattern.toCharArray();
+        String[] words = str.split(" ");
+        if (characters.length != words.length) 
+            return false;
+        for (Integer i = 0; i < characters.length; i++){
+            if (map.put(characters[i], i) != map.put(words[i], i))
+                return false;
+        }
+        return true;
+    }
+}
+
+
+
+You are playing the following Nim Game with your friend: There is a heap of stones on the table, each time one of you take turns to remove 1 to 3 stones. The one who removes the last stone will be the winner. You will take the first turn to remove the stones.
+
+Both of you are very clever and have optimal strategies for the game. Write a function to determine whether you can win the game given the number of stones in the heap.
+
+For example, if there are 4 stones in the heap, then you will never win the game: no matter 1, 2, or 3 stones you remove, the last stone will always be remove, the last stone will always be removed by your friend.
+
+Show Hint 
+
+
+public class Solution {
+    public boolean canWinNim(int n) {
+        return n % 4 != 0;
+    }
+}
+
+
+
+Median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value. So the median is the mean of the two middle value.
+
+Examples: 
+[2,3,4] , the median is 3
+
+[2,3], the median is (2 + 3) / 2 = 2.5
+
+Design a data structure that supports the following two operations:
+
+void addNum(int num) - Add a integer number from the data stream to the data structure.
+double findMedian() - Return the median of all elements so far.
+For example:
+
+add(1)
+add(2)
+findMedian() -> 1.5
+add(3) 
+findMedian() -> 2
+
+public class MedianFinder {
+    PriorityQueue<Integer> minHeap, maxHeap;
+    // Adds a number into the data structure.
+    public MedianFinder(){
+        minHeap = new PriorityQueue<>();
+        maxHeap = new PriorityQueue<>(Collections.reverseOrder());
+    }
+    
+    public void addNum(int num){
+        if (minHeap.isEmpty() || num >= minHeap.peek())
+            minHeap.offer(num);
+        else
+            maxHeap.offer(num);
+            
+        if (minHeap.size() - maxHeap.size() > 1) maxHeap.offer(minHeap.poll());
+        else if (maxHeap.size() - minHeap.size() > 1) minHeap.offer(maxHeap.poll());
+    }
+
+    // Returns the median of current data stream
+    public double findMedian() {
+        if (maxHeap.size() == minHeap.size()) return (minHeap.peek() + maxHeap.peek())/2.0;
+        if (maxHeap.size() > minHeap.size()) return maxHeap.peek();
+        else
+            return minHeap.peek();
+    }
+};
+
+// Your MedianFinder object will be instantiated and called as such:
+// MedianFinder mf = new MedianFinder();
+// mf.addNum(1);
+// mf.findMedian();
+
+
+Serialization is the process of converting a data structure or object into a sequence of bits so that it can be stored in a file or memory buffer, or transmitted across a network connection link to be reconstructed later in the same or another computer environment.
+
+Design an algorithm to serialize and deserialize a binary tree. There is no restriction on how your serialization/deserialization algorithm should work. You just need to ensure that a binary tree can be serialized to a string and this string can be deserialized to the original tree structure.
+
+For example, you may serialize the following tree
+
+    1
+   / \
+  2   3
+     / \
+    4   5
+as "[1,2,3,null,null,4,5]", just the same as how LeetCode OJ serializes a binary tree. You do not necessarily need to follow this format, so please be creative and come up with different approaches yourself.
+
+
+
+Serialization is the process of converting a data structure or object into a sequence of bits so that it can be stored in a file or memory buffer, or transmitted across a network connection link to be reconstructed later in the same or another computer environment.
+
+Design an algorithm to serialize and deserialize a binary tree. There is no restriction on how your serialization/deserialization algorithm should work. You just need to ensure that a binary tree can be serialized to a string and this string can be deserialized to the original tree structure.
+
+For example, you may serialize the following tree
+
+    1
+   / \
+  2   3
+     / \
+    4   5
+as "[1,2,3,null,null,4,5]", just the same as how LeetCode OJ serializes a binary tree. You do not necessarily need to follow this format, so please be creative and come up with different approaches yourself.
+
+
+You are playing the following Bulls and Cows game with your friend: You write down a number and ask your friend to guess what the number is. Each time your friend makes a guess, you provide a hint that indicates how many digits in said guess match your secret number exactly in both digit and position (called "bulls") and how many digits match the secret number but locate in the wrong position (called "cows"). Your friend will use successive guesses and hints to eventually derive the secret number.
+
+For example:
+
+Secret number:  "1807"
+Friend's guess: "7810"
+Hint: 1 bull and 3 cows. (The bull is 8, the cows are 0, 1 and 7.)
+Write a function to return a hint according to the secret number and friend's guess, use A to indicate the bulls and B to indicate the cows. In the above example, your function should return "1A3B".
+
+Please note that both secret number and friend's guess may contain duplicate digits, for example:
+
+Secret number:  "1123"
+Friend's guess: "0111"
+In this case, the 1st 1 in friend's guess is a bull, the 2nd or 3rd 1 is a cow, and your function should return "1A1B".
+You may assume that the secret number and your friend's guess only contain digits, and their lengths are always equal.
+
+public class Solution {
+    public String getHint(String secret, String guess) {
+     int bull = 0, cow = 0;
+     int[] number = new int[10];
+     for (int i = 0; i < secret.length(); i++){
+         int s = Character.getNumericValue(secret.charAt(i));
+         int g = Character.getNumericValue(guess.charAt(i));
+         
+         if (s == g) // position and value match
+            bull++;
+        
+        else {
+            if (number[s] < 0) // is it encountered in guess?
+                cow++;
+            if (number[g] > 0) // is it encountered in secret?
+                cow++;
+            number[s]++;// encounterd in s
+            number[g]--;// encountered in g
+        }
+     }
+     return bull + "A" + cow + "B";
+    }
+}
+
+
+Given an unsorted array of integers, find the length of longest increasing subsequence.
+
+For example,
+Given [10, 9, 2, 5, 3, 7, 101, 18],
+The longest increasing subsequence is [2, 3, 7, 101], therefore the length is 4. Note that there may be more than one LIS combination, it is only necessary for you to return the length.
+
+Your algorithm should run in O(n2) complexity.
+
+Follow up: Could you improve it to O(n log n) time complexity?
+
+public class Solution {
+    public int lengthOfLIS(int[] nums) {
+        if (nums == null || nums.length == 0)return 0;
+        //if (nums.length < 2) return 1;
+        int dp[] = new int[nums.length];
+        Arrays.fill(dp, 1);
+        for (int i = 1; i < dp.length; i++){
+            for (int j = 0; j < i; j++){
+                if (nums[j] < nums[i])
+                  dp[i] = Math.max(dp[i], dp[j] + 1);
+            }
+        }
+        int max = Integer.MIN_VALUE;
+        for (int num: dp)
+            if (num > max) max = num;
+        return max;
+    }
+}
+
+
+range sum query -immutable
+Given an integer array nums, find the sum of the elements between indices i and j (i ≤ j), inclusive.
+
+Example:
+Given nums = [-2, 0, 3, -5, 2, -1]
+
+sumRange(0, 2) -> 1
+sumRange(2, 5) -> -1
+sumRange(0, 5) -> -3
+Note:
+You may assume that the array does not change.
+There are many calls to sumRange function.
+
+public class NumArray {
+    int[] dp;
+    public NumArray(int[] nums) {
+        dp = nums;
+        for (int i = 1; i < dp.length; i++)
+            dp[i] = dp[i - 1] + nums[i];
+    }
+
+    public int sumRange(int i, int j) {
+        return (i == 0)?dp[j]:dp[j] - dp[i - 1];
+    }
+}
+
+
+// Your NumArray object will be instantiated and called as such:
+// NumArray numArray = new NumArray(nums);
+// numArray.sumRange(0, 1);
+// numArray.sumRange(1, 2);
+
+
+You are given an integer array nums and you have to return a new counts array. The counts array has the property where counts[i] is the number of smaller elements to the right of nums[i].
+
+Example:
+
+Given nums = [5, 2, 6, 1]
+
+To the right of 5 there are 2 smaller elements (2 and 1).
+To the right of 2 there is only 1 smaller element (1).
+To the right of 6 there is 1 smaller element (1).
+To the right of 1 there is 0 smaller element.
+Return the array [2, 1, 1, 0].
+
+public class Solution {
+    public List<Integer> countSmaller(int[] nums) {
+        List<Integer> rst = new ArrayList<>(nums.length);
+     for (int i = 0; i < nums.length; i++)
+         rst.add(0);
+     List<Integer> sorted = new ArrayList<>();
+      
+     for (int i = nums.length - 1; i >= 0; i--) {
+         int left = 0, right = sorted.size();
+         while (left < right) {
+             int mid = (left + right) / 2;
+             if (sorted.get(mid) < nums[i]) {
+                 left = mid + 1;
+             } else {
+                 right = mid;
+             }
+         }
+         rst.set(i, right);
+         sorted.add(right, nums[i]);
+     }
+     
+     return rst;
+    }
+}
+
+Given a string which contains only lowercase letters, remove duplicate letters so that every letter appear once and only once. You must make sure your result is the smallest in lexicographical order among all possible results.
+
+Example:
+Given "bcabc"
+Return "abc"
+
+Given "cbacdcbc"
+Return "acdb"
+
+public class Solution {
+    public String removeDuplicateLetters(String s) {
+          int[] count = new int[26];
+  boolean[] used = new boolean[26];
+  Stack<Character> stack = new Stack<Character>();
+  
+  for (char letter : s.toCharArray())
+    count[letter - 'a']++;
+ 
+  for (char letter : s.toCharArray()) {
+    count[letter - 'a']--;
+    if (used[letter - 'a'])
+      continue;
+    while (!stack.isEmpty() && stack.peek() > letter && count[stack.peek() - 'a'] > 0)
+      used[stack.pop() - 'a'] = false;
+ 
+    stack.push(letter);
+    used[letter - 'a'] = true;
+  }
+ 
+  String finalstr = "";
+  while (!stack.isEmpty()) {
+      finalstr = stack.pop() + finalstr;
+  }
+ 
+  return finalstr;
+}
+}
+
+
+
+
+Given a string array words, find the maximum value of length(word[i]) * length(word[j]) where the two words do not share common letters. You may assume that each word will contain only lower case letters. If no such two words exist, return 0.
+
+Example 1:
+Given ["abcw", "baz", "foo", "bar", "xtfn", "abcdef"]
+Return 16
+The two words can be "abcw", "xtfn".
+
+Example 2:
+Given ["a", "ab", "abc", "d", "cd", "bcd", "abcd"]
+Return 4
+The two words can be "ab", "cd".
+
+Example 3:
+Given ["a", "aa", "aaa", "aaaa"]
+Return 0
+No such pair of words.
+
+public class Solution {
+    public int maxProduct(String[] words) {
+        int result = 0;
+        for (int i = 0; i < words.length; i++){
+            for (int j = i + 1; j < words.length; j++)
+                if (isUnique(words[i], words[j]))
+                    result = Math.max(result, words[i].length() * words[j].length());
+        }
+        return result;
+    }
+    
+    private boolean isUnique(String val1, String val2){
+        int[] ascii = new int[128];
+        for (int i = 0; i < val1.length(); i++)
+            ascii[val1.charAt(i)] = 1;
+        for (int i = 0; i < val2.length(); i++)
+            if (ascii[val2.charAt(i)] == 1)
+                return false;
+        return true;
+    }
+}
+
+
+There are n bulbs that are initially off. You first turn on all the bulbs. Then, you turn off every second bulb. On the third round, you toggle every third bulb (turning on if it's off or turning off if it's on). For the ith round, you toggle every i bulb. For the nth round, you only toggle the last bulb. Find how many bulbs are on after n rounds.
+
+Example:
+
+Given n = 3. 
+
+At first, the three bulbs are [off, off, off].
+After first round, the three bulbs are [on, on, on].
+After second round, the three bulbs are [on, off, on].
+After third round, the three bulbs are [on, off, off]. 
+
+So you should return 1, because there is only one bulb is on.
+
+public class Solution {
+    public int bulbSwitch(int n) {
+        //return (int)Math.sqrt(n);
+        int count = 0;
+        for (int i = 1; i * i <= n; i++)
+            count++;
+        return count;
+    }
+}
+
+
+Given an unsorted array nums, reorder it such that nums[0] < nums[1] > nums[2] < nums[3]....
+
+Example:
+(1) Given nums = [1, 5, 1, 1, 6, 4], one possible answer is [1, 4, 1, 5, 1, 6]. 
+(2) Given nums = [1, 3, 2, 2, 3, 1], one possible answer is [2, 3, 1, 3, 1, 2].
+
+Note:
+You may assume all input has valid answer.
+
+Follow Up:
+Can you do it in O(n) time and/or in-place with O(1) extra space?
+
+public class Solution {
+    public void wiggleSort(int[] nums) {
+        int[] copy = Arrays.copyOf(nums, nums.length);
+        Arrays.sort(copy);
+        int i = 1, j = nums.length - 1;
+        while (i < nums.length){
+            nums[i] = copy[j--];
+            i += 2;
+        }
+        i = 0;
+        while (i < nums.length){
+            nums[i] = copy[j--];
+            i += 2;
+        }
+    }
+}
+
+
+
+Given an integer, write a function to determine if it is a power of three.
+
+Follow up:
+Could you do it without using any loop / recursion?
+
+
+public class Solution {
+    public boolean isPowerOfThree(int num) {
+        if (num < 1) return false;
+        if (num == 1) return true;
+        while (num > 2){
+            if (num % 3 != 0)
+                return false;
+            num /= 3;
+        }
+        return num == 1;
+    }
+}
+
+
+Given a singly linked list, group all odd nodes together followed by the even nodes. Please note here we are talking about the node number and not the value in the nodes.
+
+You should try to do it in place. The program should run in O(1) space complexity and O(nodes) time complexity.
+
+Example:
+Given 1->2->3->4->5->NULL,
+return 1->3->5->2->4->NULL.
+
+Note:
+The relative order inside both the even and odd groups should remain as it was in the input. 
+The first node is considered odd, the second node even and so on ...
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public ListNode oddEvenList(ListNode head) {
+        if (head == null || head.next == null)
+            return head;
+        ListNode odd = head, even = head.next, firstEven = even;
+        while(even != null && even.next != null){
+            odd.next = even.next;
+            odd = odd.next;
+            even.next = odd.next;
+            even = even.next;
+        }
+        odd.next = firstEven;
+        return head;
+        
+    }
+}
+
+
+
+
+Given an integer matrix, find the length of the longest increasing path.
+
+From each cell, you can either move to four directions: left, right, up or down. You may NOT move diagonally or move outside of the boundary (i.e. wrap-around is not allowed).
+
+Example 1:
+
+nums = [
+  [9,9,4],
+  [6,6,8],
+  [2,1,1]
+]
+Return 4
+The longest increasing path is [1, 2, 6, 9].
+
+Example 2:
+
+nums = [
+  [3,4,5],
+  [3,2,6],
+  [2,2,1]
+]
+Return 4
+The longest increasing path is [3, 4, 5, 6]. Moving diagonally is not allowed.
+
+public class Solution {
+    // IDEA: KEEP TRACK OF LONGEST STRICTLY INCREASING PATH  ORIGINATING FROM EVERY CELL
+    // USE CACHE TO KEEP TRACK OF LONGEST STRICTLY INCREASING PATH
+    public int longestIncreasingPath(int[][] matrix) {
+        	if (matrix == null || matrix.length < 1 || matrix[0].length < 1)
+			return 0;
+
+		int max = 0, n = matrix.length, m = matrix[0].length;
+
+		// create a cache matrix
+		int[][] cache = new int[n][m];
+
+		// dfs search on every element in matrix
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < m; j++) {
+				max = Math.max(dfs(matrix, Integer.MIN_VALUE, i, j, n, m, cache), max);
+			}	
+		}
+		return max;
+    }
+    
+    public int dfs(int[][] matrix, int min, int i, int j, int n, int m, int[][] cache) {
+
+		// check boundary limits
+		if (i < 0 || j < 0 || i >= n || j >= m)
+			return 0;
+
+		// check min condition
+		if (matrix[i][j] <= min)
+			return 0;
+
+		// check into cache
+		if (cache[i][j] != 0)
+			return cache[i][j];
+
+		// update min
+		min = matrix[i][j];
+
+		// run dfs in all four directions
+		int a = dfs(matrix, min, i - 1, j, n, m, cache) + 1;
+		int b = dfs(matrix, min, i + 1, j, n, m, cache) + 1;
+		int c = dfs(matrix, min, i, j - 1, n, m, cache) + 1;
+		int d = dfs(matrix, min, i, j + 1, n, m, cache) + 1;
+        
+		// find max and update cache
+		int max = Math.max(a, Math.max(b, Math.max(c, d)));
+		cache[i][j] = max;
+
+		return max;
+	}
+}
+
+
+One way to serialize a binary tree is to use pre-order traversal. When we encounter a non-null node, we record the node's value. If it is a null node, we record using a sentinel value such as #.
+
+     _9_
+    /   \
+   3     2
+  / \   / \
+ 4   1  #  6
+/ \ / \   / \
+# # # #   # #
+For example, the above binary tree can be serialized to the string "9,3,4,#,#,1,#,#,2,#,6,#,#", where # represents a null node.
+
+Given a string of comma separated values, verify whether it is a correct preorder traversal serialization of a binary tree. Find an algorithm without reconstructing the tree.
+
+Each comma separated value in the string must be either an integer or a character '#' representing null pointer.
+
+You may assume that the input format is always valid, for example it could never contain two consecutive commas such as "1,,3".
+
+Example 1:
+"9,3,4,#,#,1,#,#,2,#,6,#,#"
+Return true
+
+Example 2:
+"1,#"
+Return false
+
+Example 3:
+"9,#,#,1"
+Return false
+
+public class Solution {
+    public boolean isValidSerialization(String preorder) {
+        Deque<String> stack = new LinkedList<>();
+        stack.push("#");
+        String[] tokens = preorder.split("\\,");
+        if (tokens.length == 1 && tokens[0].equals("#"))
+            return true;
+        for (String s: tokens){
+            if (stack.isEmpty())
+                return false;
+            stack.pop();
+            if(!s.equals("#")){
+                stack.push("#");
+                stack.push("#");
+            }
+        }
+        return stack.isEmpty();
+    }
+}
+
+
+Given a list of airline tickets represented by pairs of departure and arrival airports [from, to], reconstruct the itinerary in order. All of the tickets belong to a man who departs from JFK. Thus, the itinerary must begin with JFK.
+
+Note:
+If there are multiple valid itineraries, you should return the itinerary that has the smallest lexical order when read as a single string. For example, the itinerary ["JFK", "LGA"] has a smaller lexical order than ["JFK", "LGB"].
+All airports are represented by three capital letters (IATA code).
+You may assume all tickets form at least one valid itinerary.
+Example 1:
+tickets = [["MUC", "LHR"], ["JFK", "MUC"], ["SFO", "SJC"], ["LHR", "SFO"]]
+Return ["JFK", "MUC", "LHR", "SFO", "SJC"].
+Example 2:
+tickets = [["JFK","SFO"],["JFK","ATL"],["SFO","ATL"],["ATL","JFK"],["ATL","SFO"]]
+Return ["JFK","ATL","JFK","SFO","ATL","SFO"].
+Another possible reconstruction is ["JFK","SFO","ATL","JFK","ATL","SFO"]. But it is larger in lexical order.
+
+Credits:
+
+public class Solution {
+    public List<String> findItinerary(String[][] tickets) {
+        List<String> result = new LinkedList<>();
+        Map<String, PriorityQueue<String>> map = new HashMap<>();
+        for (String[] ticket: tickets){
+            if (!map.containsKey(ticket[0]))
+                map.put(ticket[0], new PriorityQueue<>());
+            map.get(ticket[0]).offer(ticket[1]);
+        }
+        Deque<String> stack = new LinkedList<>();
+        stack.push("JFK");
+        while(!stack.isEmpty()){
+            String nextAirport = stack.peek();
+            if (map.containsKey(nextAirport) && map.get(nextAirport).size() > 0)
+                stack.push(map.get(nextAirport).poll());
+            else
+                result.add(0,stack.pop());
+        }
+        return result;
+    }
+}
+
+
+
+Given an unsorted array return whether an increasing subsequence of length 3 exists or not in the array.
+
+Formally the function should:
+Return true if there exists i, j, k 
+such that arr[i] < arr[j] < arr[k] given 0 ≤ i < j < k ≤ n-1 else return false.
+Your algorithm should run in O(n) time complexity and O(1) space complexity.
+
+Examples:
+Given [1, 2, 3, 4, 5],
+return true.
+
+public class Solution {
+    public boolean increasingTriplet(int[] nums) {
+        int min = Integer.MAX_VALUE, secondMin = Integer.MAX_VALUE;
+        for (int num: nums){
+            if (num <= min) min = num;
+            else if(num < secondMin) secondMin = num;
+            else if(num > secondMin) return true;
+        }
+        return false;
+    }
+}
+
+Given a list of unique words, find all pairs of distinct indices (i, j) in the given list, so that the concatenation of the two words, i.e. words[i] + words[j] is a palindrome.
+
+Example 1:
+Given words = ["bat", "tab", "cat"]
+Return [[0, 1], [1, 0]]
+The palindromes are ["battab", "tabbat"]
+Example 2:
+Given words = ["abcd", "dcba", "lls", "s", "sssll"]
+Return [[0, 1], [1, 0], [3, 2], [2, 4]]
+The palindromes are ["dcbaabcd", "abcddcba", "slls", "llssssll"]
+
+public class Solution {
+    public List<List<Integer>> palindromePairs(String[] words) {
+        ArrayList<List<Integer>> res = new ArrayList<List<Integer>>();
+        
+        int n = words.length;
+        
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+              
+                if (isPalindrome(words[i] + words[j])) {
+                    ArrayList<Integer> pair = new ArrayList<Integer>();
+                    if (i != j){
+                        pair.add(i);
+                        pair.add(j);
+                        res.add(pair);
+                    }
+                }
+              
+            }
+        }
+        
+        return res;
+    }
+    
+    public boolean isPalindrome(String word){
+        if (word.length() < 2)
+            return true;
+        
+        int i = 0;
+        boolean isPal = true;
+        int n = word.length();
+        
+        while (i < n / 2 && isPal){
+            if (word.charAt(i) != word.charAt(n - i - 1))
+                isPal = false;
+            else 
+                i++;
+        }
+        
+        return isPal;
+    }
+}
+
+
+
+Given a non negative integer number num. For every numbers i in the range 0 ≤ i ≤ num calculate the number of 1's in their binary representation and return them as an array.
+
+Example:
+For num = 5 you should return [0,1,1,2,1,2].
+
+Follow up:
+
+It is very easy to come up with a solution with run time O(n*sizeof(integer)). But can you do it in linear time O(n) /possibly in a single pass?
+Space complexity should be O(n).
+Can you do it like a boss? Do it without using any builtin function like __builtin_popcount in c++ or in any other language.
+
+public class Solution {
+    public int[] countBits(int num) {
+        int[] dp = new int[num + 1];
+        for (int i = 0; i < dp.length; i++)
+            dp[i] = (i % 2 == 0)?dp[i / 2]:dp[i / 2] + 1;
+        return dp;
+    }
+}
+
+
+Given an integer (signed 32 bits), write a function to check whether it is a power of 4.
+
+Example:
+Given num = 16, return true. Given num = 5, return false.
+
+public class Solution {
+    public boolean isPowerOfFour(int num) {
+      return (num > 0) && ((num & (num - 1)) == 0) && ((num - 1) % 3 == 0);
+    }
+}
+
+Given a positive integer n, break it into the sum of at least two positive integers and maximize the product of those integers. Return the maximum product you can get.
+
+For example, given n = 2, return 1 (2 = 1 + 1); given n = 10, return 36 (10 = 3 + 3 + 4).
+
+
+public class Solution {
+    public int integerBreak(int n) {
+        if (n == 2 || n == 3) return n - 1;
+        if (n == 4) return n;
+        int sum = 1;
+        while (n > 4){
+            n -= 3;
+            sum *= 3;
+        }
+        return sum * n;
+    }
+}
+
+Write a function that takes a string as input and returns the string reversed.
+
+Example:
+Given s = "hello", return "olleh".
+public class Solution {
+    public String reverseString(String s) {
+        StringBuilder ret = new StringBuilder();
+        for (int i = s.length() - 1; i >= 0; i--)
+           ret.append(s.charAt(i));
+           
+        return ret.toString();
+        
+    }
+}
+
+Write a function that takes a string as input and reverse only the vowels of a string.
+
+Example 1:
+Given s = "hello", return "holle".
+
+Example 2:
+Given s = "leetcode", return "leotcede".
+
+public class Solution {
+    public String reverseVowels(String s) {
+        
+        
+        if (s.length() < 2) return s;
+        char[] chars = s.toCharArray();
+        Set<Character> vowels = new HashSet<>();
+        char[] vow = {'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'};
+        for (char v: vow)
+            vowels.add(v);
+        int i = 0, j = chars.length - 1;
+        while (i < j){
+            while (i < j && !vowels.contains(chars[i]))
+                i++;
+            while (i < j && !vowels.contains(chars[j]))
+                j--;
+            if (i < j){
+                char temp = chars[i];
+                chars[i] = chars[j];
+                chars[j] = temp;
+                i++;j--;
+            }
+        }
+        return new String(chars);
+     
+    }
+}
+
+
+
+Given a non-empty array of integers, return the k most frequent elements.
+
+For example,
+Given [1,1,1,2,2,3] and k = 2, return [1,2].
+
+Note: 
+You may assume k is always valid, 1 ≤ k ≤ number of unique elements.
+Your algorithm's time complexity must be better than O(n log n), where n is the array's size.
+
+public class Solution {
+    public List<Integer> topKFrequent(int[] nums, int k) {
+        //  WHATE ARE THE CORNER CASES FOR THIS
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int key: nums){
+            if (!map.containsKey(key))
+                map.put(key, 1);
+            else
+                map.put(key, map.get(key) + 1);
+        }
+        PriorityQueue<Map.Entry<Integer, Integer>> heap = new PriorityQueue<>(k, new Comparator<Map.Entry<Integer, Integer>>(){
+            public int compare(Map.Entry<Integer, Integer> e1, Map.Entry<Integer, Integer> e2){
+                return e2.getValue() - e1.getValue();
+            }
+        });
+        for (Map.Entry<Integer, Integer> entry: map.entrySet())
+            heap.offer(entry);
+        List<Integer> result = new ArrayList<>();
+        for (int i = 0; i < k; i++)
+            result.add(heap.poll().getKey());
+        return result;
+       
+       
+       
+       
+    }
+    
+  
+}
+
+
+Given two arrays, write a function to compute their intersection.
+
+Example:
+Given nums1 = [1, 2, 2, 1], nums2 = [2, 2], return [2].
+
+Note:
+Each element in the result must be unique.
+The result can be in any order.
+
+public class Solution {
+    public int[] intersection(int[] nums1, int[] nums2) {
+       /* Arrays.sort(nums1);
+        Arrays.sort(nums2);
+        int i = 0;
+        int j = 0;
+        HashSet<Integer> intersect = new HashSet<>();
+        while(i < nums1.length && j < nums2.length){
+            if (nums1[i] == nums2[j]){
+                intersect.add(nums1[i]);
+                i++;
+                j++;
+            }
+            else if(nums1[i] < nums2[j])
+                i++;
+            else
+                j++;
+        }
+        int[] result = new int[intersect.size()];
+        i = 0;
+        for (int num: intersect){
+            result[i] = num;
+            i++;
+        }
+        return result;*/
+        HashSet<Integer> intersect = new HashSet<>();
+        for (int num: nums1)
+            intersect.add(num);
+        List<Integer> temp = new ArrayList<>();
+        for (int num: nums2){
+            if (intersect.contains(num)){
+                temp.add(num);
+                intersect.remove(num);
+            }
+                
+        }
+        int[] ret = new int[temp.size()];
+        for (int i = 0; i < ret.length; i++)
+            ret[i] = temp.get(i);
+        return ret;
+        
+        
+       
+    }
+}
+
+
+Given two arrays, write a function to compute their intersection.
+
+Example:
+Given nums1 = [1, 2, 2, 1], nums2 = [2, 2], return [2, 2].
+
+Note:
+Each element in the result should appear as many times as it shows in both arrays.
+The result can be in any order.
+Follow up:
+What if the given array is already sorted? How would you optimize your algorithm?
+What if nums1's size is small compared to nums2's size? Which algorithm is better?
+What if elements of nums2 are stored on disk, and the memory is limited such that you cannot load all elements into the memory at once?
+
+
+public class Solution {
+    public int[] intersect(int[] nums1, int[] nums2) {
+        /*Arrays.sort(nums1);
+        Arrays.sort(nums2);
+        int i = 0;
+        int j = 0;
+        ArrayList<Integer> temp = new ArrayList<>();
+        
+        while (i < nums1.length && j < nums2.length){
+            if (nums1[i] == nums2[j]){
+                temp.add(nums1[i]);
+                i++;
+                j++;
+            }
+            else if (nums1[i] < nums2[j])
+              i++;
+            else
+              j++;
+        }
+        int[] result = new int[temp.size()];
+        int k = 0;
+        for (int num: temp){
+            result[k] = num;
+            k++;
+        }
+        return result;
+        */
+       
+       
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int num: nums1)
+            if (map.containsKey(num))
+                map.put(num, map.get(num) + 1);
+            else
+                map.put(num, 1);
+                
+        List<Integer> lis = new ArrayList<>();
+        for (int num: nums2){
+            if (map.containsKey(num)){
+                if (map.get(num) > 0)
+                    lis.add(num);
+                map.put(num, map.get(num) - 1);
+            }
+        }
+        int[] ret = new int[lis.size()];
+        for (int i = 0; i < lis.size(); i++)
+            ret[i] = lis.get(i);
+            
+        return ret;
+        
+        
+        //THIS DOESN'T WORK FOR : [1] [1,1]. the output should be [1]
+        /*
+        Set<Integer> one = new HashSet<>();
+        for (int num: nums1)
+            one.add(num);
+        List<Integer> both = new ArrayList<>();
+        for (int num: nums2){
+            if (one.contains(num))
+                both.add(num);
+        }
+        int[] ret = new int[both.size()];
+        for (int i = 0; i < both.size(); i++)
+            ret[i] = both.get(i);
+        return ret;
+        */
+    }
+}
+
+
+You have a number of envelopes with widths and heights given as a pair of integers (w, h). One envelope can fit into another if and only if both the width and height of one envelope is greater than the width and height of the other envelope.
+
+What is the maximum number of envelopes can you Russian doll? (put one inside other)
+
+Example:
+Given envelopes = [[5,4],[6,4],[6,7],[2,3]], the maximum number of envelopes you can Russian doll is 3 ([2,3] => [5,4] => [6,7]).
+
+public class Solution {
+    public int maxEnvelopes(int[][] envelopes) {
+        // SORT ENVELOPES IN ASCENDING ORDER OF WIDTH AND IF WIDTH ARE EQUAL, DESCENDING ORDER OF HEIGHT
+        // then find longest common subsequence
+        if (envelopes.length == 0)
+            return 0;
+        Arrays.sort(envelopes, new Comparator<int[]>(){
+           public int compare(int[] a, int[] b){
+               if (a[0] == b[0])
+                return b[1] - a[1];
+               else
+                return a[0] - b[0];
+           } 
+        });
+        
+        int[] arr = new int[envelopes.length];
+        int max = Integer.MIN_VALUE;
+        Arrays.fill(arr, 1);
+        for(int i=1; i<envelopes.length; i++){
+            for(int j= 0; j < i; j++){
+                if(envelopes[j][0]<envelopes[i][0]&&envelopes[j][1]<envelopes[i][1]){
+                    arr[i]=Math.max(arr[i], arr[j]+1);
+                }
+            }
+            
+        }
+        for (int num: arr)
+            max = Math.max(num, max);
+        return max;
+ 
+    }
+}
+
+
+Design a simplified version of Twitter where users can post tweets, follow/unfollow another user and is able to see the 10 most recent tweets in the user's news feed. Your design should support the following methods:
+
+postTweet(userId, tweetId): Compose a new tweet.
+getNewsFeed(userId): Retrieve the 10 most recent tweet ids in the user's news feed. Each item in the news feed must be posted by users who the user followed or by the user herself. Tweets must be ordered from most recent to least recent.
+follow(followerId, followeeId): Follower follows a followee.
+unfollow(followerId, followeeId): Follower unfollows a followee.
+Example:
+
+Twitter twitter = new Twitter();
+
+// User 1 posts a new tweet (id = 5).
+twitter.postTweet(1, 5);
+
+// User 1's news feed should return a list with 1 tweet id -> [5].
+twitter.getNewsFeed(1);
+
+// User 1 follows user 2.
+twitter.follow(1, 2);
+
+// User 2 posts a new tweet (id = 6).
+twitter.postTweet(2, 6);
+
+// User 1's news feed should return a list with 2 tweet ids -> [6, 5].
+// Tweet id 6 should precede tweet id 5 because it is posted after tweet id 5.
+twitter.getNewsFeed(1);
+
+// User 1 unfollows user 2.
+twitter.unfollow(1, 2);
+
+// User 1's news feed should return a list with 1 tweet id -> [5],
+// since user 1 is no longer following user 2.
+twitter.getNewsFeed(1);
+
+
+
+
+public class Twitter {
+    
+    private class Tweet{
+        int tweetId, userId;
+        Tweet(int tweetId, int userId){
+            this.tweetId = tweetId;
+            this.userId = userId;
+        }
+    }
+    
+    private static final int NEWS_FEED_SIZE = 10;
+    private Deque<Tweet> tweets = new ArrayDeque<>();
+    private Map<Integer, Set<Integer>> followerFolloweeMap = new HashMap<>();
+    
+    /** Initialize your data structure here. */
+    public Twitter() {
+        
+    }
+    
+    /** Compose a new tweet. */
+    public void postTweet(int userId, int tweetId) {
+        tweets.add(new Tweet(tweetId, userId));
+    }
+    
+    /** Retrieve the 10 most recent tweet ids in the user's news feed. Each item in the news feed must be posted by users who the user followed or by the user herself. Tweets must be ordered from most recent to least recent. */
+    public List<Integer> getNewsFeed(int userId) {
+        List<Integer> newsFeed = new ArrayList<>(NEWS_FEED_SIZE);
+        Set<Integer> followees = followerFolloweeMap.get(userId);
+        Iterator it = tweets.descendingIterator();
+        
+        while (it.hasNext() && newsFeed.size() < NEWS_FEED_SIZE){
+            Tweet tweet = (Tweet)it.next();
+            if (tweet.userId == userId || (followees != null && followees.contains(tweet.userId)))
+                newsFeed.add(tweet.tweetId);
+        }
+        return newsFeed;
+        
+    }
+    
+    /** Follower follows a followee. If the operation is invalid, it should be a no-op. */
+    public void follow(int followerId, int followeeId) {
+        if (!followerFolloweeMap.containsKey(followerId))
+            followerFolloweeMap.put(followerId, new HashSet<>());
+        followerFolloweeMap.get(followerId).add(followeeId);
+    }
+    
+    /** Follower unfollows a followee. If the operation is invalid, it should be a no-op. */
+    public void unfollow(int followerId, int followeeId) {
+        if (followerFolloweeMap.containsKey(followerId)){
+            Set<Integer> followees = followerFolloweeMap.get(followerId);
+            if (followees.contains(followeeId))
+                followees.remove(followeeId);
+        }
+        
+    }
+}
+
+/**
+ * Your Twitter object will be instantiated and called as such:
+ * Twitter obj = new Twitter();
+ * obj.postTweet(userId,tweetId);
+ * List<Integer> param_2 = obj.getNewsFeed(userId);
+ * obj.follow(followerId,followeeId);
+ * obj.unfollow(followerId,followeeId);
+ */
+ 
+ 
+ 
+ Given a non-negative integer n, count all numbers with unique digits, x, where 0 ≤ x < 10n.
+
+Example:
+Given n = 2, return 91. (The answer should be the total numbers in the range of 0 ≤ x < 100, excluding [11,22,33,44,55,66,77,88,99])
+ 
+
+public class Solution {
+    public int countNumbersWithUniqueDigits(int n){
+        if (n == 0) return 1;
+        int ans = 10;
+        int base = 9;
+        for (int i = 2; i <= n; i++){
+            base = base * (9 - i + 2);
+            ans += base;
+        }
+        return ans;
+    }
+}
+
+
+
+Water and Jug Problem   Add to List QuestionEditorial Solution  My Submissions
+Total Accepted: 10073
+Total Submissions: 38843
+Difficulty: Medium
+Contributors: Admin
+You are given two jugs with capacities x and y litres. There is an infinite amount of water supply available. You need to determine whether it is possible to measure exactly z litres using these two jugs.
+
+If z liters of water is measurable, you must have z liters of water contained within one or both buckets by the end.
+
+Operations allowed:
+
+Fill any of the jugs completely with water.
+Empty any of the jugs.
+Pour water from one jug into another till the other jug is completely full or the first jug itself is empty.
+Example 1: (From the famous "Die Hard" example)
+
+Input: x = 3, y = 5, z = 4
+Output: True
+Example 2:
+
+Input: x = 2, y = 6, z = 5
+Output: False
+
+public class Solution {
+    public boolean canMeasureWater(int x, int y, int z) {
+        if (x + y < z) return false;
+        if (x == z || y == z || x + y == z)
+            return true;
+        return z % GCD(x, y) == 0;
+    }
+    
+    public int GCD(int a, int b){
+        while (b != 0){
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
+}
+
+
+Given a positive integer num, write a function which returns True if num is a perfect square else False.
+
+Note: Do not use any built-in library function such as sqrt.
+
+Example 1:
+
+Input: 16
+Returns: True
+Example 2:
+
+Input: 14
+Returns: False
+
+public class Solution {
+    public boolean isPerfectSquare(int num) {
+        int i = 1;
+        while (num > 0){
+            num -= i;
+            i += 2;
+        }
+        return num == 0;
+        int i = 1;
+        while (num > 0){
+            num -= i;
+            i += 2;
+        }
+        return num == 0;
+    }
+}
+
+
+add without + and -
+public class Solution {
+    public int getSum(int a, int b) {
+        if (a == 0) return b;
+        if (b == 0) return a;
+        while (b != 0){
+            int AND = a & b, XOR = a ^ b;
+            a = XOR;
+            b = AND << 1;
+        }
+        return a;
+    }
+}
+
+
+
+
+A sequence of numbers is called a wiggle sequence if the differences between successive numbers strictly alternate between positive and negative. The first difference (if one exists) may be either positive or negative. A sequence with fewer than two elements is trivially a wiggle sequence.
+
+For example, [1,7,4,9,2,5] is a wiggle sequence because the differences (6,-3,5,-7,3) are alternately positive and negative. In contrast, [1,4,7,2,5] and [1,7,4,5,5] are not wiggle sequences, the first because its first two differences are positive and the second because its last difference is zero.
+
+Given a sequence of integers, return the length of the longest subsequence that is a wiggle sequence. A subsequence is obtained by deleting some number of elements (eventually, also zero) from the original sequence, leaving the remaining elements in their original order.
+
+Examples:
+Input: [1,7,4,9,2,5]
+Output: 6
+The entire sequence is a wiggle sequence.
+
+Input: [1,17,5,10,13,15,10,5,16,8]
+Output: 7
+There are several subsequences that achieve this length. One is [1,17,10,13,10,16,8].
+
+Input: [1,2,3,4,5,6,7,8,9]
+Output: 2
+Follow up:
+Can you do it in O(n) time?
+
+public class Solution {
+    public int wiggleMaxLength(int[] nums) {
+        if (nums.length <= 1) return nums.length;
+        int index = 1;
+        for (int i = 1; i < nums.length; i++){
+            if (nums[i] != nums[i - 1]){
+                    nums[index] = nums[i];
+                    index++;
+            }
+        }
+        
+        int count = (index >= 2)? 2: index;
+        for (int i = 2; i < index; i++){
+            if ((nums[i - 1] - nums[i - 2]) * (nums[i] - nums[i - 1]) < 0)
+                count++;
+        }
+        return count;
+    }
+}
+
+
+ Design a data structure that supports all following operations in average O(1) time.
+
+insert(val): Inserts an item val to the set if not already present.
+remove(val): Removes an item val from the set if present.
+getRandom: Returns a random element from current set of elements. Each element must have the same probability of being returned.
+Example:
+
+// Init an empty set.
+RandomizedSet randomSet = new RandomizedSet();
+
+// Inserts 1 to the set. Returns true as 1 was inserted successfully.
+randomSet.insert(1);
+
+// Returns false as 2 does not exist in the set.
+randomSet.remove(2);
+
+// Inserts 2 to the set, returns true. Set now contains [1,2].
+randomSet.insert(2);
+
+// getRandom should return either 1 or 2 randomly.
+randomSet.getRandom();
+
+// Removes 1 from the set, returns true. Set now contains [2].
+randomSet.remove(1);
+
+// 2 was already in the set, so return false.
+randomSet.insert(2);
+
+// Since 1 is the only number in the set, getRandom always return 1.
+randomSet.getRandom();
+
+public class RandomizedSet {
+    List<Integer> list;
+    Map<Integer, Integer> map;
+    /** Initialize your data structure here. */
+    public RandomizedSet() {
+        list = new ArrayList<>();
+        map = new HashMap<>();
+    }
+    
+    /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
+    public boolean insert(int val) {
+        if (map.containsKey(val)) return false;
+        map.put(val, list.size());
+        list.add(val);
+        return true;
+    }
+    
+    /** Removes a value from the set. Returns true if the set contained the specified element. */
+    public boolean remove(int val) {
+        if (!map.containsKey(val)) 
+            return false;
+        int index = map.remove(val);
+        int lastElement = list.remove(list.size() - 1);
+        if (lastElement == val) return true;
+        map.put(lastElement, index);
+        list.set(index, lastElement);
+        return true;
+    }
+    
+    /** Get a random element from the set. */
+    public int getRandom() {
+        Random rand = new Random();
+        return list.get(rand.nextInt(list.size()));
+    }
+}
+
+/**
+ * Your RandomizedSet object will be instantiated and called as such:
+ * RandomizedSet obj = new RandomizedSet();
+ * boolean param_1 = obj.insert(val);
+ * boolean param_2 = obj.remove(val);
+ * int param_3 = obj.getRandom();
+ */
+ 
+ 
+ 
+ Design a data structure that supports all following operations in average O(1) time.
+
+Note: Duplicate elements are allowed.
+insert(val): Inserts an item val to the collection.
+remove(val): Removes an item val from the collection if present.
+getRandom: Returns a random element from current collection of elements. The probability of each element being returned is linearly related to the number of same value the collection contains.
+Example:
+
+// Init an empty collection.
+RandomizedCollection collection = new RandomizedCollection();
+
+// Inserts 1 to the collection. Returns true as the collection did not contain 1.
+collection.insert(1);
+
+// Inserts another 1 to the collection. Returns false as the collection contained 1. Collection now contains [1,1].
+collection.insert(1);
+
+// Inserts 2 to the collection, returns true. Collection now contains [1,1,2].
+collection.insert(2);
+
+// getRandom should return 1 with the probability 2/3, and returns 2 with the probability 1/3.
+collection.getRandom();
+
+// Removes 1 from the collection, returns true. Collection now contains [1,2].
+collection.remove(1);
+
+// getRandom should return 1 and 2 both equally likely.
+collection.getRandom();
+
+public class RandomizedCollection {
+    ArrayList<Integer> list;
+    Map<Integer, LinkedHashSet<Integer>> map;
+    
+    public RandomizedCollection() {
+        list = new ArrayList<>();
+        map = new HashMap<>();
+    }
+    public boolean insert(int val){
+        boolean exists = map.containsKey(val);
+        if (!exists)
+            map.put(val, new LinkedHashSet<Integer>());
+        map.get(val).add(list.size());
+        list.add(val);
+        return !exists;
+    }
+    
+    public boolean remove(int val){
+        if (!map.containsKey(val))
+            return false;
+        LinkedHashSet<Integer> valSet = map.get(val);
+        int indexToReplace = valSet.iterator().next();
+        
+        int eleAtLastPlace = list.get(list.size() - 1);
+        LinkedHashSet<Integer> replace = map.get(eleAtLastPlace);
+        
+        list.set(indexToReplace, eleAtLastPlace);
+        valSet.remove(indexToReplace);
+        
+        if (indexToReplace != list.size() - 1){
+            replace.remove(list.size() - 1);
+            replace.add(indexToReplace);
+        }
+        list.remove(list.size() - 1);
+        
+        if (valSet.isEmpty())
+            map.remove(val);
+        return true;
+    }
+    
+    public int getRandom(){
+        return list.get((int)(Math.random() * list.size()));
+    }
+}
+
+
+
+ 
+ 
+ 
+
+ Given an integer n, return 1 - n in lexicographical order.
+
+For example, given 13, return: [1,10,11,12,13,2,3,4,5,6,7,8,9].
+
+Please optimize your algorithm to use less time and space. The input size may be as large as 5,000,000.
+
+public class Solution {
+    public List<Integer> lexicalOrder(int n) {
+        List<Integer> list = new ArrayList<>();
+        Stack<Integer> stackBase = new Stack<>();
+        for (int i = 1; i <= 9 && i <= n; i++){
+            stackBase.push(i);
+            while (!stackBase.isEmpty()){
+                int baseMsb = stackBase.pop();
+                list.add(baseMsb);
+                for (int j = 9; j >= 0; j--){
+                    int nextNumber = 10 * baseMsb + j;
+                    if (nextNumber > n)
+                        continue;
+                    stackBase.push(nextNumber);
+                }
+            }
+        }
+        return list;
+    }
+    
+    
+}
+
+
+
+
+
+Given a string s and a string t, check if s is subsequence of t.
+
+You may assume that there is only lower case English letters in both s and t. t is potentially a very long (length ~= 500,000) string, and s is a short string (<=100).
+
+A subsequence of a string is a new string which is formed from the original string by deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters. (ie, "ace" is a subsequence of "abcde" while "aec" is not).
+
+Example 1:
+s = "abc", t = "ahbgdc"
+
+Return true.
+
+Example 2:
+s = "axc", t = "ahbgdc"
+
+Return false.
+
+Follow up:
+If there are lots of incoming S, say S1, S2, ... , Sk where k >= 1B, and you want to check one by one to see if T has its subsequence. In this scenario, how would you change your code?
+
+public class Solution {
+    public boolean isSubsequence(String s, String t) {
+        int pS = 0, pT = 0;
+        while (pS < s.length() && pT < t.length()){
+            if (s.charAt(pS) == t.charAt(pT))
+                pS++;
+            pT++;
+        }
+        return pS == s.length();
+       
+    }
+}
+
+Given an encoded string, return it's decoded string.
+
+The encoding rule is: k[encoded_string], where the encoded_string inside the square brackets is being repeated exactly k times. Note that k is guaranteed to be a positive integer.
+
+You may assume that the input string is always valid; No extra white spaces, square brackets are well-formed, etc.
+
+Furthermore, you may assume that the original data does not contain any digits and that digits are only for those repeat numbers, k. For example, there won't be input like 3a or 2[4].
+
+Examples:
+
+s = "3[a]2[bc]", return "aaabcbc".
+s = "3[a2[c]]", return "accaccacc".
+s = "2[abc]3[cd]ef", return "abcabccdcdcdef".
+
+public class Solution {
+    public String decodeString(String s) {
+        
+        Stack<String> phraseStack = new Stack<>();
+        Stack<Integer> numStack = new Stack<>();
+        int num = 0;
+        phraseStack.push("");
+        for (char ch: s.toCharArray()){
+            
+            if (Character.isDigit(ch))
+                num = num * 10 + (ch - '0');
+            else if (ch == '['){
+                numStack.push(num);
+                num = 0;
+                phraseStack.push("");
+            }
+            else if (ch == ']'){
+                StringBuilder sb = new StringBuilder();
+                String phrase = phraseStack.pop();
+                int times = numStack.pop();
+                for (int i = 0; i < times; i++)
+                    sb.append(phrase);
+                String finalString = phraseStack.pop() + sb.toString();
+                phraseStack.push(finalString);
+                
+            }
+            else {
+                phraseStack.push(phraseStack.pop() + ch);
+            }
+        }
+        
+        return phraseStack.pop();
+        
+        
+        
+    }
+}
+
+Given an array of integers with possible duplicates, randomly output the index of a given target number. You can assume that the given target number must exist in the array.
+
+Note:
+The array size can be very large. Solution that uses too much extra space will not pass the judge.
+
+Example:
+
+int[] nums = new int[] {1,2,3,3,3};
+Solution solution = new Solution(nums);
+
+// pick(3) should return either index 2, 3, or 4 randomly. Each index should have equal probability of returning.
+solution.pick(3);
+
+// pick(1) should return 0. Since in the array only nums[0] is equal to 1.
+solution.pick(1);
+
+
+public class Solution {
+    //o(n) time o(1) space
+    int[] nums;
+    public Solution(int[] nums) {
+        this.nums = nums;
+    }
+    
+    public int pick(int target) {
+        Random rand = new Random();
+        int index = rand.nextInt(nums.length);
+        while (nums[index] != target)
+            index = rand.nextInt(nums.length);
+        return index;
+    }
+}
+
+/**
+ * Your Solution object will be instantiated and called as such:
+ * Solution obj = new Solution(nums);
+ * int param_1 = obj.pick(target);
+ */
+ 
+ 
+ A binary watch has 4 LEDs on the top which represent the hours (0-11), and the 6 LEDs on the bottom represent the minutes (0-59).
+
+Each LED represents a zero or one, with the least significant bit on the right.
+
+
+For example, the above binary watch reads "3:25".
+
+Given a non-negative integer n which represents the number of LEDs that are currently on, return all possible times the watch could represent.
+
+Example:
+
+Input: n = 1
+Return: ["1:00", "2:00", "4:00", "8:00", "0:01", "0:02", "0:04", "0:08", "0:16", "0:32"]
+Note:
+The order of output does not matter.
+The hour must not contain a leading zero, for example "01:00" is not valid, it should be "1:00".
+The minute must be consist of two digits and may contain a leading zero, for example "10:2" is not valid, it should be "10:02".
+
+public class Solution {
+    public List<String> readBinaryWatch(int num) {
+        List<String> result = new ArrayList<>();
+        for (int i = 0; i < 12; i++){
+            for (int j = 0; j < 60; j++){
+                if (Integer.bitCount(i) + Integer.bitCount(j) == num)
+                    result.add(String.format("%d:%02d", i, j));
+            }
+        }
+        return result;
+    }
+}
+
+
+Given a non-negative integer num represented as a string, remove k digits from the number so that the new number is the smallest possible.
+
+Note:
+The length of num is less than 10002 and will be ≥ k.
+The given num does not contain any leading zero.
+Example 1:
+
+Input: num = "1432219", k = 3
+Output: "1219"
+Explanation: Remove the three digits 4, 3, and 2 to form the new number 1219 which is the smallest.
+Example 2:
+
+Input: num = "10200", k = 1
+Output: "200"
+Explanation: Remove the leading 1 and the number is 200. Note that the output must not contain leading zeroes.
+Example 3:
+
+Input: num = "10", k = 2
+Output: "0"
+Explanation: Remove all the digits from the number and it is left with nothing which is 0.
+
+public class Solution {
+    //logic here;
+    //https://discuss.leetcode.com/topic/60621/simple-java-solution
+    //https://discuss.leetcode.com/topic/69558/one-pass-o-n-java-solution-no-stack-needed
+    //https://discuss.leetcode.com/topic/59334/my-simple-o-n-idea
+    
+    public String removeKdigits(String num, int k) {
+        if (num.length() < 2)
+            return "0";
+        StringBuilder sb = new StringBuilder(num);
+        int count = 0, idx = 0;
+        while (count < k && idx < sb.length() - 1) {
+            if (sb.charAt(idx) > sb.charAt(idx + 1)) {
+                sb.deleteCharAt(idx);
+                count++;
+                idx = Math.max(idx - 1, 0);
+            } else {
+                idx++;
+            }
+        }
+        
+        System.out.println(count + " k: " + k);
+        
+        // if the digits are in ascending order and we haven't
+        // deleted k digits, remove digits from the end.
+        while (count < k) {
+            System.out.println("yes");
+            sb.deleteCharAt(sb.length() - 1);
+            count++;
+        }
+        int i = 0;
+        
+        String re = sb.toString();
+        System.out.println(re);
+        
+        // delete trailing zeroes
+        while (i < re.length() && re.charAt(i) == '0')
+            i++;
+        if (i == re.length())
+            return "0";
+        return re.substring(i);
+        //return sb.toString();
+    }
+}
+
+
+
+Find the sum of all left leaves in a given binary tree.
+
+Example:
+
+    3
+   / \
+  9  20
+    /  \
+   15   7
+
+There are two left leaves in the binary tree, with values 9 and 15 respectively. Return 24.
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public int sumOfLeftLeaves(TreeNode root) {
+        if (root == null)return 0;
+        Deque<TreeNode> stack = new LinkedList<>();
+        int result = 0;
+        stack.push(root);
+        while (!stack.isEmpty()){
+            TreeNode node = stack.pop();
+            if (node.left != null){
+                if (node.left.left == null && node.left.right == null)
+                    result += node.left.val;
+                else
+                    stack.push(node.left);
+            }
+            if (node.right != null){
+                if (node.right.left != null || node.right.right != null)
+                    stack.push(node.right);
+            }
+        }
+        return result;
+    }
+}
+
+
+
+Suppose you have a random list of people standing in a queue. Each person is described by a pair of integers (h, k), where h is the height of the person and k is the number of people in front of this person who have a height greater than or equal to h. Write an algorithm to reconstruct the queue.
+
+Note:
+The number of people is less than 1,100.
+
+Example
+
+Input:
+[[7,0], [4,4], [7,1], [5,0], [6,1], [5,2]]
+
+Output:
+[[5,0], [7,0], [5,2], [6,1], [4,4], [7,1]]
+
+public class Solution {
+    public int[][] reconstructQueue(int[][] people) {
+         List<int[]> list = new ArrayList<int[]>();
+        /*
+        for (int i = 0; i < people.length; i++){
+            for (int j =0; j < people[0].length; j++)
+                System.out.print(people[i][j] + ",");
+            System.out.print("][");
+        }
+        */
+        Arrays.sort(people,new Comparator<int[]>(){
+            @Override
+            public int compare(int[] array1,int[] array2){
+                if(array1[0]!=array2[0]){
+                    return array2[0]-array1[0];
+                }else{
+                    return array1[1]-array2[1];
+                }
+            }
+        });
+        /*
+        System.out.println("\n");
+        for (int i = 0; i < people.length; i++){
+            for (int j =0; j < people[0].length; j++)
+                System.out.print(people[i][j] + ",");
+            System.out.print("][");
+        }
+        */
+        
+        for(int[] a:people){
+            list.add(a[1],a);
+        }
+        
+        /*
+        System.out.println("\n");
+        for (int i = 0; i < list.size(); i++){
+            for (int j =0; j < list.get(i).length; j++)
+                System.out.print(list.get(i)[j] + ",");
+            System.out.print("][");
+        }
+        */
+        
+        
+        int[][] result = new int[list.size()][2];
+        for (int i = 0; i < result.length; i++){
+            for (int j = 0; j < result[0].length; j++)
+                result[i][j] = list.get(i)[j];
+        }
+        return result;
+    }
+}
+
+
+Given a string which consists of lowercase or uppercase letters, find the length of the longest palindromes that can be built with those letters.
+
+This is case sensitive, for example "Aa" is not considered a palindrome here.
+
+Note:
+Assume the length of given string will not exceed 1,010.
+
+Example:
+
+Input:
+"abccccdd"
+
+Output:
+7
+
+Explanation:
+One longest palindrome that can be built is "dccaccd", whose length is 7.
+
+public class Solution {
+    public int longestPalindrome(String s) {
+        
+        // add characters to set
+        // every time we find a second occurence of a character, we remove it and incrmeent count
+        // count = number of times a character occurs twice
+        // if set is empty, all characters occur even number of times. and hence the length of 
+        // longest palindrome = lenght of string eg: abacbc =>   baccab
+        // if set is not empty then length of longest palindrome = count * 2 + 1
+        // effggcc     cgfefgc
+        // + 1 because we can add utmost one character that doesn't have a pair.
+        Set<Character> set = new HashSet<>();
+        int countOfPairs = 0;
+        for (int i = 0; i < s.length(); i++){
+            char ch = s.charAt(i);
+            if (set.contains(ch)){
+                set.remove(ch);
+                countOfPairs++;
+            }
+            else
+                set.add(ch);
+        }
+        
+        if (set.isEmpty()) return countOfPairs * 2;
+        else
+            return (countOfPairs * 2) + 1;
+    }
+}
+
+
+Given a non-empty array of integers, return the third maximum number in this array. If it does not exist, return the maximum number. The time complexity must be in O(n).
+
+Example 1:
+Input: [3, 2, 1]
+
+Output: 1
+
+Explanation: The third maximum is 1.
+Example 2:
+Input: [1, 2]
+
+Output: 2
+
+Explanation: The third maximum does not exist, so the maximum (2) is returned instead.
+Example 3:
+Input: [2, 2, 3, 1]
+
+Output: 1
+
+Explanation: Note that the third maximum here means the third maximum distinct number.
+Both numbers with value 2 are both considered as second maximum.
+
+
+public class Solution {
+    public int thirdMax(int[] nums) {
+        
+        Integer firstMax = nums[0], secondMax = null, thirdMax = null;
+        for (int num: nums)
+         firstMax = Math.max(firstMax, num);
+        
+        for (int num: nums)
+            if (num < firstMax)
+                secondMax = (secondMax == null)?num: Math.max(secondMax, num);
+                
+        if (secondMax == null) return firstMax;
+        for (int num: nums)
+            if (num < secondMax)
+                thirdMax = (thirdMax == null)?num: Math.max(num, thirdMax);
+        return (thirdMax == null)?firstMax:thirdMax;
+        
+        
+    }
+}
+
+
+Given two non-negative numbers num1 and num2 represented as string, return the sum of num1 and num2.
+
+Note:
+
+The length of both num1 and num2 is < 5100.
+Both num1 and num2 contains only digits 0-9.
+Both num1 and num2 does not contain any leading zero.
+You must not use any built-in BigInteger library or convert the inputs to integer directly.
+
+public class Solution {
+    public String addStrings(String num1, String num2) {
+        StringBuilder sb = new StringBuilder();
+        int i = num1.length() - 1, j = num2.length() - 1, carry = 0;
+        while (i >= 0 || j >= 0 || carry > 0){
+            int num1Digit = i >= 0? num1.charAt(i) - '0':0;
+            int num2Digit = j >= 0? num2.charAt(j) - '0':0;
+            sb.append((num1Digit + num2Digit + carry) % 10);
+            carry = (num1Digit + num2Digit + carry)/ 10;
+            i--;j--;
+        }
+        return sb.reverse().toString();
+    }
+}
+
+
+
+Given a non-empty string containing an out-of-order English representation of digits 0-9, output the digits in ascending order.
+
+Note:
+Input contains only lowercase English letters.
+Input is guaranteed to be valid and can be transformed to its original digits. That means invalid inputs such as "abc" or "zerone" are not permitted.
+Input length is less than 50,000.
+Example 1:
+Input: "owoztneoer"
+
+Output: "012"
+Example 2:
+Input: "fviefuro"
+
+Output: "45"
+
+
+public class Solution {
+    public String originalDigits(String s) {
+        int[] count = new int[10];
+        for (int i = 0; i < s.length(); i++){
+            char ch = s.charAt(i);
+            
+            // consider digits with unique characters
+            if (ch == 'z')count[0]++;
+            if (ch == 'w')count[2]++;
+            if (ch == 'u')count[4]++;
+            if (ch == 'x')count[6]++;
+            if (ch == 'g')count[8]++;
+            
+            // common character
+            
+            if (ch == 'h')count[3]++; // 3, 8
+            if (ch == 'f')count[5]++; // 4, 5
+            if (ch == 's')count[7]++; // 6, 7
+            if (ch == 'o')count[1]++; // 0, 1, 2, 4
+            if (ch == 'i')count[9]++; // 5, 6, 8, 9
+            
+            
+        }
+        
+        /*count[3] =*/ count[3] -= count[8];
+        /*count[5] =*/ count[5] -= (count[4]);
+        /*count[7] =*/ count[7] -= count[6];
+        /*count[1] =*/ count[1] -= (count[0] + count[2] + count[4]);
+        /*count[9] =*/ count[9] -= (count[5] + count[6] + count[8] );
+        
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 10; i++){
+            for (int j = 0; j < count[i]; j++)
+                sb.append(i);
+        }
+        return sb.toString();
+    }
+}
+
+
+Count the number of segments in a string, where a segment is defined to be a contiguous sequence of non-space characters.
+
+Please note that the string does not contain any non-printable characters.
+
+Example:
+
+Input: "Hello, my name is John"
+Output: 5
+
+
+public class Solution {
+    public int countSegments(String s) {
+        int count = 0;
+        int i = 0;
+        int N = s.length();
+        while (i < N){
+            if (!Character.isWhitespace(s.charAt(i))){
+                count++;
+                while (i < N && !Character.isWhitespace(s.charAt(i)))
+                    i++;
+            }
+            else
+                i++;
+        }
+        return count;
+    }
+}
+
+
+Given a collection of intervals, find the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.
+
+Note:
+You may assume the interval's end point is always bigger than its start point.
+Intervals like [1,2] and [2,3] have borders "touching" but they don't overlap each other.
+Example 1:
+Input: [ [1,2], [2,3], [3,4], [1,3] ]
+
+Output: 1
+
+Explanation: [1,3] can be removed and the rest of intervals are non-overlapping.
+Example 2:
+Input: [ [1,2], [1,2], [1,2] ]
+
+Output: 2
+
+Explanation: You need to remove two [1,2] to make the rest of intervals non-overlapping.
+Example 3:
+Input: [ [1,2], [2,3] ]
+
+Output: 0
+
+Explanation: You don't need to remove any of the intervals since they're already non-overlapping.
+
+/**
+ * Definition for an interval.
+ * public class Interval {
+ *     int start;
+ *     int end;
+ *     Interval() { start = 0; end = 0; }
+ *     Interval(int s, int e) { start = s; end = e; }
+ * }
+ */
+public class Solution {
+    public int eraseOverlapIntervals(Interval[] intervals) {
+        Arrays.sort(intervals, new Comparator<Interval>(){
+           public int compare(Interval i1, Interval i2){
+              
+              
+                return i1.end - i2.end;
+           } 
+        });
+        
+        int end = Integer.MIN_VALUE;
+        int count = 0;
+        for (Interval in: intervals){
+            if (in.start >= end)
+                end = in.end;
+            else
+                count++;
+        }
+        return count;
+    }
+}
+
+
+Given a set of intervals, for each of the interval i, check if there exists an interval j whose start point is bigger than or equal to the end point of the interval i, which can be called that j is on the "right" of i.
+
+For any interval i, you need to store the minimum interval j's index, which means that the interval j has the minimum start point to build the "right" relationship for interval i. If the interval j doesn't exist, store -1 for the interval i. Finally, you need output the stored value of each interval as an array.
+
+Note:
+You may assume the interval's end point is always bigger than its start point.
+You may assume none of these intervals have the same start point.
+Example 1:
+Input: [ [1,2] ]
+
+Output: [-1]
+
+Explanation: There is only one interval in the collection, so it outputs -1.
+Example 2:
+Input: [ [3,4], [2,3], [1,2] ]
+
+Output: [-1, 0, 1]
+
+Explanation: There is no satisfied "right" interval for [3,4].
+For [2,3], the interval [3,4] has minimum-"right" start point;
+For [1,2], the interval [2,3] has minimum-"right" start point.
+Example 3:
+Input: [ [1,4], [2,3], [3,4] ]
+
+Output: [-1, 2, -1]
+
+Explanation: There is no satisfied "right" interval for [1,4] and [3,4].
+For [2,3], the interval [3,4] has minimum-"right" start point.
+
+
+/**
+ * Definition for an interval.
+ * public class Interval {
+ *     int start;
+ *     int end;
+ *     Interval() { start = 0; end = 0; }
+ *     Interval(int s, int e) { start = s; end = e; }
+ * }
+ */
+public class Solution {
+    public int[] findRightInterval(Interval[] intervals) {
+        if (intervals == null || intervals.length == 0)
+        return new int[0];
+        
+        if (intervals.length == 1)
+        return new int[]{-1};
+        
+        Map<Interval, Integer> map = new HashMap<>();
+        for (int i = 0; i < intervals.length; i++)
+            map.put(intervals[i], i);
+        
+        Arrays.sort(intervals, new Comparator<Interval>(){
+            public int compare(Interval i1, Interval i2){
+                return i1.start - i2.start;
+            }
+        });
+        
+        int[] res = new int[intervals.length];
+        int i = 0;
+        while (i < intervals.length){
+            Interval temp = intervals[i];
+            int j = i + 1;
+            while (j < intervals.length && temp.end > intervals[j].start)
+                j++;
+            if (j == intervals.length)
+                res[map.get(temp)] = -1;
+            else
+                res[map.get(temp)] = map.get(intervals[j]);
+            i++;
+        }
+        return res;
+    }
+}
+
+
+You are given a binary tree in which each node contains an integer value.
+
+Find the number of paths that sum to a given value.
+
+The path does not need to start or end at the root or a leaf, but it must go downwards (traveling only from parent nodes to child nodes).
+
+The tree has no more than 1,000 nodes and the values are in the range -1,000,000 to 1,000,000.
+
+Example:
+
+root = [10,5,-3,3,2,null,11,3,-2,null,1], sum = 8
+
+      10
+     /  \
+    5   -3
+   / \    \
+  3   2   11
+ / \   \
+3  -2   1
+
+Return 3. The paths that sum to 8 are:
+
+1.  5 -> 3
+2.  5 -> 2 -> 1
+3. -3 -> 11
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    int count = 0;
+    public int pathSum(TreeNode root, int sum) {
+        if (root != null){
+            continueFromTheseNode(root, sum);
+            pathSum(root.left, sum);
+            pathSum(root.right, sum);
+        }
+        return count;
+    }
+    
+    public void continueFromTheseNode(TreeNode root, int sum){
+        if (root != null){
+            if (sum - root.val == 0)
+                count++;
+            continueFromTheseNode(root.left, sum - root.val);
+            continueFromTheseNode(root.right, sum - root.val);
+        }
+    }
+}
+
+
+Given a string s and a non-empty string p, find all the start indices of p's anagrams in s.
+
+Strings consists of lowercase English letters only and the length of both strings s and p will not be larger than 20,100.
+
+The order of output does not matter.
+
+Example 1:
+
+Input:
+s: "cbaebabacd" p: "abc"
+
+Output:
+[0, 6]
+
+Explanation:
+The substring with start index = 0 is "cba", which is an anagram of "abc".
+The substring with start index = 6 is "bac", which is an anagram of "abc".
+Example 2:
+
+Input:
+s: "abab" p: "ab"
+
+Output:
+[0, 1, 2]
+
+Explanation:
+The substring with start index = 0 is "ab", which is an anagram of "ab".
+The substring with start index = 1 is "ba", which is an anagram of "ab".
+The substring with start index = 2 is "ab", which is an anagram of "ab".
+
+public class Solution {
+    public List<Integer> findAnagrams(String s, String p) {
+           
+        List<Integer> result = new ArrayList<>();
+        int[] charp = new int[26];
+        int left = 0;
+        int right = 0;
+        int count = p.length();
+        for (int i = 0; i < p.length(); i++)
+            charp[p.charAt(i) - 'a']++;
+        while (right < s.length()){
+            //if (charp[s.charAt(right++) - 'a']-- >= 1){
+            if (charp[s.charAt(right) - 'a'] >= 1)
+                count--;
+            
+            charp[s.charAt(right) - 'a']--;
+            right++;
+            
+            if (count == 0)
+                result.add(left);
+            if (right - left >= p.length() &&
+                charp[s.charAt(left) - 'a'] >= 0)
+                count++;
+                
+                charp[s.charAt(left) - 'a']++;
+                left++;
+            
+        }
+ 
+        return result;
+    
+    }
+}
+
+Given an array of integers, 1 ≤ a[i] ≤ n (n = size of array), some elements appear twice and others appear once.
+
+Find all the elements that appear twice in this array.
+
+Could you do it without extra space and in O(n) runtime?
+
+Example:
+Input:
+[4,3,2,7,8,2,3,1]
+
+Output:
+[2,3]
+
+
+public class Solution {
+    public List<Integer> findDuplicates(int[] nums) {
+        /* whenever you come across element num
+           set array[num - 1] as negative. indicating num as been encountered.
+           if array[num - 1] is already negative add num to result
+           */
+        List<Integer> result = new ArrayList<>();
+        for (int num: nums){
+            num = Math.abs(num);
+            if (nums[num - 1] < 0)
+                result.add(num);
+            else
+                nums[num - 1] = -nums[num - 1];
+        }
+        // convert array to its original form
+        for (int i = 0; i < nums.length; i++)
+            nums[i] = Math.abs(nums[i]);
+        return result;
+        
+       
+    }
+}
+
+
+You are given two linked lists representing two non-negative numbers. The most significant digit comes first and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
+
+You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+
+Follow up:
+What if you cannot modify the input lists? In other words, reversing the lists is not allowed.
+
+Example:
+
+Input: (7 -> 2 -> 4 -> 3) + (5 -> 6 -> 4)
+Output: 7 -> 8 -> 0 -> 7
+
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        Stack<Integer> s1 = new Stack<>();
+        Stack<Integer> s2 = new Stack<>();
+        while (l1 != null || l2 != null){
+            if (l1 != null){
+                s1.push(l1.val);
+                l1 = l1.next;
+            }
+            if (l2 != null){
+                s2.push(l2.val);
+                l2 = l2.next;
+            }
+        }
+        
+        ListNode curr = null;
+        int carry = 0;
+        while (!s1.isEmpty() || !s2.isEmpty() || carry != 0){
+            int d1 = (s1.isEmpty())?0:s1.pop();
+            int d2 = (s2.isEmpty())?0:s2.pop();
+            int sum = d1 + d2 + carry;
+            ListNode node = new ListNode(sum % 10);
+            carry = sum / 10;
+            node.next = curr;
+            curr = node;
+        }
+        return curr;
+    }
+}
+
+Given an array of integers where 1 ≤ a[i] ≤ n (n = size of array), some elements appear twice and others appear once.
+
+Find all the elements of [1, n] inclusive that do not appear in this array.
+
+Could you do it without extra space and in O(n) runtime? You may assume the returned list does not count as extra space.
+
+Example:
+
+Input:
+[4,3,2,7,8,2,3,1]
+
+Output:
+[5,6]
+
+
+public class Solution {
+    public List<Integer> findDisappearedNumbers(int[] nums) {
+        List<Integer> missing = new ArrayList<>();
+        for (int i = 0; i < nums.length; i++){
+            int ele = Math.abs(nums[i]);
+            if (nums[ele - 1] > 0)
+                nums[ele - 1] = -nums[ele - 1];
+        }
+        for (int i = 0; i < nums.length; i++){
+            if (nums[i] > 0)
+                missing.add(i + 1);
+        }
+        for (int i = 0; i < nums.length; i++)
+            nums[i] = Math.abs(nums[i]);
+        return missing;
+    }
+}
+
+
+Given a string, sort it in decreasing order based on the frequency of characters.
+
+Example 1:
+
+Input:
+"tree"
+
+Output:
+"eert"
+
+Explanation:
+'e' appears twice while 'r' and 't' both appear once.
+So 'e' must appear before both 'r' and 't'. Therefore "eetr" is also a valid answer.
+Example 2:
+
+Input:
+"cccaaa"
+
+Output:
+"cccaaa"
+
+Explanation:
+Both 'c' and 'a' appear three times, so "aaaccc" is also a valid answer.
+Note that "cacaca" is incorrect, as the same characters must be together
+
+Example 3:
+
+Input:
+"Aabb"
+
+Output:
+"bbAa"
+
+Explanation:
+"bbaA" is also a valid answer, but "Aabb" is incorrect.
+Note that 'A' and 'a' are treated as two different characters.
+
+public class Solution {
+    public String frequencySort(String s) {
+        // maintain character count
+        int[] ascii = new int[256];
+        for (char ch: s.toCharArray())
+            ascii[ch]++;
+        
+        
+        // map of count->[list of characters that occurs count number of times]
+        Map<Integer, List<Character>> map = new HashMap<>();
+        for (int i = 0; i < ascii.length; i++){
+            int count = ascii[i];
+            if (!map.containsKey(count))
+                map.put(count, new ArrayList<Character>());
+            map.get(count).add((char)i);
+        }
+        
+        StringBuilder result = new StringBuilder();
+        
+        
+        for (int i = s.length(); i > 0; i--){
+            if (map.containsKey(i)){
+                List<Character> chars = map.get(i); 
+                for (char ch: chars){
+                    for (int c = 0; c < i; c++)
+                        result.append(ch);
+                }
+            }
+        }
+        return result.toString();
+    }
+}
+
+
+Given a non-empty integer array of size n, find the minimum number of moves required to make all array elements equal, where a move is incrementing n - 1 elements by 1.
+
+Example:
+
+Input:
+[1,2,3]
+
+Output:
+3
+
+Explanation:
+Only three moves are needed (remember each move increments two elements):
+
+[1,2,3]  =>  [2,3,3]  =>  [3,4,3]  =>  [4,4,4]
+
+public class Solution {
+    public int minMoves(int[] nums) {
+        if (nums == null || nums.length == 0)return 0;
+        int minValue = Integer.MAX_VALUE;
+        for (int num: nums)minValue = Math.min(minValue, num);
+        int res = 0;
+        for (int num: nums) res += (num - minValue);
+        return res;
+        
+        //https://discuss.leetcode.com/topic/67017/java-o-n-accepted-solution-with-explanation
+    }
+}
+
+
+Given four lists A, B, C, D of integer values, compute how many tuples (i, j, k, l) there are such that A[i] + B[j] + C[k] + D[l] is zero.
+
+To make problem a bit easier, all A, B, C, D have same length of N where 0 ≤ N ≤ 500. All integers are in the range of -228 to 228 - 1 and the result is guaranteed to be at most 231 - 1.
+
+Example:
+
+Input:
+A = [ 1, 2]
+B = [-2,-1]
+C = [-1, 2]
+D = [ 0, 2]
+
+Output:
+2
+
+Explanation:
+The two tuples are:
+1. (0, 0, 0, 1) -> A[0] + B[0] + C[0] + D[1] = 1 + (-2) + (-1) + 2 = 0
+2. (1, 1, 0, 0) -> A[1] + B[1] + C[0] + D[0] = 2 + (-1) + (-1) + 0 = 0
+
+
+public class Solution {
+    public int fourSumCount(int[] A, int[] B, int[] C, int[] D) {
+        Map<Integer, Integer> allPossibleABSum = new HashMap<>();
+        int count = 0;
+        for (int i = 0; i < A.length; i++){
+            for (int j = 0; j < B.length; j++){
+                int sum = A[i] + B[j];
+                
+                if (allPossibleABSum.containsKey(sum))
+                    allPossibleABSum.put(sum, allPossibleABSum.get(sum) + 1);
+                else
+                    allPossibleABSum.put(sum, 1);
+            }
+        }
+        
+        for (int i = 0; i < C.length; i++){
+            for (int j = 0; j < D.length; j++){
+                int sum = C[i] + D[j];
+                sum *= -1;
+                
+                if (allPossibleABSum.containsKey(sum))
+                    count += allPossibleABSum.get(sum);
+            }
+        }
+        return count;
+    }
+}
+
+
+Assume you are an awesome parent and want to give your children some cookies. But, you should give each child at most one cookie. Each child i has a greed factor gi, which is the minimum size of a cookie that the child will be content with; and each cookie j has a size sj. If sj >= gi, we can assign the cookie j to the child i, and the child i will be content. Your goal is to maximize the number of your content children and output the maximum number.
+
+Note:
+You may assume the greed factor is always positive. 
+You cannot assign more than one cookie to one child.
+
+Example 1:
+Input: [1,2,3], [1,1]
+
+Output: 1
+
+Explanation: You have 3 children and 2 cookies. The greed factors of 3 children are 1, 2, 3. 
+And even though you have 2 cookies, since their size is both 1, you could only make the child whose greed factor is 1 content.
+You need to output 1.
+Example 2:
+Input: [1,2], [1,2,3]
+
+Output: 2
+
+Explanation: You have 2 children and 3 cookies. The greed factors of 2 children are 1, 2. 
+You have 3 cookies and their sizes are big enough to gratify all of the children, 
+You need to output 2.
+
+
+public class Solution {
+    public int findContentChildren(int[] g, int[] s) {
+        Arrays.sort(g);
+        Arrays.sort(s);
+        int i = 0, j = 0;
+        while (i < g.length && j < s.length){
+            if (g[i] <= s[j])i++;
+            j++;
+        }
+        return i;
+    }
+}
+
+
+Given a sequence of n integers a1, a2, ..., an, a 132 pattern is a subsequence ai, aj, ak such that i < j < k and ai < ak < aj. Design an algorithm that takes a list of n numbers as input and checks whether there is a 132 pattern in the list.
+
+Note: n will be less than 15,000.
+
+Example 1:
+Input: [1, 2, 3, 4]
+
+Output: False
+
+Explanation: There is no 132 pattern in the sequence.
+Example 2:
+Input: [3, 1, 4, 2]
+
+Output: True
+
+Explanation: There is a 132 pattern in the sequence: [1, 4, 2].
+Example 3:
+Input: [-1, 3, 2, 0]
+
+Output: True
+
+Explanation: There are three 132 patterns in the sequence: [-1, 3, 2], [-1, 3, 0] and [-1, 2, 0].
+
+public class Solution {
+    public boolean find132pattern(int[] nums) {
+        if(nums == null || nums.length < 3)
+	return false;
+	
+for (int i = 0; i < nums.length-1; i++) {
+	int max = nums[i];
+	for (int j = i+1; j < nums.length; j++) {
+		if(nums[j] > max)
+			max = nums[j];
+		
+		if(nums[j] < max && nums[j] > nums[i] )
+			return true;				
+	}
+}
+	
+return false;
+    }
+}
+
+
+Given a non-empty string check if it can be constructed by taking a substring of it and appending multiple copies of the substring together. You may assume the given string consists of lowercase English letters only and its length will not exceed 10000.
+
+Example 1:
+Input: "abab"
+
+Output: True
+
+Explanation: It's the substring "ab" twice.
+Example 2:
+Input: "aba"
+
+Output: False
+Example 3:
+Input: "abcabcabcabc"
+
+Output: True
+
+Explanation: It's the substring "abc" four times. (And the substring "abcabc" twice.)
+
+public class Solution {
+    public boolean repeatedSubstringPattern(String str) {
+        int N = str.length();
+        for (int i = N/2; i >= 1; i--){
+            if (N % i == 0){
+                int times = N / i;
+                String sub = str.substring(0, i);
+                StringBuilder sb = new StringBuilder();
+                for (int j = 0; j < times; j++)
+                    sb.append(sub);
+                if (sb.toString().equals(str))
+                    return true;
+            }
+        }
+        return false;
+    }
+}
+
+
+Given a non-empty integer array, find the minimum number of moves required to make all array elements equal, where a move is incrementing a selected element by 1 or decrementing a selected element by 1.
+
+You may assume the array's length is at most 10,000.
+
+Example:
+
+Input:
+[1,2,3]
+
+Output:
+2
+
+Explanation:
+Only two moves are needed (remember each move increments or decrements one element):
+
+[1,2,3]  =>  [2,2,3]  =>  [2,2,2]
+
+public class Solution {
+    
+    /* nlogn 
+    public int minMoves2(int[] nums) {
+        int moves = 0;
+        int i = 0, j = nums.length - 1;
+        Arrays.sort(nums);
+        while (i < j){
+            moves += nums[j--] - nums[i++];
+        }
+        return moves;
+    }
+    */
+    public int minMoves2(int[] nums){
+        int moves = 0;
+        int N = nums.length, median = 0;
+        if (nums.length == 1)return 0;
+        if (N % 2 == 0){
+            int lowM = findKthLargest(nums, (N/2) );
+            int highM = findKthLargest(nums, (N/2)-1);
+            median = (highM + lowM)/2;
+        }
+        else {
+            median = findKthLargest(nums, (N/2) + 1);
+        }
+        System.out.println(median + "$");
+        for (int num: nums)
+            moves += Math.abs(median - num);
+        return moves;
+    }
+    
+    public int findKthLargest(int[] nums, int k){
+        if (nums.length == 0) return 0;
+        return helper(nums, 0, nums.length - 1, nums.length - k);
+    }
+    
+    public int helper(int[] nums, int low, int high, int k){
+        if (low >= high) return low;
+        int pivotIndex = partition(nums, low, high);
+        if (pivotIndex == k)
+            return nums[k];
+        if (pivotIndex > k)
+            return helper(nums, low, pivotIndex - 1, k);
+        else
+            return helper(nums, pivotIndex + 1, high, k);
+    }
+    public int partition(int[] nums, int low, int high){
+        int i = low + 1, j = high, pivotElement = nums[low];
+        
+        while (true){
+            while (nums[i] < pivotElement){
+                i++;
+                if (i >= high)break;
+            }
+            while (nums[j] >= pivotElement){
+                j--;
+                if (j <= low) break;
+            }
+            if (i >= j) break;
+            if (i < j){
+                int temp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = temp;
+            }
+        }
+        int temp2 = nums[low];
+        nums[low] = nums[j];
+        nums[j] = temp2;
+        return j;
+    }
+}
+
+
+
+
+
+Given a sorted integer array without duplicates, return the summary of its ranges.
+
+For example, given [0,1,2,4,5,7], return ["0->2","4->5","7"].
+
+public class Solution {
+    public List<String> summaryRanges(int[] nums) {
+        List<String> result = new ArrayList<>();
+        int N = nums.length;
+        if (N == 0) return result;
+        
+        int pre = nums[0];
+        String startString = "";
+        for (int i = 1; i < N; i++){
+            if (pre + 1 == nums[i]){
+                if (startString.equals(""))
+                    startString = pre + "->";
+            }
+            else {
+                result.add(startString + pre);
+                startString = "";
+            }
+            pre = nums[i];
+        }
+        result.add(startString + pre);
+        return result;
+        
+        
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+ 
+
+
+
+ 
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+Given [5, 4, 3, 2, 1],
+return false.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
 
 
 

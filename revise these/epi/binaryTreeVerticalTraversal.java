@@ -27,9 +27,9 @@ public List<List<Integer>> vertical(TreeNode root){
 			max = Math.max(max, col + 1);
 		}
 		
-		for (int i = min; i <= max; i++)
+		
+	}
+	for (int i = min; i <= max; i++)
 			result.add(vMap.get(i));
 		return result;
-	}
-	
 }

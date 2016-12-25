@@ -23,31 +23,22 @@ class RunningMedian{
 	}
 	
 	public void add(int num){
-		if (maxHeap.size() >= minHeap.size()){
-			if ((minHeap.peek() != null) && num > minHeap.peek()){
-				maxHeap.offer(minHeap.poll());
-				minHeap.offer(num);
-			}
-			else
-				maxHeap.offer(num);
-		}
-		else {
-			if (num < maxHeap.peek()){
-				minHeap.offer(maxHeap.poll());
-				maxHeap.offer(num);
-			}
-			else 
-				minHeap.offer(num);
-		}
+		if (minHeap.isEmpty() || num >= minHeap.peek())
+			minHeap.offer(num);
+		else
+			maxHeap.offer(num);
+		if (minHeap.size() - maxHeap.size() > 1)
+			maxHeap.offer(minHeap.poll()):
+		else if (maxHeap.size() - minHeap.size() > 1)
+			minHeap.offer(maxHeap.poll());
 	}
 	
 	public double getMedian(){
-		if (maxHeap.isEmpty() && minHeap.isEmpty())
-			return 0;
 		if (maxHeap.size() == minHeap.size())
-			return (minHeap.peek() + maxHeap.peek())/2;
-		/* If maxHeap and minHeap are of different sizes, then maxHeap must have one
-36 * extra element. Return maxHeap's top element.*/
-		return maxHeap.peek();
+			return (maxHeap.peek() + minHeap.peek())/2;
+		if (maxHeap.size() > minHeap.size())
+			return maxHeap.peek();
+		else
+			return minHeap.peek();
 	}
 }
