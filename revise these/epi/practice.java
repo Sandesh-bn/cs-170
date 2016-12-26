@@ -1,14 +1,23 @@
-// finish leetcode 4 - 8 25
+5-12 // finish leetcode 4 - 8 25
 // resolve all doubts in leetcode 25
 // locked leetcode problems
+// epi problems 25
+
+12 - 1 apply
+12-4 android app sunrise
+
+
+
+
 // sedgewick
-// tushar's dp 25
+// tushar's dp 26
 // ideserve videos 26
 // revise on interviewbit 26
 // revise on leetcode 26, 27
+// geeksforgeeks problems 28
 // java
 //about your resume
-
+	
 
 You are given two integer arrays nums1 and nums2 sorted in ascending order and an integer k.
 
