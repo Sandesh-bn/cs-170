@@ -17,3 +17,21 @@ public TreeNode upsideDownBinaryTree(TreeNode root){
         }
         return head.right;
     }
+
+	
+	public TreeNode up(TreeNode node){
+		if (root == null || )
+		return root;
+		Deque<TreeNode> stack = new LinkedList<>();
+		while (root != null){
+		stack.push(root);
+		root = root.left;}
+		
+		TreeNode node = new TreeNode(0);
+		while (!stack.isEmpty()){
+			node.right = stack.pop();
+			if (!stack.isEmpty())
+				node.left = stack.peek().right;
+			node = node.right;
+		}
+	}
