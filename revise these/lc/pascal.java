@@ -1,4 +1,4 @@
-Given numRows, generate the first numRows of Pascal's triangle.
+Given numRows, generate the first numRows of Pascals triangle.
 
 For example, given numRows = 5,
 Return

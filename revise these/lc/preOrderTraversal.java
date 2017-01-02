@@ -33,3 +33,16 @@ public class Solution {
         return result;
     }
 }
+
+List<Integer> res = new ArrayList<>();
+public List<Integer> preorder(TreeNode root){
+    preorderRec(root);
+    return res;
+}
+
+public void preorderRec(TreeNode root){
+    if (root == null) return;
+    res.add(root.val);
+    preorderRec(root.left);
+    preorderRec(root.right);
+}

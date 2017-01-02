@@ -119,10 +119,8 @@ public class LRUCache {
             if (map.size() >= capacity){
                 map.remove(end.key);
                 remove(end);
-                setHead(newNode);
             }
-            else
-                setHead(newNode);
+           setHead(newNode);
                 
             map.put(key, newNode);
         }

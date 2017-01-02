@@ -17,7 +17,7 @@ public void reverseK(ListNode head){
 		
 		ListNode nc = null;
 		
-		while (curr.next != null){
+		while (curr.next != tail){
 			ListNode temp = curr.next;
 			
 			if (nc == null)

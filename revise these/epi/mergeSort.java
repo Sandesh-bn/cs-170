@@ -15,7 +15,7 @@ public class MergeSortEfficient {
 	}
 	
 	private static void mergeSortEff(int[] test, int low, int high){
-		if (high <= low + 10 - 1){
+		if (high - low < 10){
 			insertionSort(test, low, high);
 			return;
 		}

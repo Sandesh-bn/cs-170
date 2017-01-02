@@ -244,3 +244,18 @@ public class Solution {
 }
 
 
+
+public class Solution{
+    int[] nums;
+    public Solution(int[] nums){
+        this.nums = nums;
+    }
+
+    public int pick(int t){
+        Random  r = new Random(;
+        int index = rand.nextInt();
+        while(nums[index] != target)
+            index = rand.nextInt(nums.length);
+        return ndex;
+    }
+}

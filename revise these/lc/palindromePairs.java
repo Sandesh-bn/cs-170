@@ -32,6 +32,17 @@ public class Solution {
         
         return res;
     }
+
+    public boolean isPal(String val){
+        if(val == null || val.length() < 2)
+            return true;
+        int i = 0, j = val.length() - 1;
+        while (i < j){
+            if (val.charAt(i++) != val.charAt(j--))
+                return false;
+        }
+        return true;
+    }
     
     public boolean isPalindrome(String word){
         if (word.length() < 2)

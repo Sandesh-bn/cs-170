@@ -12,9 +12,9 @@ public void sort(int[] arr, int k){
 	  }
 
 	  for (int i = 0; i < nums.length; i++) {
-		if(i + k < nums.length) {
-		  minHeap.add(nums[i + k]);
-		}
-		nums[i] = minHeap.remove();
+			if(i + k < nums.length) {
+				minHeap.add(nums[i + k]);
+			}
+			nums[i] = minHeap.remove();
 	  }
 }

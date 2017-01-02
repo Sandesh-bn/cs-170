@@ -18,7 +18,7 @@ public List<List<Integer>> combinationSum(int[] candidates, int target){
 			//dfs (candidates, result, newPath, remaining - candidates[i], i + 1); will prevent adding duplicates in the path
 			
 			/*
-			ie if arr is [1, 2, 3] = the path will not duplicates of 1/2/3
+			ie if arr is [1, 2, 3] = the path will not have duplicates of 1/2/3
 			at every level we exclude the the element that was added in prev level
 			
 			

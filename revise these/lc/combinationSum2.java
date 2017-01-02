@@ -13,11 +13,11 @@ public static List<List<Integer>> combinationSum2(int[] candidates, int target){
 		}
 		
 		for (int i = index; i < candidates.length; i++){
-			if (i > index && candidates[i] == candidates[i - 1])
-				continue;
-			List<Integer> newPath = new ArrayList<>(prevPath);
-			newPath.add(candidates[i]);
-			dfs(result, newPath, candidates, target- candidates[i], i + 1);
+			if (i == index || A[i] != A[i - 1]){
+                List<Integer> newPath = new ArrayList<>(path);
+                newPath.add(A[i]);
+                dfs(res, newPath, A, remaining - A[i], i + 1);
+            }
 		}
 	}
 	

@@ -35,4 +35,17 @@ public class Solution {
         }
         return result;
     }
+	
+	List<Integer> result = new ArrayList<>();
+	public void inorder(root){
+		helper(root);
+		return result;
+	}
+	
+	public void helper(TreeNode root){
+		helper(root.left);
+		result.add(root.val);
+		helper(root.right);
+	}
 }
+

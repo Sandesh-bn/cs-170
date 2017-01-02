@@ -263,10 +263,8 @@ public class Solution {
                 count += stack.poll() + 1;
                 longest = (count > longest)?count:longest;
             }
-            else {
-                count = 0;
-                stack.clear();
-            }
+            else 
+                count = 0
         }
         return longest * 2;
     }
@@ -284,6 +282,20 @@ Here are some examples. Inputs are in the left-hand column and its corresponding
 1,2,3 → 1,3,2
 3,2,1 → 1,2,3
 1,1,5 → 1,5,1
+
+public void nextPermutation(int[] A){
+    if (A == null || N < 2)return;
+    int i = N - 2;
+    while (i >= 0 && A[i] >= A[i + 1])
+        i--;
+    if (i >= 0){
+        int j = N - 1;
+        while(A[j] <= A[i])
+            j--;
+        swap(A, i, j);
+    }
+    reverse(A, i + 1, N - 1);
+}
 
 public class Solution {
     public void nextPermutation(int[] A) {
@@ -322,74 +334,7 @@ public class Solution {
 
 
 
- Substring with Concatenation of All Words
- 
-You are given a string, s, and a list of words, words, that are all of the same length. Find all starting indices of substring(s) in s that is a concatenation of each word in words exactly once and without any intervening characters.
-
-For example, given:
-s: "barfoothefoobarman"
-words: ["foo", "bar"]
-
-You should return the indices: [0,9].
-(order does not matter).
-
-
- public class Solution {
-    public List<Integer> findSubstring(String s, String[] words) {
-    List<Integer> ans = new ArrayList<>();
-	if (s == null || words.length == 0) return ans;
-	int n = words.length, wordLen = words[0].length();
-    Map<String, Integer> hist = new HashMap<>();
-    for (String w : words) {
-    	hist.put(w, hist.getOrDefault(w, 0)+1);
-    }
-	Map<String, Integer> curHist = new HashMap<>();
-    for (int i = 0; i <= s.length() - n*wordLen; i++) {
-    	if (hist.containsKey(s.substring(i, i+wordLen))) {
-    		curHist.clear();
-    		for (int j = 0; j < n; j++) {
-    			String word = s.substring(i + j*wordLen, i+(j+1)*wordLen);
-    			if (hist.containsKey(word)) {
-    				curHist.put(word, curHist.getOrDefault(word, 0) + 1);
-    				if (curHist.get(word) > hist.get(word))
-    					break;
-    			} else 
-    				break;
-    		}
-    		if (hist.equals(curHist)) ans.add(i);
-    	}
-    }
-    return ans;
-    }
-}
-
-
-Divide two integers without using multiplication, division and mod operator.
-
-If it is overflow, return MAX_INT.
-
-
-public class Solution {
-    public int divide(int dividend, int divisor) {
-        boolean isNegative = (dividend < 0 && divisor > 0) || (dividend > 0 && divisor < 0) ? true : false;
-        long absDividend = Math.abs((long) dividend);
-        long absDivisor = Math.abs((long) divisor);
-        long result = 0;
-        while(absDividend >= absDivisor){
-            long tmp = absDivisor, count = 1;
-            while(tmp <= absDividend){
-                tmp <<= 1;
-                count <<= 1;
-            }
-            result += count >> 1;
-            absDividend -= tmp >> 1;
-        }
-        return  isNegative ? (int) ~result + 1 : result > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) result;
-    }
-    
-    // EXPLANATION: https://discuss.leetcode.com/topic/45980/very-detailed-step-by-step-explanation-java-solution
-}
-
+$
 
 remove element
 Given an array and a value, remove all instances of that value in place and return the new length.
@@ -451,175 +396,10 @@ public class Solution {
 
 
 
- Reverse Nodes in k-Group
- Given a linked list, reverse the nodes of a linked list k at a time and return its modified list.
-
-If the number of nodes is not a multiple of k then left-out nodes in the end should remain as it is.
-
-You may not alter the values in the nodes, only nodes itself may be changed.
-
-Only constant memory is allowed.
-
-For example,
-Given this linked list: 1->2->3->4->5
-
-For k = 2, you should return: 2->1->4->3->5
-
-For k = 3, you should return: 3->2->1->4->5
-
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode(int x) { val = x; }
- * }
- */
-public class Solution {
-    public ListNode reverseKGroup(ListNode head, int k) {
-        if (head == null || head.next == null || k < 2) return head;
-        ListNode dummy = new ListNode(0);
-        ListNode curr = dummy, tail = curr;
-        dummy.next = head;
-        
-        while (tail != null){
-            int i = 0;
-            while (i < k && tail.next != null){
-                i++;
-                tail = tail.next;
-            }
-            if (i < k) return dummy.next; // we have reversed all groups of k. This group does not have k elements return head
-            ListNode nextCurr = null;
-            while (curr.next != tail){
-                ListNode temp = curr.next;
-                if (nextCurr == null) nextCurr = temp;
-                curr.next = temp.next;
-                temp.next = tail.next;
-                tail.next = temp;
-            }
-            curr = nextCurr;
-            tail = curr;
-        }
-        return dummy.next;
-    }
-}
-
-
-Swap Nodes in Pairs
-
-Given a linked list, swap every two adjacent nodes and return its head.
-
-For example,
-Given 1->2->3->4, you should return the list as 2->1->4->3.
-
-Your algorithm should use only constant space. You may not modify the values in the list, only nodes itself can be changed.
-
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode(int x) { val = x; }
- * }
- */
-public class Solution {
-    public ListNode swapPairs(ListNode head) {
-        
-       if (head == null || head.next == null) return head;
-       ListNode dummy = new ListNode(0);
-       dummy.next = head;
-       ListNode curr = dummy;
-       while (curr.next != null && curr.next.next != null){
-           ListNode first = curr.next;
-           ListNode second = curr.next.next;
-           first.next = second.next;
-           curr.next = second;
-           second.next = first;
-           curr = first;
-           //curr.next.next = first;
-           //curr = curr.next.next;
-       }
-       return dummy.next;
-    }
-}
+ 
 
 
 
-Merge k Sorted Lists
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode(int x) { val = x; }
- * }
- */
-public class Solution {
-    public ListNode mergeKLists(ListNode[] lists) {
-       
-        
-        if (lists.length == 0) return null;
-        PriorityQueue<ListNode> heap = new PriorityQueue<>(lists.length, new Comparator<ListNode>(){
-           public int compare(ListNode l1, ListNode l2){
-               return l1.val - l2.val;
-           } 
-        });
-        for (ListNode head: lists)
-            if (head != null)
-                heap.offer(head);
-        
-        ListNode dummy = new ListNode(0);
-        ListNode curr = dummy;
-        while (!heap.isEmpty()){
-            curr.next = heap.poll();
-            curr = curr.next;
-            if (curr.next != null)
-                heap.offer(curr.next);
-        }
-        return dummy.next;
-    }
-}
-
-
- Generate Parentheses   Add to List QuestionEditorial Solution  My Submissions
-Total Accepted: 120516
-Total Submissions: 290825
-Difficulty: Medium
-Contributors: Admin
-Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
-
-For example, given n = 3, a solution set is:
-
-[
-  "((()))",
-  "(()())",
-  "(())()",
-  "()(())",
-  "()()()"
-]
-
-
-
-public class Solution {
-   
-   
-    
-    public List<String> generateParenthesis(int n){
-        List<String> result = new ArrayList<>();
-        helper(result, n, n, "");
-        return result;
-    }
-    
-    public void helper(List<String> result, int left, int right, String brackets){
-        if (left == 0 && right == 0)
-            result.add(brackets);
-        if (left > 0)
-            helper(result, left - 1, right, brackets + "(");
-        if (right > 0 && right > left)
-            helper(result, left, right - 1, brackets + ")");
-    }
-   
-}
 
 
 Merge Two Sorted Lists
@@ -809,18 +589,18 @@ Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
 
 public class Solution {
     public List<String> letterCombinations(String digits) {
-        String[] mapping = new String[]{"0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs","tuv", "wxyz"};
-        LinkedList<String> list = new LinkedList<>();
-        if (digits.length() == 0)
+       String[] mapping = {"", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        List<String> list =  new LinkedList<>();
+        if (digits == null || digits.length() == 0)
             return list;
         list.add("");
         for (int i = 0; i < digits.length(); i++){
-            int digit = Character.getNumericValue(digits.charAt(i));
-            while (list.peek().length() == i){
-                String t = list.remove();
-                System.out.println(t);
-                for (char s: mapping[digit].toCharArray())
-                    list.add(t + s);
+            int digit = digits.charAt(i) - '0';
+            while(list.get(0).length() == i){
+                String t = list.remove(0);
+                for (char c: mapping[digit].toCharArray()){
+                    list.add(t + c);
+                }
             }
         }
         return list;
@@ -1324,98 +1104,9 @@ public class Solution2 {
 
 
 
-Trapping Rain Water   Add to List QuestionEditorial Solution  My Submissions
-Total Accepted: 92692
-Total Submissions: 264220
-Difficulty: Hard
-Contributors: Admin
-Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it is able to trap after raining.
-
-For example, 
-Given [0,1,0,2,1,0,1,3,2,1,2,1], return 6.
 
 
-revise this
 
-Multiply Strings   Add to List QuestionEditorial Solution  My Submissions
-Total Accepted: 84540
-Total Submissions: 328200
-Difficulty: Medium
-Contributors: Admin
-Given two numbers represented as strings, return multiplication of the numbers as a string.
-
-Note:
-The numbers can be arbitrarily large and are non-negative.
-Converting the input string to integer is NOT allowed.
-You should NOT use internal library such as BigInteger
-
-public class Solution {
-    public String multiply(String num1, String num2) {
-        if (num1.equals("0") || num2.equals("0")) return "0";
-        int m = num1.length() - 1, n = num2.length() - 1, carry = 0;
-        StringBuilder product = new StringBuilder();
-        
-        int i = 0;
-        while (i <= (m + n) || carry > 0){
-            for (int j = Math.max(0, i - n); j <= Math.min(i, m); j++)
-                carry += (num1.charAt(m - j) - '0') * (num2.charAt(n - i + j) - '0');
-            product.append(carry % 10);
-            carry /= 10;
-            i++;
-        }
-        return product.reverse().toString();
-    }
-}
-
-
-Wildcard Matching   Add to List QuestionEditorial Solution  My Submissions
-Total Accepted: 77812
-Total Submissions: 412936
-Difficulty: Hard
-Contributors: Admin
-Implement wildcard pattern matching with support for '?' and '*'.
-
-'?' Matches any single character.
-'*' Matches any sequence of characters (including the empty sequence).
-
-The matching should cover the entire input string (not partial).
-
-The function prototype should be:
-bool isMatch(const char *s, const char *p)
-
-Some examples:
-isMatch("aa","a") → false
-isMatch("aa","aa") → true
-isMatch("aaa","aa") → false
-isMatch("aa", "*") → true
-isMatch("aa", "a*") → true
-isMatch("ab", "?*") → true
-isMatch("aab", "c*a*b") → false
-
-public class Solution {
-    public boolean isMatch(String s, String p) {
-        int R = s.length();
-        int C = p.length();
-        boolean[][] dp = new boolean[R + 1][C + 1];
-        dp[0][0] = true;
-        // fill first row;
-        for (int j = 1; j <= C; j++)
-            if (p.charAt(j - 1) == '*')
-                dp[0][j] = dp[0][j - 1];
-        
-        for (int i = 1; i <= R; i++){
-            for (int j = 1; j <= C; j++){
-                
-                if (p.charAt(j - 1) == '*')
-                    dp[i][j] = dp[i - 1][j] || dp[i][j - 1];
-                else if (s.charAt(i - 1) == p.charAt(j - 1) || 
-                        p.charAt(j - 1) == '?')
-                    dp[i][j] = dp[i - 1][j - 1];
-            }
-        }
-        return dp[R][C];
-    }
-}
 
 
 Jump Game II   Add to List QuestionEditorial Solution  My Submissions
@@ -4842,7 +4533,7 @@ Contributors: Admin
 Given a singly linked list L: L0→L1→…→Ln-1→Ln,
 reorder it to: L0→Ln→L1→Ln-1→L2→Ln-2→…
 
-You must do this in-place without altering the nodes' values.
+You must do this in-place without altering the nodes values.
 
 For example,
 Given {1,2,3,4}, reorder it to {1,4,2,3}.
@@ -7112,7 +6803,7 @@ Given a binary search tree, write a function kthSmallest to find the kth smalles
 
 Note: 
 You may assume k is always valid, 1 ≤ k ≤ BST's total elements.
-
+ sma
 Follow up:
 What if the BST is modified (insert/delete operations) often and you need to find the kth smallest frequently? How would you optimize the kthSmallest routine?
 
@@ -7678,7 +7369,6 @@ public class Solution {
     }
 }
 
-
 iven an array nums containing n + 1 integers where each integer is between 1 and n (inclusive), prove that at least one duplicate number must exist. Assume that there is only one duplicate number, find the duplicate one.
 
 Note:
@@ -7827,6 +7517,50 @@ For example, you may serialize the following tree
      / \
     4   5
 as "[1,2,3,null,null,4,5]", just the same as how LeetCode OJ serializes a binary tree. You do not necessarily need to follow this format, so please be creative and come up with different approaches yourself.
+
+public class Codec {
+
+    // Encodes a tree to a single string.
+    public String serialize(TreeNode root) {
+        StringBuilder serializedString = new StringBuilder();
+        helper(root, serializedString);
+        return serializedString.toString();
+    }
+    
+    public void helper(TreeNode root, StringBuilder sb){
+        if (root == null){
+            sb.append("null,");
+            return;
+        }
+        sb.append(root.val + ",");
+        helper(root.left, sb);
+        helper(root.right, sb);
+    }
+    int index = 0;
+    // Decodes your encoded data to tree.
+    public TreeNode deserialize(String data) {
+        String[] tokens = data.split(",");
+        return deHelper(tokens);
+    }
+    
+    public TreeNode deHelper(String[] token){
+        if (index == token.length || token[index].equals("null")){
+            index += 1;
+            return null;
+        }
+        TreeNode node = new TreeNode(Integer.parseInt(token[index]));
+        index += 1;
+        node.left = deHelper(token);
+        node.right = deHelper(token);
+        return node;
+        
+    }
+}
+
+// Your Codec object will be instantiated and called as such:
+// Codec codec = new Codec();
+// codec.deserialize(codec.serialize(root));
+
 
 
 You are playing the following Bulls and Cows game with your friend: You write down a number and ask your friend to guess what the number is. Each time your friend makes a guess, you provide a hint that indicates how many digits in said guess match your secret number exactly in both digit and position (called "bulls") and how many digits match the secret number but locate in the wrong position (called "cows"). Your friend will use successive guesses and hints to eventually derive the secret number.
@@ -9047,7 +8781,7 @@ public class RandomizedSet {
         int index = map.remove(val);
         int lastElement = list.remove(list.size() - 1);
         if (lastElement == val) return true;
-        map.put(lastElement, index);
+        map.put(lastElement, index);//IMPORTANT
         list.set(index, lastElement);
         return true;
     }
@@ -9942,35 +9676,25 @@ The substring with start index = 2 is "ab", which is an anagram of "ab".
 
 public class Solution {
     public List<Integer> findAnagrams(String s, String p) {
-           
-        List<Integer> result = new ArrayList<>();
-        int[] charp = new int[26];
-        int left = 0;
-        int right = 0;
-        int count = p.length();
-        for (int i = 0; i < p.length(); i++)
-            charp[p.charAt(i) - 'a']++;
-        while (right < s.length()){
-            //if (charp[s.charAt(right++) - 'a']-- >= 1){
-            if (charp[s.charAt(right) - 'a'] >= 1)
-                count--;
-            
-            charp[s.charAt(right) - 'a']--;
-            right++;
-            
-            if (count == 0)
-                result.add(left);
-            if (right - left >= p.length() &&
-                charp[s.charAt(left) - 'a'] >= 0)
-                count++;
-                
-                charp[s.charAt(left) - 'a']++;
-                left++;
-            
+        List<Integer> res = new ArrayList<>();
+        int slen = s.length(), plen = p.length();
+        if (slen < plen) return res;
+        for (int i = 0; i < slen - plen + 1; i++){
+            if (isAn(s.substring(i, i + plen ), p))
+                res.add(i);
         }
- 
-        return result;
+        return res;
+    }
     
+    public boolean isAn(String a, String b){
+        int[] ascii = new int[256];
+        for (int i = 0; i < a.length(); i++){
+            ascii[a.charAt(i)]++;
+            ascii[b.charAt(i)]--;
+        }
+        for (int n: ascii)
+            if (n != 0) return false;
+        return true;
     }
 }
 
@@ -10192,7 +9916,10 @@ public class Solution {
         for (int num: nums) res += (num - minValue);
         return res;
         
-        //https://discuss.leetcode.com/topic/67017/java-o-n-accepted-solution-with-explanation
+        //https://discuss.leetcode.com/topic/66557/java-o-n-solution-short
+        Adding 1 to n - 1 elements is the same as subtracting 1 from one element, w.r.t goal of making the elements in the array equal.
+So, best way to do this is make all the elements in the array equal to the min element.
+sum(array) - n * minimum
     }
 }
 
@@ -10491,6 +10218,73 @@ public class Solution {
 }
 
 
+ Substring with Concatenation of All Words
+ 
+You are given a string, s, and a list of words, words, that are all of the same length. Find all starting indices of substring(s) in s that is a concatenation of each word in words exactly once and without any intervening characters.
+
+For example, given:
+s: "barfoothefoobarman"
+words: ["foo", "bar"]
+
+You should return the indices: [0,9].
+(order does not matter).
+
+
+ public class Solution {
+    public List<Integer> findSubstring(String s, String[] words) {
+    List<Integer> ans = new ArrayList<>();
+	if (s == null || words.length == 0) return ans;
+	int n = words.length, wordLen = words[0].length();
+    Map<String, Integer> hist = new HashMap<>();
+    for (String w : words) {
+    	hist.put(w, hist.getOrDefault(w, 0)+1);
+    }
+	Map<String, Integer> curHist = new HashMap<>();
+    for (int i = 0; i <= s.length() - n*wordLen; i++) {
+    	if (hist.containsKey(s.substring(i, i+wordLen))) {
+    		curHist.clear();
+    		for (int j = 0; j < n; j++) {
+    			String word = s.substring(i + j*wordLen, i+(j+1)*wordLen);
+    			if (hist.containsKey(word)) {
+    				curHist.put(word, curHist.getOrDefault(word, 0) + 1);
+    				if (curHist.get(word) > hist.get(word))
+    					break;
+    			} else 
+    				break;
+    		}
+    		if (hist.equals(curHist)) ans.add(i);
+    	}
+    }
+    return ans;
+    }
+}
+
+
+Divide two integers without using multiplication, division and mod operator.
+
+If it is overflow, return MAX_INT.
+
+
+public class Solution {
+    public int divide(int dividend, int divisor) {
+        boolean isNegative = (dividend < 0 && divisor > 0) || (dividend > 0 && divisor < 0) ? true : false;
+        long absDividend = Math.abs((long) dividend);
+        long absDivisor = Math.abs((long) divisor);
+        long result = 0;
+        while(absDividend >= absDivisor){
+            long tmp = absDivisor, count = 1;
+            while(tmp <= absDividend){
+                tmp <<= 1;
+                count <<= 1;
+            }
+            result += count >> 1;
+            absDividend -= tmp >> 1;
+        }
+        return  isNegative ? (int) ~result + 1 : result > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) result;
+    }
+    
+    // EXPLANATION: https://discuss.leetcode.com/topic/45980/very-detailed-step-by-step-explanation-java-solution
+}
 
 
 

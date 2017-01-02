@@ -19,3 +19,8 @@ previous holds the number of previous adjacent sequence of 1s
     }
     return maxSoFar;
   }
+
+  6 - 8
+  sleep
+  8 - 8:40 commute
+  
