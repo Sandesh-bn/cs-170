@@ -11,7 +11,7 @@ For example,
   [3,2,1]
 ]
 
-
+Set<List<Integer>> result = new HashSet<>();//if the array has duplicates if [1,1,2] to avoid [[1,1,2],[1,2,1],[1,1,2],[1,2,1],[2,1,1],[2,1,1]]
 public List<List<Integer>> permute(int[] nums){
     List<List<Integer>> result = new ArrayList<>();
     permute(result, nums, 0, nums.length - 1);
@@ -33,6 +33,9 @@ public void permute(List<List<Integer>> result, int[] nums, int low, int high){
         }
     }
 }
+
+
+
 
 O(n*n!) Note that there are n! permutations and it requires O(n) time to print a a permutation.
 public void swap(int[] A, int l, int r){

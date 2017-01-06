@@ -59,7 +59,7 @@ class Graph{
 		}
 
 		visited[s] = false;
-		stack.pop();
+		stack.pop(); // backtracking to preevious node
 	}
 
 	private void printStack(Stack<Integer> stack) {

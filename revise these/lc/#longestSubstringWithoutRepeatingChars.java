@@ -15,6 +15,28 @@ Given "pwwkew", the answer is "wke", with the length of 3. Note that the answer 
 
 public class Solution {
     public int lengthOfLongestSubstring(String s) {
+        int longestSoFar = 0;
+        Map<Character, Integer> map = new HashMap<>();
+        int i = 0;
+        while (i < s.length()){
+            char ch = s.charAt(i);
+            
+            if (!map.containsKey(ch)){
+                map.put(ch, i);
+                i++;
+            }
+            else{
+                i = map.get(ch) + 1;
+                map.clear();
+            }
+            longestSoFar = Math.max(map.size(), longestSoFar);
+        }
+        return longestSoFar;
+    }
+}
+
+// this fails for large inputs but the below algo works for all cases
+public int lengthOfLongestSubstring(String s) {
         if (s.length() == 0) return 0;
         Map<Character, Integer> map = new HashMap<>();
         int maxSoFar = 0, i = 0, j = 0;

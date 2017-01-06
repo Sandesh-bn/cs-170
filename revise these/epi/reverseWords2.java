@@ -22,3 +22,7 @@ public void reverse(char[] s, int l, int r){
 		r--;
 	}
 }
+
+
+eulb si yks eht
+blue is sky thte

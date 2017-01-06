@@ -1,3 +1,12 @@
+here there might be disconnected components.
+we maintain a map: key-component number; value- all nodes belonging to same component
+we start bfs from each of the nodes and incrmenet componentnumber and add all the nodes that were 
+accesible as value in the map .
+we also update visited array. we use the component number to update the visited array
+when we query for a node we check if it has been already visited. (visited[node] != 0)
+if so we retrieve the value corresponding to that component number from the map map.get(visited[node])
+it returns all the list of nodes which belong to same component.
+
 import java.util.*;
 class Main {
   public static void main(String[] args) {

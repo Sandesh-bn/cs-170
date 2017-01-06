@@ -45,3 +45,6 @@ will it contain spaces in the middle
 will it contain alphabets?
 range of number
 */
+
+test cases '               -123'
+test cases '         +123 45'

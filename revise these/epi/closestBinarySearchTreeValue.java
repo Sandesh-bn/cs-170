@@ -8,7 +8,10 @@ public int closestBSTValue(int target, TreeNode root){
 	int minVal = root.val;
 	ListNode curr = root;
 	while (curr != null){
-		minVal = Math.min(Math.abs(target - curr.val), Math.abs(target - min));
+		if (curr.val == target) return target;
+		if (Math.abs(curr.val - target) < Math.abs(minVal - target)){
+			minVal = curr.val;
+		}
 		if (curr.val < target)
 			curr = curr.right;
 		else

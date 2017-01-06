@@ -18,6 +18,10 @@ class Main {
     */
 
     //https://www.hackerearth.com/practice/algorithms/graphs/topological-sort/tutorial/
+
+	http://www.geeksforgeeks.org/topological-sorting/
+	from 3:00
+
     Graph g = new Graph(6);
     g.addEdge(1, 2);
     g.addEdge(2, 3);

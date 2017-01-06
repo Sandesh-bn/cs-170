@@ -497,3 +497,36 @@ class RandomizedSet{
         return true;
     }
 }
+
+
+class Graph{
+    private int V;
+
+    private HashSet<Integer> adj[];
+    public Graph(int v){
+        this.v = v;
+        adj = new HashSet[v];
+        for (int i = 0; i < v; i++)
+            adj[i] = new HashSet<>();
+    }
+
+    void addEdge(int v, int w){
+        adj[v].add(w);
+    }
+
+    void bfs(int source){
+        boolean visited[] = new boolean[v];
+        Queue<Integer> q = new LinkedList<>();
+        visited[source] = true;
+        queue.offer(source);
+
+        qhile(!q.isEmpty()){
+            int n = q.poll();
+            for (Integer neighbor: adj[n]){
+                if (!visited[neighbor]){
+                    q.offer(neighbor);
+                }
+            }
+        }
+    }
+}

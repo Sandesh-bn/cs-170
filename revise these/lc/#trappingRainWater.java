@@ -9,34 +9,34 @@ For example,
 Given [0,1,0,2,1,0,1,3,2,1,2,1], return 6.
 
 
-revise this
+public int maxRainWater(int[] heights){
+    if (heights == null || heights.length == 0)
+        return 0;
+    
+    int maxWater = 0, maxSeenSoFar = 0;
+    int N = heights.length;
 
-Multiply Strings   Add to List QuestionEditorial Solution  My Submissions
-Total Accepted: 84540
-Total Submissions: 328200
-Difficulty: Medium
-Contributors: Admin
-Given two numbers represented as strings, return multiplication of the numbers as a string.
+    int maxSeenRight[] = new int[N];
+    int maxSeenLeft[] = new int[N];
 
-Note:
-The numbers can be arbitrarily large and are non-negative.
-Converting the input string to integer is NOT allowed.
-You should NOT use internal library such as BigInteger
-
-public class Solution {
-    public String multiply(String num1, String num2) {
-        if (num1.equals("0") || num2.equals("0")) return "0";
-        int m = num1.length() - 1, n = num2.length() - 1, carry = 0;
-        StringBuilder product = new StringBuilder();
-        
-        int i = 0;
-        while (i <= (m + n) || carry > 0){
-            for (int j = Math.max(0, i - n); j <= Math.min(i, m); j++)
-                carry += (num1.charAt(m - j) - '0') * (num2.charAt(n - i + j) - '0');
-            product.append(carry % 10);
-            carry /= 10;
-            i++;
-        }
-        return product.reverse().toString();
+    for (int i = N - 1; i >= 0; i--){
+        if (heights[i] > maxSeenSoFar)
+            maxSeenSoFar = heights[i];
+        maxSeenRight[i] = maxSeenSoFar;
     }
+
+    maxSeenSoFar = 0;
+
+    for (int i = 0; i < N; i++){
+        if (heights[i] > maxSeenSoFar)
+            maxSeenSoFar = heights[i];
+        maxSeenLeft[i] = maxSeenSoFar;
+    }
+
+    for (int i = 0; i < N; i++){
+        maxWater += Math.max(0,
+                                Math.min(maxSeenLeft[i], maxSeenRight[i]) - heights[i]);
+    }
+
+    return maxWater;
 }

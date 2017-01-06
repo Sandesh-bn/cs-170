@@ -11,6 +11,12 @@ public class Solution{
 		target = num;
 	}
 	
+	// if player is '0' it is 1 if player is 'X' it is -1
+	// result is 3 for '0' player and -3 for 'X' player
+	// we use 1 dimensional array to keep track of rows and 1 dimensional for columns
+	// since there is only one diagonal one variable is enough for diangoanl.
+	// this arrangement avoids n*n space
+	// if any of the rows/cols/diagonal has value of 3 after '0' plays, '0' wins
 	public int move(int row, int col, int player){
 		int sign = (player == 1)?1: -1;
 		int res = sign * target;

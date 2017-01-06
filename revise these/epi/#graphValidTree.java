@@ -10,6 +10,36 @@ Hint:
 
 Given n = 5 and edges = [[0, 1], [1, 2], [3, 4]], what should your return? Is this case a valid tree? Show More Hint Note: you can assume that no duplicate edges will appear in edges. Since all edges are undirected, [0, 1] is the same as [1, 0] and thus will not appear together in edges.
 
+BFS
+public boolean validTree(int n, int[][] edges){
+    Map<Integer, List<Integer>> adj = new HashMap<>();
+    for (int i = 0; i < n; i++){
+        adj.put(i, new ArrayList<>());
+    }
+    for (int[] edge: edges){
+        adj.get(edge[0]).add(edge[1]);
+        adj.get(edge[1]).add(edge[0]);
+    }
+
+    boolean[] visited = new boolean[n];
+    Queue<Integer> q = new LinkedList<>();
+    q.offer(0);
+
+    while(!q.isEmpty()){
+        int top = q.poll();
+        if (visited[top])return false;
+        visited[top] = true;
+
+        for (int neigh: map.get(top)){
+            if (!visited[neigh])
+                q.ffer(neigh);
+        }
+    }
+    for (boolean b: visited)
+        if(!b) return false;
+
+    return true;
+}
 
 public boolean validTree(int n, int[][] edges) {
     boolean[] visited = new boolean[n];
