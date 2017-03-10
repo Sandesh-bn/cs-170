@@ -1,0 +1,33 @@
+<!doctype html>
+<html >
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+    <script>
+       var a = angular.module("sample", []);
+       a.controller("emp", ["$scope", function($scope){
+           $scope.Name = "dummy"
+       }])
+
+       a.controller("empDetails", ["$scope", function($scope){
+           $scope.salary = 500
+       }])
+
+       a.controller("empPayCheck", ["$scope", function($scope){
+           $scope.getTaxes = function(){
+               return $scope.salary * .30;
+           }
+       }])
+    </script>
+  </head>
+  <body ng-app="sample">
+      <div ng-controller="emp">
+          <div ng-controller="empDetails">
+              Hola {{Name}}. Salry {{salary}}
+              <div ng-controller="empPayCheck">
+                  The taxes is {{getTaxes()}}
+              </div>
+          </div>
+          
+      </div>
+  </body>
+</html>

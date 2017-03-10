@@ -530,3 +530,191 @@ class Graph{
         }
     }
 }
+
+public TreeNode deletNode(TreeNode n, int k){
+    if (n == null) return null;
+    TreeNode temp = n, parent = n;
+    boolean isLeftChild = true;
+
+    while(temp.value != k){
+        parent = temp;
+        if (temp.value < k){
+      
+            temp = temp.left;
+            isLeftchild = true;
+        }
+        if (temp.value > k){
+            temp = temp.right;
+            isLeftChild = false;
+        }
+        if (temp == null) 
+            return null;
+    }
+
+    if (temp.left == null && temp.right == null){
+        if (temp == root)
+            return null;
+        else if (isLeftchild)
+            parent.left = null;
+        else
+            parent.right = null;
+    }
+
+    else if (temp.left == null){
+        if (temp == root)
+            root = temp.right;
+        else if (isLeftChild)
+            parent.left = temp.right;
+        else if (isRightChild)
+            parent.right = temp.right;
+    }
+
+    else if (temp.right == null){
+        if (temp == root)
+            root = temp.left;
+        else if(isLeftchild)
+            parent.left = temp.left;
+        else if (isRightChild)
+            parent.right = temp.right;
+    }
+
+    else {
+        TreeNode succ = getSucc(temp);
+
+        if (temp == root)
+            root = succ;
+        if (isLeftchild)
+            parent.left = succ;
+        if (isRightChidl)
+            parent.right = succ;
+    }
+    return root;
+}
+public TreeNode getSucc(TreeNode delNode){
+    TreeNode succ = delNode, succParent = delNode, temp = delNode.right;
+    while(temp != null){
+        succParent = succ;
+        succ = temp; 
+        temp = temp.left;
+    }
+    if (delNode.right!= null)[
+        succParent.left = succ.left;
+        succ.right = delNode.right;
+    ]
+    return succ;
+}
+
+public int kthLargest(int[] A, int k){
+    int start = 0, end = A.length - 1;
+    while(start < end){
+        int pivot = partiotn(A, start, end);
+        if (pivot == k)return A[k];
+        if (pivot < k) start = pivot + 1;
+        else 
+            end = pivot - 1;
+    }
+    return A[start];
+}
+
+
+
+public List<String> letterComb(String digits){
+    String[] mapping = {"0", "1", "abc", "def", "ghi"};
+    LinkedList<String> list = new LinkedList<>();
+    list.add("");
+    for (int i = 0; i < digits.length(); i++){
+        int digit = digits.charAt(i) - '0';
+        int size = list.size();
+        for (int j = 0; j < size; j++){
+            String f = list.remove();
+            for (char c: mapping[digit].toCharArray()){
+                list.add(f + s);
+            }
+        }
+    }
+}
+
+
+
+public void populate(TreeNode root){
+    TreeNode dummy = new TreeNode(0);
+    TreeNode prev = dummy;
+    while(root != null){
+        if (root.left != null){
+            prev.next = root.left;
+            prev = prev.next;
+        }
+        if (root.right != null){
+            prev.next = root.right;
+            prev = prev.next;
+        }
+        root = root.next;
+        if (root == null){
+            root = dummy.next;
+            prev = dummy;
+            dummy = null;
+        }
+    }
+}
+
+
+public boolean isUgly(int n){
+    while(n % 2 == 0)
+        n /= 2;
+    while(n % 3 == 0)
+        n /= 3;
+    while(n % 5 == 0)
+        n/= 5;
+    return n == 1;
+}
+
+
+public int nthUgly(int n){
+    int i2 = 0, i3 = 0, i5 = 0;
+    int m2  = 2, m3 =  3, m5 = 5;
+    int dp[] = new int[n];
+    dp[0] = 1;
+    for (Int i = 1; i < n; i++){
+        int min = Math.min(m2, m3, m5);
+        dp[i] = min;
+        if (m2 == min){
+            i2++;
+            m2 = 2 * dp[i2];
+        }
+        if (m3 == min){
+            i3++;
+            m3 = 3 * dp[i3];
+        }
+        if (m5 == min){
+            i5++;
+            m5 = 5 * dp[i5];
+        }
+    }
+
+}
+
+public int[] searchRange(int[] A, int x){
+    int start = 0, high = N - 1;
+    int[] ret = {-1, -1};
+    while(start < high){
+        int mid = (start + high)/2;
+        if (A[mid] < x)
+            low = mid + 1;
+        else
+            h = mid;
+    }
+    if (A[low] != x)
+        return ret;
+    ret[0] = l;
+    high = N - 1;
+    while(start < high){
+        int id = (start + end)/2 + 1;
+
+        if (A[mid] > x)
+            high = mid - 1;
+        else
+            low = mid;
+    }
+    ret[1] = 
+
+}

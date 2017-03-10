@@ -9,3 +9,15 @@ Output:180  minutes  ({30,  60,  45,  45}).
 
 check out the solution approach in the hard solution in ctci. only consider the iterative dp approache. it is 
 very simple
+
+public int maxMinutes(int[] arr){
+    int even = 0, odd = 0;
+    for (int i = arr.length - 1; i >= 0; i--){
+        int bestWith = arr[i] + even;
+        int bestWithout = odd;
+        even = odd;
+        odd = Math.max(bestWith, bestWithout);
+    }
+    return odd;
+
+}

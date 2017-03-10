@@ -19,3 +19,14 @@ public int minimumCapacity(int[] Z){
 	}
 	return maxDiff;
 }
+
+
+
+Suppose the three-dimensions correspond to x, y, and z, with z being
+the vertical dimension. Since energy usage depends on the change in height of the
+robot, we can ignore the x and y coordinates. Suppose the points where the robot
+goes in successive order have z coordinates Zo, ... r Zn+ Assume that the battery
+capacity is such that with the fully charged battery, the robot can climb B meters.
+The robot will run out of energy iff there exist integers i and j such that i < j and
+zj- Zi > B, i.e., to go from Point i to Point i.the robot has to climbmore than B meters.
+Therefore,we would like to pick B such that for any i < j, we have B >= zJ - Zi.

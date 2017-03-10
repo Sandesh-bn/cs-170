@@ -152,6 +152,8 @@ public class Solution {
     }
 
 
+
+
 Longest Valid Parentheses
 Given a string containing just the characters '(' and ')', find the length of the longest valid (well-formed) parentheses substring.
 
@@ -603,6 +605,7 @@ public class Solution {
 }
 
 
+
 16. 3Sum Closest   Add to List QuestionEditorial Solution  My Submissions
 Total Accepted: 105504
 Total Submissions: 346568
@@ -938,6 +941,17 @@ public class Solution {
     }
 }
 
+public String lonngest(String s){
+    String res = "";
+    for (int i = 0; i < N; i++){
+        String pal = create(s, i, i);
+        if (pal.length() > res.length())
+            pal = res;
+        pal = create(s, i, i + 1);
+
+    }
+}
+
 Median of Two Sorted Arrays of size m and n
 Example 1:
 nums1 = [1, 3]
@@ -1000,6 +1014,28 @@ public class Solution {
     }
 }
 
+
+public int median(int[] A, int[] B){
+    int pA = 0, pB = 0;
+    PriorityQueue<INteger> minHeap  =new PriorityQueue<>();
+    PriorityQueue<INteger> maxHeap = new PriorityQueue<>(Collections.reverseorder());
+    while(pA < A.length || pB < B.length){
+        if (pA < A.elngth){
+            if (maxHeap.isEmpty() || A[pA] < maxHeap.peek())
+                maxHeap.offer(A[pA]);
+            else
+                minHeap.offer(A[pA]);
+        }
+        if (pB < B.length){
+            if (maxHeap.isEmpty() || B[pB] <= maxHeap.peek())
+                maxHeap.offer(B[pB]);
+            else
+                 minHeap.offer(B[pB]);
+        }
+
+        adjust the size
+    }
+}
  Longest Substring Without Repeating Characters   Add to List QuestionEditorial Solution  My Submissions
 Total Accepted: 225533
 Total Submissions: 956174
@@ -1343,6 +1379,37 @@ public class Solution {
     }
 }
 
+LeetCode – Maximum Size Subarray Sum Equals k (Java)
+ 
+Given an array nums and a target value k, find the maximum length of a subarray that sums to k. If there isn't one, return 0 instead.
+
+Note:
+The sum of the entire nums array is guaranteed to fit within the 32-bit signed integer range.
+
+Example 1:
+Given nums = [1, -1, 5, -2, 3], k = 3,
+return 4. (because the subarray [1, -1, 5, -2] sums to 3 and is the longest)
+O(N) algo here: 
+http://www.programcreek.com/2014/10/leetcode-maximum-size-subarray-sum-equals-k-java/
+https://discuss.leetcode.com/topic/33270/java-easy-to-understand-solution-with-hashmap-31ms
+easy O(N ^ 2) here;
+
+public int maxSubArrayLen(int[] A, int k){
+    int maxLen = 0;
+    for (int i = 0; i < N; i++){
+        int sum = 0;
+        for (int j = i; j < N: j++){
+            if (sum += nums[j] == k){
+                int len = j - i + 1;
+                maxLen = Math.max(maxLen, len);
+            }
+        }
+    }
+    return maxLen;
+}
+
+
+
 
  N-Queens   Add to List QuestionEditorial Solution  My Submissions
 Total Accepted: 68488
@@ -1657,6 +1724,21 @@ https://discuss.leetcode.com/topic/28797/my-easy-java-solution
             helper(result, left, right - 1, brackets + ")");
     }
 
+public List<String> ge(int n){
+    List<String> re s= new ArrayList<>();
+    helper(n, n, ""):
+    return res;
+}
+
+public void helper(List<String> res, int left, int right, String b){
+    if (left == 0 && rihgt = 0)
+        res.add(b);
+    if (left > 0)
+        helper(res, left - 1, right, b +  "(");
+    if (right > 0 && right > left)
+        helper(res, left, right - 1, b + ")")
+}
+
 
  Spiral Matrix II   Add to List QuestionEditorial Solution  My Submissions
 Total Accepted: 69270
@@ -1854,6 +1936,7 @@ public class Solution {
     }
 }
 
+
 Follow up for "Unique Paths":
 
 Now consider if some obstacles are added to the grids. How many unique paths would there be?
@@ -1918,6 +2001,19 @@ public class Solution {
         return dp[M - 1][N - 1];
     }
     
+    }
+}
+
+public int minPath(int[][] grid){
+    int M = grid.ength, N = grid[0].length;
+    int[][] dp = new int[M][N];
+    for (int i = 0; i < M; i++){
+        for (int j = 0; j < N; j++){
+            if (i == 0 && j== 0) dp[i][j] = grid[i][j];
+            if (i == 0)dp[i][j] = grid[j][[j] + d[i][j - 1];
+            if (j == 0)dp[i][j] = grid[i][j] + dp[i - 1][j];
+            else dp[i][j] = grid[i][j] + min()
+        }
     }
 }
 
@@ -2269,6 +2365,42 @@ public class Solution {
 }
 
 
+http://www.geeksforgeeks.org/diameter-of-a-binary-tree/
+Time Complexity: O(n^2)
+diamter of a binary tree
+class TreeNode{
+    private int data;
+    TreeNode left, right;
+    public TreeNode(int data){
+        this.data = data;
+        left = right = null;
+    }
+
+}
+
+
+
+class BinartyTree{
+    TreeNode root;
+    public int diamter(TreeNode root){
+        if (root == null)return 0;
+
+        int lHeight = getheight(root.left);
+        int rHeight = getheight(root.right);
+
+        int lDiamter = diamter(root.left);
+        int rDiamter = diamter(root.right);
+
+        Max(lheight + rheight + 1, ldiamter, rDiamter)
+    }
+
+    int height(root){
+        if (node == null) return 0;
+        return (1 + max(height(root.left), height(root.right));
+    }
+}
+
+
 Minimum Window Substring   Add to List QuestionEditorial Solution  My Submissions
 Total Accepted: 83038
 Total Submissions: 351914
@@ -2397,6 +2529,7 @@ Given a 2D board and a word, find if the word exists in the grid.
 The word can be constructed from letters of sequentially adjacent cell, where "adjacent" cells are those horizontally or vertically neighboring. The same letter cell may not be used more than once.
 
 For example,
+
 Given board =
 
 [
@@ -2443,7 +2576,6 @@ public class Solution {
     
     
 }
-
 
 Remove Duplicates from Sorted Array II   Add to List QuestionEditorial Solution  My Submissions
 Total Accepted: 98712
@@ -2506,6 +2638,7 @@ public class Solution {
 }
 
 
+}
 
 Remove Duplicates from Sorted List II   Add to List QuestionEditorial Solution  My Submissions
 Total Accepted: 92867
@@ -2608,6 +2741,37 @@ The largest rectangle is shown in the shaded area, which has area = 10 unit.
 For example,
 Given heights = [2,1,5,6,2,3],
 return 10.
+ public int maxAreaHistogram(int[] heights){
+        if (heights == null) return 0;
+        Deque<Integer> stack = new LinkedList<>();
+        int i = 0, maxArea = 0, area = 0;
+        
+        while(i < heights.length){
+            if (stack.isEmpty() || heights[stack.peek()] <= heights[i])
+                stack.push(i++);
+            else {
+                int top = stack.pop();
+                
+                if (stack.isEmpty()) // when we have the shortest bar still in the stack and we multiply it with i. because i define the upperbound of the range of bars with shorter heigths
+                    area = heights[top] * i;
+                else
+                    area = heights[top] * (i - stack.peek() - 1); // i, defines the upperbound. stack.peek() is the index where we first found a bar of that height.. 
+                maxArea = Math.max(area, maxArea);
+            }
+        }
+         // bars were in indreasing order of heights
+        while(!stack.isEmpty()){
+            int top = stack.pop();
+            if (stack.isEmpty())
+                area = heights[top] * i;
+            else
+                area = heights[top] * (i - stack.peek() - 1);
+            maxArea = Math.max(area, maxArea);
+        }
+        return maxArea;
+    }
+
+
 
 public class Solution {
     public int largestRectangleArea(int[] heights) {
@@ -3052,35 +3216,43 @@ public class Solution {
         }
         return result;
     }
-    
-    public List<TreeNode> generateTrees(int n){
-        return (n == 0)?new ArrayList<>():genearateTrees(1, n);
+
+}
+
+ppublic LIst<TreeNode> generatePTre(int n){
+    if (n == 0)
+        return new ;
+    else
+        return generate(1, n);
+}
+
+public List<TreeNode> generate(int start, int end){
+    List<TreeNode> res = new ArraYLIst<>();
+
+    if (start > end){
+        result.add(null);
+        retunr eresu;
     }
-    
-    public List<TreeNode> generateTrees(int start, int end){
-        List<TreeNode> result = new ArrayList<>();
-        if (start > end){
-            result.add(null);
-            return result;
-        }
-        
-        for (int i = 1; i <= n; i++){
-            List<TreeNode> leftSubtrees = generateTrees(1, i - 1);
-            List<TreeNode> rightSubTrees = generateTrees(i + 1, n);
-            for (Tree leftSubtree: leftSubtrees){
-                for (Tree rightSubtree: rightSubTrees){
-                    TreeNode root = new TreeNode(i);
-                    root.left = leftSubTree;
-                    root.right = rightSubtree;
-                    result.add(root);
-                }
+
+    for (int i = start; i < end; i++){
+        List<TreeNode> left = generate(istart, i - 1);
+        List<TreeNode> right = generate(i + 1, end);
+        for (TreeNode l: left){
+            for (TreeNode r: right){
+                TreeNode root = new TreeNode(i);
+                root.left = l;
+                root.right = r;
+                result.add(root);
             }
         }
     }
-    
-    
 }
 
+
+public List<TreeNOde> generate(int n){
+    List<TreeNode> list = new ArrayList<>();
+    dfs(list, i, n);
+}
 Binary Tree Inorder Traversal   Add to List QuestionEditorial Solution  My Submissions
 Total Accepted: 166680
 Total Submissions: 383406
@@ -3646,6 +3818,7 @@ public int minMeetingRoomsWithConstantSpace(Interval[] intervals) {
     PriorityQueue<Integer> queue = new PriorityQueue<Integer>();
     int minRoom = 1;
     queue.offer(intervals[0].end);
+    heap is used to keep track of meeting with earliest end time.
     for (int i = 1; i < intervals.length; i++) {
         if (intervals[i].start < queue.peek()) {
             minRoom++;
@@ -3820,6 +3993,8 @@ private void dfs(TreeNode root, int curr, TreeNode prev){
 
 
 
+int max = 
+
 paint fence
 http://stackoverflow.com/questions/32444278/dynamic-programming-paint-fence-algorithm
 https://discuss.leetcode.com/topic/23426/o-n-time-java-solution-o-1-space/20
@@ -3903,7 +4078,7 @@ As one shortest transformation is "hit" -> "hot" -> "dot" -> "dog" -> "cog",
 return its length 5.
 
 Note:
-Return 0 if there is no such transformation sequence.
+Return 0 if there is no sucnexh transformation sequence.
 All words have the same length.
 All words contain only lowercase alphabetic characters.
 
@@ -5146,6 +5321,7 @@ public class Solution {
     }
 }
 
+
 Given a binary tree, return the postorder traversal of its nodes' values.
 
 For example:
@@ -5185,7 +5361,6 @@ public class Solution {
         return result;
     }
 }
-
 
 wildcard matching
 ? matches exactly one character * matches 0 or more characters
@@ -5354,6 +5529,72 @@ public class Solution {
 }
 
 
+class LFUCache{
+    private class Node{
+        Node prev, next;
+        int key, value;
+        public Node(int k, int v){
+            this.key = k;
+            this.value = v;
+        }
+    }
+
+    private Map<Integer, Node> map;
+    private Map<Integer, Integer> valueMap;
+    private int capacity;
+    private Node head = new Node(-1, -1);
+    private Node tail = new Node(-1, -1);
+    public LFUCache(int capacity){
+        this.map = new HashMap<>();
+        this.valueMap = new HashMap<>();
+        this.capacity = capacity;
+        tail.prev = head;
+        head.next = tail;
+        valueMap.put(-1, Integer.MAX_VALUE);
+    }
+
+
+    public int get(int key){
+        if (map.containsKey(key)){
+            increaseCount(key);
+            return map.get(key).value;
+        }
+        return -1;
+    }
+
+    public void put(int key, int value){
+        if (capacity == 0) return;
+
+        if (map.containsKey(key)){
+            map.get(key).value = value;
+            increaseCount(key);
+        }
+        else {
+
+            if (map.size() == capacity){
+                map.remove(head.next.key);
+                valueMap.remove(head.next.key);
+                head.next = head.next.next;
+                head.next.prev = head;
+            }
+
+            Node newNode = new Node(key, value);
+            map.put(key, newNode);
+            valueMap.put(key, 1);
+            addToHead(newNode);
+
+        }
+    }
+
+    private void addHead(Node n){
+        Node temp = head.next;
+        head.next = n;
+        n.prev = head;
+        n.next = temp;
+        temp.prev = n;
+        while(n != tail && valueMap.get)
+    }
+}
 Evaluate the value of an arithmetic expression in Reverse Polish Notation.
 
 Valid operators are +, -, *, /. Each operand may be an integer or another expression.
@@ -5389,10 +5630,11 @@ Some examples:
 
 bomb enemy
 O(m * n) time O(m + n) space
+import java.util.*;
 class Main {
   public static void main(String[] args) {
     System.out.println("hello world");
-    char[][] g = {{'0', 'E', '0', '0'},{'E', '0', '0', 'E'},{'0', 'E', '0', '0'}};
+    char[][] g = {{'0', 'E', '0', '0'},{'E', '0', 'W', 'E'},{'0', 'E', '0', '0'}};
     System.out.println(maxKilledEnemies(g));
   }
   
@@ -5404,13 +5646,19 @@ class Main {
       for (int j = 0; j < col; j++){
         if (i == 0 || grid[i - 1][j] == 'W'){
           colHits[j] = 0;
-          for (int k = i; k < row && grid[k][j] != 'W'; k++)
-            /*colHit*/colHits[j] += (grid[k][j] == 'E')?1:0;
+          int r = i;
+          while(r < row && grid[r][j] != 'W'){
+            colHits[j] += (grid[r][j] == 'E')?1:0;
+            r++;
+          }
         }
         if (j == 0 || grid[i][j - 1] == 'W'){
           rowHits[i] = 0;
-          for (int k = j; k < col && grid[i][k] != 'W'; k++)
-            /*rowHits*/rowHits[i] += grid[i][k] == 'E'?1:0;
+          int c = j;
+          while(c < col && grid[i][c] != 'W'){
+            rowHits[i] += grid[i][c] == 'E'?1:0;
+             c++;
+          }
         }
         if(grid[i][j] == '0')  // since we also count when cell is 'E' <+ dont say this unless asked
              ans = Math.max(ans, colHits[j]/*colHit*/ + rowHits[i]/*rowHits*/);
@@ -5433,7 +5681,30 @@ total number of enemies that can be killed is equal to sum of enemies killed fr
 
 
 
+Suppose you are at a party with n people (labeled from 0 to n - 1) and among them, there may exist one celebrity. The definition of a celebrity is that all the other n - 1 people know him/her but he/she does not know any of them.
 
+Now you want to find out who the celebrity is or verify that there is not one. The only thing you are allowed to do is to ask questions like: "Hi, A. Do you know B?" to get information of whether A knows B. You need to find out the celebrity (or verify there is not one) by asking as few questions as possible (in the asymptotic sense).
+
+You are given a helper function bool knows(a, b) which tells you whether A knows B. Implement a function int findCelebrity(n), your function should minimize the number of calls to knows
+
+public int findCelebrity(int n){
+    int c = 0;
+    
+    // find a person known by everyone
+    for (int i = 0; i < n; i++)
+        if (knows(c, i))c = i;
+    
+    // verify if c knows anyone before him, if true treturn -1;
+    for (int i = 0; i < c; i++)
+        if (knows(c, i)) return -1;
+
+    // verify if everyone knows c
+    for (int i = 0; i < n; i++)
+        if (!knows(i, c)) return -1;
+    
+    return c;
+
+}
 Binary Search Tree Iterator   Add to List QuestionEditorial Solution  My Submissions
 Total Accepted: 71761
 Total Submissions: 185704
@@ -5702,8 +5973,12 @@ For example:
 public class Solution {
     public int titleToNumber(String s) {
         int res = 0, N = s.length();
-        for (int i = 0; i < N; i++)
-            res += Math.pow(26, N - 1 - i) * (s.charAt(i) - 'A' + 1);
+        int x = 0;
+        for(int i =  N - 1; i >= 0; i--){
+            res += Math.pow(26,x)*(s.charAt(i)-'A'+1);
+            x++;
+        }
+        
         return res;
     }
 }
@@ -6131,10 +6406,7 @@ public class Solution {
         
         StringBuilder sb = new StringBuilder();
         for (int i = words.length - 1; i >= 0; i--) {
-            if (words[i].length() < 1)
-              continue;
-            if (words[i].length() > 0)
-               sb.append(words[i]);
+            sb.append(words[i]);
                
             if (i > 0)
               sb.append(" ");
@@ -6834,6 +7106,88 @@ public class Solution {
         return prefix.reverse().toString() + s;
     }
 }
+
+n-queen nqueen queen
+
+public class Solution {
+    Set<Integer> cols = new HashSet<>();
+    Set<Integer> diag = new HashSet<>();
+    Set<Integer> antiDiag = new HashSet<>();
+    private Set<Integer> antidiag = new HashSet<>();
+
+    public List<List<String>> solveNQueens(int n) {
+        List<List<String>> res = new ArrayList<>();
+        dfs(res, new ArrayList<>(), 0, n);
+        return res;
+    }
+    
+    private void dfs(List<List<String>> res, List<String> board, int row, int n){
+        if (row == n){
+            res.add(new ArrayList<>(board));
+            return;
+        }
+        for (int col = 0; col < n; col++){
+            if (cols.contains(col) ||
+                antiDiag.contains(row + col) ||
+                diag.contains(row - col) )
+                continue;
+            char[] currRow = new char[n];
+            for (int cell = 0; cell < n; cell++)
+                currRow[cell] = '.';
+            currRow[col] = 'Q';
+            String currRowString = new String(currRow);
+            board.add(currRowString);
+            cols.add(col);
+            antiDiag.add(row + col);
+            diag.add(row - col);
+            dfs(res, board, row + 1, n);
+            
+            cols.remove(col);
+            antiDiag.remove(row + col);
+            diag.remove(row - col);
+            board.remove(board.size() - 1);
+        }
+    }
+    
+   
+
+}
+
+n queen 2
+public class Solution {
+    Set<Integer> cols = new HashSet<>();
+    Set<Integer> diag = new HashSet<>();
+    Set<Integer> antiDiag = new HashSet<>();
+    int count = 0;
+    private Set<Integer> antidiag = new HashSet<>();
+    public int totalNQueens(int n) {
+        dfs( 0, n);
+        return count;
+    }
+    private void dfs(int row, int n){
+        if (row == n){
+            count++;
+            return;
+        }
+        for (int col = 0; col < n; col++){
+            if (cols.contains(col) ||
+                antiDiag.contains(row + col) ||
+                diag.contains(row - col) )
+                continue;
+            
+            cols.add(col);
+            antiDiag.add(row + col);
+            diag.add(row - col);
+            dfs(row + 1, n);
+            
+            cols.remove(col);
+            antiDiag.remove(row + col);
+            diag.remove(row - col);
+            
+        }
+    }
+}
+
 
  Kth Largest Element in an Array   Add to List QuestionEditorial Solution  My Submissions
 Total Accepted: 97555
@@ -7951,7 +8305,7 @@ rows = 3, cols = 6, sentence = ["a", "bcd", "e"]
 Output: 
 2
 
-Explanation:
+Explanat
 a-bcd- 
 e-a---
 bcd-e-
@@ -8202,6 +8556,7 @@ public TreeNode upsideDown(TreeNode root){
 	}
 	return head.right;
 }
+
 
 square root
 public int mySqrt(int x) {
@@ -8462,6 +8817,7 @@ public class Codec {
     }
 }
 
+
 // Your Codec object will be instantiated and called as such:
 // Codec codec = new Codec();
 // codec.deserialize(codec.serialize(root));
@@ -8563,6 +8919,8 @@ public class Solution {
     }
 }
 
+// longest increasing subsequence, 3 sum, regex matcher, search in rotated sorted array, add binary string, move zeroes to the end: facebook
+// groupon: kth smallest, number of islands, integer to roman
 
 Given an unsorted array of integers, find the length of longest increasing subsequence.
 
@@ -8610,16 +8968,16 @@ return -1.
 
 public int coinChange(int[] coins, int amount){
         if (coins == null || coins.length == 0 || amount < 1) return 0;
-        int dp[] = new int[amount + 1];
-        Arrays.fill(dp, Integer.MAX_VALUE);
-        dp[0] = 0;
-        for (int i = 0; i < coins.length; i++){
-            for (int j = coins[i]; j < dp.length; j++){// we start the inner loop from coins[i] and not 0 because if j is less than coins[i] you cannot form that denomination.
-                if (dp[j - coins[i]] != Integer.MAX_VALUE) // 1 + Math.max = Math.min
-                    dp[j] = Math.min(dp[j], 1 + dp[j - coins[i]]);
+        int T[] = new int[amount + 1];
+        Arrays.fill(T, Integer.MAX_VALUE);
+        T[0] = 0;
+        for (int j = 0; j < coins.length; j++){// we start the inner loop from coins[i] and not 0 because if j is less than coins[i] you cannot form that denomination.
+            for (int i = coins[j]; i < T.length; i++){
+                if (T[i - coins[j]] != Integer.MAX_VALUE)// 1 + Math.max = Math.min
+                    T[i] = Math.min(T[i], 1 + T[i - coins[j]]);
             }
         }
-        return (dp[amount] == Integer.MAX_VALUE)?-1: dp[amount];
+        return (T[amount] == Integer.MAX_VALUE)?-1:T[amount];
     }
 
 
@@ -9078,6 +9436,43 @@ public class Solution {
     }
 }
 
+3Sum Smaller
+Given an array of n integers nums and a target, find the number of index triplets i, j, k with 0 <= i < j < k < n that satisfy the condition nums[i] + nums[j] + nums[k] < target.
+
+For example, given nums = [-2, 0, 1, 3], and target = 2.
+
+Return 2. Because there are two triplets which sums are less than 2:
+
+[-2, 0, 1]
+[-2, 0, 3]
+Follow up: Could you solve it in O(n2) runtime?
+
+public int 3SumSmaller(int[] A, int k){
+    if (A == null || A.length == 0) return 0;
+    Arrays.sort(A);
+    for (int i = 0; i < N - 2; i++){
+        if (i  == 0 || A[i] != A[i - 1]){
+            int left = i + 1, right = N - 1;
+            while (left < right){
+                int sum = A[i] + A[left] + A[right];
+                if (sum > k){
+                    right--;
+                 
+                }
+                else {
+                count++;
+                left++;
+                right--;
+
+                }
+            }
+        }
+    }
+}
+
+
+
+
 
 One way to serialize a binary tree is to use pre-order traversal. When we encounter a non-null node, we record the node's value. If it is a null node, we record using a sentinel value such as #.
 
@@ -9115,18 +9510,16 @@ the sum of indegree and outdegree should be 0
 
 public class Solution {
    public boolean isValidSerialization(String preorder) {
-    String[] strs = preorder.split(",");
-    int degree = -1;         // root has no indegree, for compensate init with -1
-    for (String str: strs) {
-        degree++;             // all nodes have 1 indegree (root compensated)
-        if (degree > 0) {     // total degree should never exceeds 0
+    String[] nodes = preorder.split("#");
+    int diff = 1;
+    for (String t: nodes){
+        diff --;// every node has an indegree
+        if (diff < 0) 
             return false;
-        }      
-        if (!str.equals("#")) {// only non-leaf node has 2 outdegree
-            degree -= 2;
-        }  
+        if (!n.equals("#"))//non-leaf node has 2 outdegree
+            diff += 2;
     }
-    return degree == 0;
+    return diff == 0;
 }
 }
 
@@ -9212,6 +9605,38 @@ public class Solution {
 }
 
 
+public int subsort(int[] A){
+    //if len < 2 return 0;
+    int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
+    for (int i = 1; i < N; i++){
+        if (A[i] < A[i - 1]){
+
+            min = Math.min(min, A[i]);
+
+            max = Math.max(max, A[i - 1]);
+        }
+    }
+    if (max == Integer.MIN_VALUE) // array alread sorted
+        return 0;
+    
+    int m = 0, n = 0;
+    i = 0;
+    while(i < N && A[i] <= min){
+        m++;
+        i++;
+    }
+
+    i = N - 1;
+    while(i >= 0 && A[i] >= max){
+        i--
+    }
+
+    // index m + 1 and n - 1 will indicate the range of numbers to sort.
+    m++;
+    n--;
+    int upperboundIndex = N - n - 1;
+    return m + upperboundIndex;//minimum number of elements that has to be sorted
+}
 
 Given an unsorted array return whether an increasing subsequence of length 3 exists or not in the array.
 
@@ -9235,6 +9660,42 @@ public class Solution {
         return false;
     }
 }
+
+submatrix sum sub matrix sum
+
+
+private static int maxSubMatrixSum(int[][] arr){
+    int maxSum = 0;
+    int R = arr.length;
+    int C = arr[0].length;
+    for (int left = 0; left < C; left++){
+      int sub[] = new int[R];
+      Arrays.fill(sub, 0);
+      for (int right = left; right < C; right++){
+        for (int i = 0; i < R; i++)
+          sub[i] += arr[i][right];
+        
+        maxSum = Math.max(maxSum, maxSumSubarray(sub));
+      }
+        
+      
+    }
+    return maxSum;
+  }
+  private static int maxSumSubarray(int[] nums){
+    int N = nums.length;
+    int[] dp = new int[N];
+    dp[0] = nums[0];
+    int max = dp[0];
+    for (int i = 1; i < N; i++ ){
+      dp[i] = Math.max(nums[i], nums[i] + dp[i - 1]);
+      max = Math.max(max, dp[i]);
+    }
+    return max;
+  }
+
+
+
 
 minimum edit Distance
 public int minDistance(String word1, String word2) {
@@ -9306,8 +9767,32 @@ public class Solution {
 }
 
 
-
+count univalue subtree
 Given a list of unique words, find all pairs of distinct indices (i, j) in the given list, so that the concatenation of the two words, i.e. words[i] + words[j] is a palindrome.
+int count = 0;
+public int countUnivalSubTrees(TreeNode root){
+    helper(root);
+    return count;
+}
+
+public boolean helper(TreeNode root){
+    if (root == null)
+        return true;
+    if (root.left == null && root.right == null){
+        count++;
+        return true;
+    }
+    boolean left = helper(root.left);
+    boolean right = helper(root.right);
+
+    if (left && right && (root.left == null ||
+    root.left.val == root.val) && (root.right == null || root.right.val == root.val)){
+        count++;
+        return true;
+    }
+    return fale;
+}
+
 
 Example 1:
 Given words = ["bat", "tab", "cat"]
@@ -9389,20 +9874,7 @@ Given an integer (signed 32 bits), write a function to check whether it is a pow
 Example:
 Given num = 16, return true. Given num = 5, return false.
 
-public class Solution {
-    public boolean isPowerOfFour(int num) {
-      return (num > 0) && ((num & (num - 1)) == 0) && ((num - 1) % 3 == 0);
-    }
-}
-
-Given a positive integer n, break it into the sum of at least two positive integers and maximize the product of those integers. Return the maximum product you can get.
-
-For example, given n = 2, return 1 (2 = 1 + 1); given n = 10, return 36 (10 = 3 + 3 + 4).
-
-
-public class Solution {
-    public int integerBreak(int n) {
-        if (n == 2 || n == 3) return n - 1;
+4sum== 2 || n == 3) return n - 1;
         if (n == 4) return n;
         int sum = 1;
         while (n > 4){
@@ -9476,8 +9948,8 @@ public class Solution {
 	public boolean shouldPrintMessage(int timestamp, String message){
 		if (map.containsKey(message) && (timestamp - map.get(message) < 10))
 				return false;
-			map.put(message, timestamp);
-			return true;
+	    map.put(message, timestamp);
+		return true;
 	}
 }
 
@@ -9569,8 +10041,9 @@ public void wallsAndGates(int[][] rooms) {
 }
 
 private void dfs(int[][] rooms, int i, int j, int d) {
-    if (i < 0 || i >= rooms.length || j < 0 || j >= rooms[0].length || rooms[i][j] < d || visited[i][j]) return;
+    if (i < 0 || i >= rooms.length || j < 0 || j >= rooms[0].length  || visited[i][j]) return;
     
+    if (rooms[i][j] < d) return;
     //skip wall
     if (rooms[i][j] == -1)return;
 
@@ -9584,6 +10057,8 @@ private void dfs(int[][] rooms, int i, int j, int d) {
 
     visited[i][j] = false;
 }
+
+
 
 
 EXECUTE THIS CODE TO UNDERSTAND HOW DFS WORKS
@@ -10023,6 +10498,7 @@ public int fourSumCount(int[] A, int[] B, int[] C, int[] D) {
         return count;
     }
 
+
 Water and Jug Problem   Add to List QuestionEditorial Solution  My Submissions
 Total Accepted: 10073
 Total Submissions: 38843
@@ -10170,15 +10646,11 @@ public class MovingAverage{
 	public double next(int value){
 		if (queue.size() >= size){
 		   int front = queue.poll();
-		   queue.offer(value);
 		   sum -= head;
-		   sum += value;
-		   return sum / queue.size();
-		}
-		else {
-			queue.offer(value);
-			sum += value;
-			return sum / queue.size();
+        }
+		queue.offer(value);
+		sum += value;
+		return sum / queue.size();
 		}
 	}
 }
@@ -10231,6 +10703,8 @@ Given an array nums, there is a sliding window of size k which is moving from th
 For example,
 Given nums = [1,3,-1,-3,5,3,6,7], and k = 3.
 
+
+
 Window position                Max
 ---------------               -----
 [1  3  -1] -3  5  3  6  7       3
@@ -10246,30 +10720,60 @@ You may assume k is always valid, ie: 1 ≤ k ≤ input array's size for non-emp
 
 public class Solution {
     public int[] maxSlidingWindow(int[] nums, int k) {
-        if (nums == null || k <= 0)
-            return new int[0];
-        int N = nums.length;
-        int[] res = new int[N - k + 1];
-        int resI = 0;
-        
-        Deque<Integer> dq = new ArrayDeque<>();
-        
-        for (int i = 0; i < nums.length; i++){
-            
-            // make sure dq has atmost k elements
-            while (!dq.isEmpty() && dq.peek() < i - k + 1)
-                dq.poll();
+       
+         int empty[] = {};
+        if (array == null || array.length == 0)return empty;
+        LinkedList<Integer> list = new LinkedList();
+        List<Integer> res = new ArrayList<>();
+	        // add the first k elements and only the retain the useful indices
+
+	        for (int i = 0; i < k; i++)
+	        {
+	             
+	            while (!list.isEmpty() && array[list.getLast()] < array[i])
+	            {
+	                list.removeLast();
+	            }
+	            
+	             
+	            list.addLast(i);
+	        }
+	        System.out.println(list);
+            now add the remaining elements to the window and only retain
+            the useful indices
+	        for (int i = k; i < array.length; i++)
+	        {
+	             
+	            System.out.println(array[list.getFirst()]);
+	            res.add(array[list.getFirst()]);
+	             
                 
-            // if rightmost element in dq is less than nums[i], keep removing it. This ensures the first number is always the largest in the queue.
-            while (!dq.isEmpty() && nums[dq.peekLast()] < nums[i])
-                dq.pollLast();
-                
-            dq.offer(i);
-            
-            if (i >= k - 1)
-                res[resI++] = nums[dq.peek()];
-        }
-        return res;
+	            while (!list.isEmpty() && (list.getFirst() < (i-k+1)))
+	            {
+	                list.removeFirst();
+	            }
+	            
+	             
+	             // remove useless indices from the end so that only highest element
+                 // in the window will be in the front
+	            while (!list.isEmpty() && array[list.getLast()] < array[i])
+	            {
+	                list.removeLast();
+	            }
+	            
+	             
+	            list.add(i);
+	        }
+	        // add the max of the last sliding window
+	        res.add(array[list.getFirst()]);
+	        int[] ret = new int[res.size()];
+	        for (int i = 0; i < res.size(); i++)
+	            ret[i] = res.get(i);
+	        return ret;
+    }
+
+
+        
     }
 }
 
@@ -10315,6 +10819,20 @@ previous holds the number of previous adjacent sequence of 1s
     return maxSoFar;
   }
 
+public static int returnMax(int[] num){
+    int prev_run = 0, current_run = 0, maxSoFar = 1;
+    int N = nums.length;
+    for (int i = 0; i < N; i++){
+        if (nums[i] == 1)
+            current_run += 1;
+        else {
+            prev_run = current_run;
+            current_run = 0;
+        }
+        maxSoFar = Math.max(maxSoFar, prev_run + current_run + 1);
+    }
+    return maxSoFar;
+}
   6 - 8
   sleep
   8 - 8:40 commute
@@ -11088,6 +11606,9 @@ Input: [ [1,2], [2,3], [3,4], [1,3] ]
 
 Output: 1
 
+
+
+
 Explanation: [1,3] can be removed and the rest of intervals are non-overlapping.
 Example 2:
 Input: [ [1,2], [1,2], [1,2] ]
@@ -11133,6 +11654,22 @@ public class Solution {
     }
 }
 
+public int eraseOver(Interval[] intervals){
+    Arrays.sort(intevals, new Comparator<Interval>(){
+        public int compare(Interval i1, Interval i2){
+            i1.end - i2.end;
+        }
+    })
+
+    int end = Integer.MIN_VALUE;
+    int count = 0;
+    for (interval in: intervals){
+        if (in.start >= end)
+            end = in.end;
+        else
+            count++;
+    }
+}
 
 Given a positive integer, return its corresponding column title as appear in an Excel sheet.
 
@@ -11183,7 +11720,6 @@ public boolean hasPathSum(TreeNode node, int sum){
     return hasPathSum(node.left, rem ) || hasPathSum(node.right, rem);
 }
 
-
 Binary Tree Maximum Path Sum
 Given a binary tree, find the maximum path sum.
 
@@ -11215,7 +11751,6 @@ public int helper(TreeNode node){
 
 
 
-
 Given a binary tree, return all root-to-leaf paths.
 
 For example, given the following binary tree:
@@ -11244,9 +11779,6 @@ public void dfs(List<String> res, String path, TreeNode root){
     if (root.right != null)
         dfs(res, path + root.val + "->", root.right);
 }
-
-
-
 
 Sum Root to Leaf Numbers
 Given a binary tree containing digits from 0-9 only, each root-to-leaf path could represent a number.
@@ -11285,6 +11817,7 @@ public int sumRootToLeaf(TreeNode root){
     }
     return res;
 }
+
 
 Given a binary tree and a sum, find all root-to-leaf paths where each paths sum equals the given sum.
 
@@ -11356,25 +11889,6 @@ https://discuss.leetcode.com/topic/67782/easy-java-solution
 
 
 
-Given a column title as appear in an Excel sheet, return its corresponding column number.
-
-For example:
-
-    A -> 1
-    B -> 2
-    C -> 3
-    ...
-    Z -> 26
-    AA -> 27
-    AB -> 28 
-
-public int column(String val){
-    int res = 0;
-    for (char c: val.toCharArray()){
-        res = res * 26 + c - 'A' + 1;//  if val(i) = 'Z'  then val(i) - 'A' + 1 = 26
-    }
-    return res;
-}
 
 Given a set of intervals, for each of the interval i, check if there exists an interval j whose start point is bigger than or equal to the end point of the interval i, which can be called that j is on the "right" of i.
 
@@ -11862,6 +12376,25 @@ for (int i = 0; i < nums.length-1; i++) {
 	
 return false;
     }
+}
+
+
+water and jug problem
+https://discuss.leetcode.com/topic/49751/clear-explanation-of-why-using-gcd/2
+
+
+public class Solution {
+    public boolean canMeasureWater(int x, int y, int z) {
+        if (x + y < z) return false;
+        if (x + y == z || x == z || y == z || z <= 0) return true;
+        return z % gcd(x , y) == 0;
+    }
+    
+    int gcd(int x, int y)
+    {
+        return y == 0 ? x : gcd(y, x % y);
+    }
+
 }
 
 

@@ -5,6 +5,35 @@ The diameter of a tree T is the largest of the following quantities:
 * the diameter of T’s right subtree
 * the longest path between leaves that goes through the root of T (this can be computed from the heights of the subtrees of T)
 
+
+
+public int getDiameter(TreeNode root){
+	if (root == null)
+		return 0;
+	int leftHeight = getHeight(root.left);
+	int rightHeight = getHeight(root.right);
+	int heightOfNode = leftHeight  + rightHeight + 1;
+
+
+	int leftDiameter = getDiameter(root.left);
+	int rightDiameter = getDiameter(root.right);
+	
+	return Max(leftDiameter, rightDiameter, heightOfNode );
+}
+
+private int getHeight(TreeNode root){
+	if (root == null)
+		return 0;
+	return 1 + Math.max(getHeight(root.left) , getHeight(root.right));
+}
+
+
+
+
+
+// complete program below
+
+
 class TreeNode{
 	int data;
 	TreeNode left, right;
@@ -12,6 +41,7 @@ class TreeNode{
 		this.data = value;
 	}
 }
+
 
 class BinaryTree{
 	TreeNode root;

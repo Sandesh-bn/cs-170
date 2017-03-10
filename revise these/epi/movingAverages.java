@@ -9,18 +9,12 @@ public class MovingAverage{
 	}
 	
 	public double next(int value){
-		if (queue.size() >= size){
-		   int front = queue.poll();
-		   queue.offer(value);
-		   sum -= head;
-		   sum += value;
-		   return sum / queue.size();
+		if (queue.size() == size){
+			sum -= queue.poll();
 		}
-		else {
-			queue.offer(value);
-			sum += value;
-			return sum / queue.size();
-		}
+		queue.offer(value);
+		sum += value;
+		return sum / queue.size();
 	}
 }
 

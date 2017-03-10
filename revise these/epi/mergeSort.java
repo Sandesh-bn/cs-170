@@ -28,44 +28,25 @@ public class MergeSortEfficient {
 		}
 	}
 	
-	private static void merge(int[] test, int low, int mid, int high){
+
+	private static void merge(int[] arr, int low, int mid, int high){
 		int size = (high - low) + 1;
-		int[] temp = new int[size];
-		int left = low;
-		int right = mid + 1;
-		int k = 0;
+		int[] temp = new  int[size];
+		int left = low, right = mid + 1, k = 0;
+		while(left <= mid && right <= high){
+			if (arr[left] < arr[right])
+				temp[k++] = arr[left++];
+			else
+				temp[k++] = arr[right++];
+		}
+
+		while(left <= mid)
+			temp[k++] = arr[left++];
+		while(right <= high)
+			temp[k++] = arr[right++];
 		
-		while (left <= mid && right <= high){
-			if (test[left] < test[right]){
-				temp[k] = test[left];
-				k++;
-				left++;
-			}
-			else {
-				temp[k] = test[right];
-				k++;
-				right++;
-			}
-		}
-		
-		if (left <= mid){
-			while (left <= mid){
-				temp[k] = test[left];
-				k++;
-				left++;
-			}
-		}
-		if (right <= high){
-			while (right <= high){
-				temp[k] = test[right];
-				k++;
-				right++;
-			}
-		}
-		
-		for (int j = 0; j < temp.length; j++){
-			test[low + j] = temp[j];
-		}
+		for (int j = 0; j < temp.length; j++)
+			arr[low + j] = temp[j];
 	}
 	
 	

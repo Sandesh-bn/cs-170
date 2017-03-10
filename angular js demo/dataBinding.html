@@ -1,0 +1,58 @@
+<!doctype html>
+<html >
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+    <script>
+       var app = angular.module("app", []);
+       app.controller('emp', ['$scope', function($scope){
+           $scope.a = 10;
+           $scope.b = 20;
+
+           // onew way databinding
+           $scope.doDoubleAndSum = function(){
+                $scope.a *= 2;
+                $scope.b *= 2;
+                $scope.sum = parseInt($scope.a) + 
+                            parseInt($scope.b);
+           }
+
+
+           $scope.doSum = function(){
+             $scope.sum = parseInt($scope.a) + parseInt($scope.b);
+             
+           }
+       }]);
+
+    </script>
+  </head>
+  <body ng-app="app">
+
+      <div ng-controller="emp">
+            Evalution expression
+            <div>
+                Value of a is {{a}}<br>
+                Value of b is {{b}}
+                <hr>
+                using ng-bind<br>
+                Value of a is <span ng-bind="a"></span>
+                Value of b is <span ng-bind="b"></span>
+                <hr><hr>
+                <button ng-click="doDoubleAndSum()">Perform one way binding</button>
+            </div>
+            <div>
+                This is one-time databinding using {{::}}<br>
+                Intial value of a is {{::a}}
+                Intial value of b is {{::b}}
+            </div>
+
+            <hr><br>
+            Two way databinding<br>
+            Value of a is {{a}}
+            <input type=text ng-model="a"/><br>
+            Value of b is {{b}}
+            <input type=text ng-model="b"/><br>
+            <button ng-click="doSum()">add nums</button>
+            {{sum}}
+      </div>
+  </body>
+</html>

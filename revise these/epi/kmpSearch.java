@@ -1,21 +1,21 @@
 public int[] computeLps(char[] pattern){
 	int[] lps = new int[pattern.length];
-	int i = 0;
-	int j = 1;
-	while (j < pattern.length){
+	int j = 0;
+	int i = 1;
+	while (i < pattern.length){
 		if (pattern[i] == pattern[j]){
-			lps[j] = i + 1;
+			lps[i] = j + 1;
 			i++;j++;
 		}
 		else {
-			if (i != 0)
-				i = lps[i - 1];
+			if (j != 0)
+				j = lps[j - 1];
 			else {
-				lps[j] = 0;
-				j++;
+				lps[i] = 0;
+				i++;
 			}
 		}
-		j++;
+		i++;
 	}
 	return lps;
 }

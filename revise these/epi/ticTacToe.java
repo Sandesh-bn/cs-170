@@ -2,13 +2,13 @@
 public class Solution{
 	int[] rows;
 	int[] cols;
-	int diagonal, antiDiagonals, target;
+	int diagonal, antiDiagonals, size;
 	public TicTacToe(int num){
 		rows = new int[num];
 		cols = new int[cols];
 		diagonal = 0;
 		antiDiagonals = 0;
-		target = num;
+		size = num;
 	}
 	
 	// if player is '0' it is 1 if player is 'X' it is -1
@@ -19,7 +19,7 @@ public class Solution{
 	// if any of the rows/cols/diagonal has value of 3 after '0' plays, '0' wins
 	public int move(int row, int col, int player){
 		int sign = (player == 1)?1: -1;
-		int res = sign * target;
+		int res = sign * size;
 		
 		rows[row] += sign;
 		cols[col] += sign;
@@ -27,7 +27,7 @@ public class Solution{
 		if (row == col)
 			diagonal += sign;
 		
-		if (row == target - 1 - col)
+		if (row  + col == size - 1)
 			antiDiagonals += sign;
 		
 		// one of them won
@@ -38,6 +38,6 @@ public class Solution{
 			return player;
 		
 		else 
-			return 0; //
+			return Infinity; //
 	}
 }

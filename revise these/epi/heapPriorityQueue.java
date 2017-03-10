@@ -50,7 +50,7 @@ public class MinHeap{
         
         int root = items.get(0);
         items.set(0, items.get(items.size() - 1));
-        siftUp();
+        siftDown();
         return root;
     }
 

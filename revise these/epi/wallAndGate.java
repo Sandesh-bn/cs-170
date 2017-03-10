@@ -17,16 +17,16 @@ After running your function, the 2D grid should be:
   0  -1   3   4
 
   
-boolean[][] visited;
+
 public void wallsAndGates(int[][] rooms) {
-    visited = new visited[rooms.length][rooms[0].length];
+    boolean[][] visited = new visited[rooms.length][rooms[0].length];
 
     for (int i = 0; i < rooms.length; i++)
         for (int j = 0; j < rooms[0].length; j++)
-            if (rooms[i][j] == 0) dfs(rooms, i, j, 0);
+            if (rooms[i][j] == 0) dfs(rooms, i, j, 0, visited);
 }
 
-private void dfs(int[][] rooms, int i, int j, int d) {
+private void dfs(int[][] rooms, int i, int j, int d, boolean[][] visited) {
     if (i < 0 || i >= rooms.length || j < 0 || j >= rooms[0].length || rooms[i][j] < d || visited[i][j]) return;
     
     //skip wall

@@ -20,15 +20,15 @@ public class Person{
 }
 
 int maxAliveYear(Person[] people, int start, int last){
-	int maxAlive = 0, maxAliveYear = start;
+	int max = 0, maxAliveYear = start;
 	for (int year = start; year <= last; year++){
 		int numberOfPeopleAlive = 0;
 		for (Person person: people){
 			if (person.getBirth() <= year && person.getDeath >= year)
 				numberOfPeopleAlive++;
 		}
-		if (numberOfPeopleAlive > maxAlive){
-			maxAlive = numberOfPeopleAlive;
+		if (numberOfPeopleAlive > max){
+			max = numberOfPeopleAlive;
 			maxAliveYear = year;
 		}
 	}

@@ -34,24 +34,26 @@ private static int findMagicIndexRecursion(int[] array, int low, int high)
 what if the values are not distinct?
 if the values are not distinct, we are not sure where the magic index would be, so we need to search left and right side both.
 
-int magicFast(int[] arrayDup){
-	return magicFast(arrayDup, 0, arrayDup.length - 1);
+public int magicIndex(int[] A){
+	return helper(A, 0, A.length - 1);
 }
 
-int magicFast(int[] arrayDup, int low, int high){
-	if (high < low) return -1;//base case
+public int helper(int[] A, int low, int high){
+	if (low > high)
+		return -1;
 	
 	int mid = (low + high)/2;
-	int midValue = arrayDup[mid];
-	if(midValue == mid)
-		return mid;
+	int midVal = A[mid];
+	if (midVal == mid)
+		return A[mid];
 	
-	int leftIndex = Math.min(mid - 1, midValue);
-	int left = magicFast(array, start, leftIndex);
-	if (left >= 0)
-		return left;
-	
-	int rightIndex = Math.max(mid + 1, midValue);
-	int right = magicFast(arary, rightIndex, high);
-	return right;
+	int leftIndex = min(mid - 1, midVal);
+	int a = helper(A, low, leftIndex);
+	if (a >= 0)
+		return a;
+
+	int rightIndex = max(mid + 1, midVal);
+	int b = helper(A, rightIndex, high);
+	return b;
+
 }

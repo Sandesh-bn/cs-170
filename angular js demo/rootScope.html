@@ -1,0 +1,41 @@
+<!doctype html>
+<html >
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+    <script>
+      var s = angular.module("sample", []).run(["$rootScope", function($rootScope){
+          $rootScope.rootVariable = 30; // this is like a variabel all the controllers associated with s can access it.
+      }]);
+
+      s.controller("emp", ["$scope", function($scope){
+          $scope.name = "jag"
+      }])
+
+      // notice you are also using $rootScope v here.
+      s.controller("empDetails", ["$scope", "$rootScope", function($scope, $rootScope){
+          $scope.sal = 3400;
+          $scope.dept = "sales";
+          $scope.accessRootScopeVar = function(){
+              return $rootScope.rootVariable * 2; // accessing rootScope variable
+          }
+      }])
+    </script>
+  </head>
+  <body ng-app="sample">
+      
+      Hi, i can access rootScope variable: {{rootVariable}}
+
+      <div ng-controller="emp">
+          this is a scope variable: {{name}}
+
+          <div ng-controller="empDetails">
+
+                this is variable inside nested scope: {{sal}} and {{dept}}
+                <br>Accesing rootscope variable {{accessRootScopeVar()}}
+           </div>
+
+
+      </div>
+
+  </body>
+</html>

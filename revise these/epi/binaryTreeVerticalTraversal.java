@@ -7,6 +7,7 @@ public List<List<Integer>> vertical(TreeNode root){
 	Queue<TreeNode> q = new LinkedList<>();
 	Queue<Integer> cols = new LinkedList<>();
 	q.offer(root);
+	cols.offer(0);
 	int max = 0, min = 0; //upperbound and lowerbound of columns
 	while (!q.isEmpty()){
 		TreeNode node = q.poll();

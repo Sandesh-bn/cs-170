@@ -17,4 +17,4 @@ public void sort(int[] arr, int k){
 			}
 			nums[i] = minHeap.remove();
 	  }
-}
+} 
