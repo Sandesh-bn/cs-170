@@ -25,3 +25,6 @@ public class parseTernary(String exp){
 	}
 	return String.valueOf(stack.peek());
 }
+
+
+

@@ -7,6 +7,33 @@ Consider the following 6 activities.
 The maximum set of activities that can be executed 
 by a single person is {0, 1, 3, 4}
 
+0 1
+public void maxAcitivitie(int[] s, int[] f, int n){
+    List<Activity> list = new ArrayList<>();
+    for (int i = 0; i < s.length; i++){
+        list.add(new Activity(s[i], f[i]));
+    }
+    Collections.sort(list, new Comparator<Activity>(){
+        public int compare(Activity a, Activity b){
+            return a.end - b.end;
+        }
+    })
+
+    int end = list.get(0).end;
+    /// always choose the first activity
+    // for the remaining activity if start >= end of previously selected activity
+    // choose it
+    List<Activity> res = new ArrayList<>();
+    res.add(Activity.get(0));
+    for (int i = 1; i < N; i++){
+        if (list.get(i).start >= end){
+            res.add(list.get(i));
+            end = list.get(i).end;
+        }
+    }
+    
+}
+
 The greedy choice is to always pick the next activity whose finish time is least among the remaining activities and the start time is more than or equal to the finish time of previously selected activity. We can sort the activities according to their finishing time so that we always consider the next activity as minimum finishing time activity.
 
 1) Sort the activities according to their finishing time

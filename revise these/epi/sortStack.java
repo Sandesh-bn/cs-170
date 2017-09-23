@@ -16,4 +16,4 @@ public static Stack<Integer> sortStack(Stack<Integer> orig){
 
 		}
 		
-Time is O(N ^ 2) time and O(N) space.
+Time is O(N ^ 2) time and O(N) space.	

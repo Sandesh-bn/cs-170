@@ -21,3 +21,11 @@ public boolean oneEditDistance(String s, String t){
 	
 	
 }
+
+aXc aYc
+
+aXbc abc
+
+abc aXbc
+
+abcX abc

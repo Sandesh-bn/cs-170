@@ -1,5 +1,68 @@
 // Implement hashtable
 
+class Hash<K, V>{
+		private final int SIZE = 16;
+		LinkedList<Node<K,V>> items[];
+		public Hash(){
+			items = new LinkedList[SIZE];
+		}
+
+		public int getIndex(K key){
+			return key.hashCode() % items.length;
+		}
+
+		public void put(K key, V vlaue){
+			int index = getIndex(key);
+			if (items[index] == null)
+				items[index] = new LinkedList<>();
+			LinkedList<Node<K,V>> list = items[index];
+
+			for (Node<K, V> node: list){
+				if (node.equals(key))
+					node.value = value;
+					return;
+				
+			}
+			Node<K, V> newNode = new Node<K, V>(key, value);
+			list.add(newNode);
+		}
+
+		public V get(K key){
+			int index = getIndex(key);
+			if (items[index] == null) 
+			return null;
+			LinkedList<Node<K,V>> list = items[x];
+			for (Node<K, V> node: list){
+				if(node.key.equals(key))
+					return node.value;
+			}
+			return null;
+		}
+
+
+	}
+
+	class Node<K,V>{
+		private K key;
+		private V value;
+		public Node(K k, V v){
+			this.key = k;
+			this.value = v;
+		}
+
+		public boolean equals(Node<K, V> other){
+			return this.key.equals(other.getKey());
+		}
+
+		public K getKey(){return key;}
+		public V getValue(){return this.value;}
+
+		public boolean equals(K k){
+			
+		}
+	}
+
+
 http://www.geeksforgeeks.org/implementing-our-own-hash-table-with-separate-chaining-in-java/
 
 

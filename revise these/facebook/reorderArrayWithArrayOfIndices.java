@@ -1,5 +1,5 @@
 Input:  arr[]   = [10, 11, 12];
-        index[] = [1, 0, 2];
+        index[] = [1, 0, 2];        
 Output: arr[]   = [11, 10, 12]
         index[] = [0,  1,  2] 
 
@@ -32,6 +32,15 @@ public void reorder(int[] arr, int index[], int n){
 			
 			index[i] = oldTarget;
 			arr[i] = index;
+
+			int oldTarget = index[index[i]];
+			int index = A[index[i]];
+			A[index[i]] = A[i];
+			index[index[i]] = index[i];
+			index[i] = oldTarget;
+			A[i] = index;
+
+			
 		}
 	}
 }

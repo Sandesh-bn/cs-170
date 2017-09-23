@@ -30,3 +30,5 @@ capacity is such that with the fully charged battery, the robot can climb B mete
 The robot will run out of energy iff there exist integers i and j such that i < j and
 zj- Zi > B, i.e., to go from Point i to Point i.the robot has to climbmore than B meters.
 Therefore,we would like to pick B such that for any i < j, we have B >= zJ - Zi.
+
+

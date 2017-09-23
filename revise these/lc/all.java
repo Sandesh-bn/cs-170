@@ -9,8 +9,6 @@ combination
 refer to combination sum
 
 
-
-
 valid sudoku
 public class Solution {
     public boolean isValidSudoku(char[][] board) {
@@ -389,8 +387,6 @@ public class Solution {
     
 }
 
-
-
  
 
 
@@ -511,7 +507,6 @@ public class Solution {
 
 
 
-
 4sum
 Given an array S of n integers, are there elements a, b, c, and d in S such that a + b + c + d = target? Find all unique quadruplets in the array which gives the sum of target.
 
@@ -527,7 +522,7 @@ A solution set is:
 ]
 
 public class Solution {
-    public List<List<Integer>> fourSum(int[] nums, int target) {
+    public List<List<Integer>> fourSum(int[] nums, int target) {p
         List<List<Integer>> result = new ArrayList<>();
         if (nums.length < 4)
             return result;
@@ -589,13 +584,14 @@ public class Solution {
         if (digits == null || digits.length() == 0)
             return list;
         list.add("");
+        
         for (int i = 0; i < digits.length(); i++){
             int digit = digits.charAt(i) - '0';
-            while(list.get(0).length() == i){
-                String t = list.remove(0);
-                for (char c: mapping[digit].toCharArray()){
-                    list.add(t + c);
-                }
+            int size = list.size();
+            for (int j = 0; j < size; j++){
+                String f = list.remove();
+                for (char c: mapping[digit].toCharArray())
+                    list.add(f + s);
             }
         }
         return list;
@@ -675,7 +671,6 @@ A solution set is:
   [-1, 0, 1],
   [-1, -1, 2]
 ]
-
 
 public class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
@@ -763,6 +758,7 @@ public class Solution {
     }
 }
 
+
 Given an integer, convert it to a roman numeral.
 
 Input is guaranteed to be within the range from 1 to 3999.
@@ -777,7 +773,6 @@ public class Solution {
      return M[num/1000] + C[(num % 1000)/100] + X[(num % 100)/10] + I[num % 10];
     }
 }
-
 
 
 Regular Expression Matching   Add to List QuestionEditorial Solution  My Submissions
@@ -859,7 +854,7 @@ public class Solution {
         
     }
 }
-
+}
 
  String to Integer (atoi)
  
@@ -1036,6 +1031,7 @@ public int median(int[] A, int[] B){
         adjust the size
     }
 }
+
  Longest Substring Without Repeating Characters   Add to List QuestionEditorial Solution  My Submissions
 Total Accepted: 225533
 Total Submissions: 956174
@@ -1195,6 +1191,25 @@ For example,
   [3,2,1]
 ]
 
+private List<List<Integer>> permute(int[] arr){
+    permute(arr, 0, arr.length - 1);
+    return res;
+}
+
+private void permute(int[] arr, int low, int high){
+    if (low == high){
+        List<INteger> temp = new ArrayList<>();
+        for (int a: arr)temp.add(a);
+        res.add(temp);
+    }
+    else {
+        for (int i - low; i <= high; i++){
+            swap(arr, low, i);
+            permute(arr, low + 1,high);
+            swap(arr, low, i);
+        }
+    }
+}
 
 public class Solution {
     List<List<Integer>> result = new ArrayList<>();
@@ -1225,6 +1240,8 @@ public class Solution {
         nums[j] = temp;
     }
 }
+
+
 
 
 
@@ -1320,7 +1337,6 @@ public class Solution {
     
     
 }
-
 
 Group Anagrams   Add to List QuestionEditorial Solution  My Submissions
 Total Accepted: 106646
@@ -1468,6 +1484,8 @@ public class Solution {
         
     }
 }
+
+
 
 Given a matrix of m x n elements (m rows, n columns), return all elements of the matrix in spiral order.
 
@@ -2144,7 +2162,7 @@ public class Solution {
     }
 }
 
-mplement int sqrt(int x).
+implement int sqrt(int x).
 
 
 public class Solution {
@@ -2684,6 +2702,7 @@ public class Solution {
     }
 }
 
+
 Remove Duplicates from Sorted List   Add to List QuestionEditorial Solution  My Submissions
 Total Accepted: 153756
 Total Submissions: 397418
@@ -2898,6 +2917,7 @@ public class Solution {
 }
 
 
+
 Subsets II   Add to List QuestionEditorial Solution  My Submissions
 Total Accepted: 90670
 Total Submissions: 270081
@@ -3103,6 +3123,7 @@ public class Solution {
         return true;
     }
 }
+
 
  Interleaving String   Add to List QuestionEditorial Solution  My Submissions
 Total Accepted: 61768
@@ -3815,6 +3836,17 @@ public int minMeetingRoomsWithConstantSpace(Interval[] intervals) {
             return o1.start - o2.start;
         }
     });
+
+    /* We need to simulate the process to know the maximum number of conference rooms needed.
+
+We need to maintain a minimal heap, which sort the intervals according to their finishing time.
+
+We add the interval to this heap one by one since they have already been sorted according to their start time.
+
+So this heap acctually simulates the conference rooms, the number of elements it has instataneously is the number of rooms required.
+
+Every time we add one interval to this heap, we need to check if its start time is greater than or equal to heap.peek(). If it is, that means there's some conferences in the heap which end now, and their rooms should be released.
+*/
     PriorityQueue<Integer> queue = new PriorityQueue<Integer>();
     int minRoom = 1;
     queue.offer(intervals[0].end);
@@ -4505,6 +4537,7 @@ public class Solution {
 }
 
 
+
 path sum 3
 You are given a binary tree in which each node contains an integer value.
 
@@ -4876,8 +4909,10 @@ public class Solution {
       
     }
 }
-
-
+Set<Integer> rows = new HashSet<>();
+Set<Integer> cols = new HashSet<>();
+Set<Integer> diag =new HashSEt<>();
+Set<Integer> 
 Maximum Depth of Binary Tree   Add to List QuestionEditorial Solution  My Submissions
 Total Accepted: 199736
 Total Submissions: 394727
@@ -4903,7 +4938,6 @@ public class Solution {
         
     }
 }
-
 
 Maximum Depth of Binary Tree   Add to List QuestionEditorial Solution  My Submissions
 Total Accepted: 199736
@@ -5634,7 +5668,9 @@ import java.util.*;
 class Main {
   public static void main(String[] args) {
     System.out.println("hello world");
-    char[][] g = {{'0', 'E', '0', '0'},{'E', '0', 'W', 'E'},{'0', 'E', '0', '0'}};
+    char[][] g = {{'0', 'E', '0', '0'},
+                  {'E', '0', 'W', 'E'},
+                  {'0', 'E', '0', '0'}};
     System.out.println(maxKilledEnemies(g));
   }
   
@@ -7153,6 +7189,38 @@ public class Solution {
 
 }
 
+Set<Integer> cols = new HashSet<>();
+Set<Integer> diag = new HashSet<>();
+Set<Integer> antiDiag = new HashSet<>();
+public List<List<String>> solveNQueens(int n){
+    List<List<String>> res = new ArrayList<>();
+    dfs(res, new ArrayList<>(), 0, n);
+    return res;
+}
+
+private void dfs(List<LIst<String>> res, List<String> board, int rwo, int n){
+    if (row == n){
+        res.add(new ArrayList<>(board));
+        return;
+    }
+    for (int col = 0; col < n; col++){
+        if (col.contains(col) ||
+        diag.contains(row - col) ||
+        antidaig.contains(row + col))
+        continue;
+        char[] currRow = new char[n];
+        Arrays.fill(currRow, '.');
+        currRow[col] = 'Q';
+        String rowString = new String(currRow);
+        board.add(currRowString);
+        cols.add(col);
+        antiDiag.add(row + col);
+        diag.add(row- col);
+        dfs(res, board, row + 1, n);
+
+    }
+}
+
 n queen 2
 public class Solution {
     Set<Integer> cols = new HashSet<>();
@@ -7435,32 +7503,25 @@ Some examples:
 public class Solution {
     public int calculate(String s) {
      Deque<Integer> stack = new LinkedList<>();
-     int result = 0, sign = 1;
+     int result = 0, sign = 1, num = 0;
      stack.push(1);
      for (int i = 0; i < s.length(); i++){
          char ch = s.charAt(i);
          
-         if (ch == ' ')continue;
-         else if (ch == '('){
-             stack.push(stack.peek() * sign);
-             sign = 1;
-         }
-         else if (ch == ')')
+         if (ch >= '0' && ch <= '9')
+            num = num * 10 + (ch - '0');
+
+        else if (ch == '+' || ch == '-'){
+            result = num * sign;
+            sign = stack.peek() * (ch == '+')?1:-1;
+            num = 0;
+        }
+        else if (ch == '(')
+            stack.push(sign);
+        else if (ch == ')')
             stack.pop();
-         else if (ch == '+')
-            sign = 1;
-         else if (ch == '-')
-            sign = -1;
-         else {
-             int temp = ch - '0';
-             //i += 1;
-             //while (i < s.length() && Character.isDigit(s.charAt(i)))
-               // temp = temp * 10 + s.charAt(i++) - '0';
-             while (i + 1 < s.length() && Character.isDigit(s.charAt(i + 1)))
-                temp = temp * 10 + s.charAt(++i) - '0';
-             result += sign * stack.peek() *  temp;
-         }
      }
+     result += num * sign;
      return result;
     }
 }
@@ -7549,7 +7610,6 @@ public class Solution {
 }
 
 
-
 Implement a basic calculator to evaluate a simple expression string.
 
 The expression string contains only non-negative integers, +, -, *, / operators and empty spaces . The integer division should truncate toward zero.
@@ -7563,36 +7623,32 @@ Some examples:
 
 public class Solution {
     public int calculate(String s) {
-        Deque<Integer> stack = new LinkedList<>();
+        
+        if (s == null || s.length() == 0) 
+            return 0;
+        Stack<Integer> stack = new Stack<Integer>();
         int num = 0;
         char sign = '+';
-        for (char ch: s.toCharArray()){
-            if (ch == ' ')
-                continue;
-            if(Character.isDigit(ch))
+        for (int i = 0; i < s.length(); i++){
+            char ch = s.charAt(i);
+            
+            if (ch >= '0' && ch <= '9')
                 num = num * 10 + (ch - '0');
-            else {
+            
+            if (!Character.isDigit(ch) && ch != ' '|| i == s.length() - 1 ){
                 if (sign == '+')
                     stack.push(num);
-                else if (sign == '-')
+                if (sign == '-')
                     stack.push(-num);
-                else if (sign == '*')
+                if (sign == '*')
                     stack.push(stack.pop() * num);
-                else
+                if (sign == '/')
                     stack.push(stack.pop() / num);
-                num = 0;
+                
                 sign = ch;
+                num = 0;
             }
         }
-        if (sign == '+')
-            stack.push(num);
-        else if (sign == '-')
-            stack.push(-num);
-        else if (sign == '*')
-            stack.push(stack.pop() * num);
-        else
-            stack.push(stack.pop() / num);
-        
         
         int result = 0;
         while (!stack.isEmpty())
@@ -8232,6 +8288,37 @@ largest BSt in a binary tree
 suggest your indorder approach and then watch from 1:20 
 https://www.youtube.com/watch?v=4fiDs7CCxkc
 code is here: https://discuss.leetcode.com/topic/58254/easy-java-solution
+
+
+int result = 0;
+public int largestBSTSubtree(TreeNode root){
+    helper(root);
+    return result;
+}
+
+private int[] helper(TreeNode root){
+    if (root == null)
+        return new int[]{Integer.MAX, Integer.MIN, 0};
+    
+    int[] left = helper(root.left);
+    int[] right = helper(root.right);
+
+    if (left == null || right == null)
+        return null;
+
+    // root.val is larger than largest value in lst
+    // and root.val is smaller than smallest value in rst
+    if (left[1] < root.val && right[0] > root.val){
+        result = Math.max(result, 1 + left[2] + right[2]);
+
+        int minVal = root.left == null? root.val: left[0];
+        int maxVal = root.right == null? root.val: right[1];
+
+        return new int[]{minVal, maxVal, 1 + left[2] + right[2]};
+    }
+    return null; // tree rooted at current node is not bst.
+}
+
 
 
 Closest Binary Search Tree Value II
@@ -9135,6 +9222,7 @@ private int helper(List<NestedInteger> list, int depth)
     return ret;
 }
 
+
 bfs: 0(n) time O(k) space k is max depth of the list.
 
 
@@ -9846,7 +9934,35 @@ public class Solution {
     }
 }
 
+morris inorder
+public List<Integer> inorder(TreeNode root){
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res
+        TreeNode curr = root;
+        while(curr != null){
+            if (curr.left == null){
+                res.add(curr.val);
+                curr = curr.right;
+            }
+        
+            else {
+                TreeNode pred = curr.left;
+                while(pred.right != null && pred.right != curr)
+                    pred = pred.right;
 
+                if (pred.right == null){
+                    pred.right = curr;
+                    curr = curr.left;
+                }
+                else {
+                    pred.right = null;
+                    res.add(curr.val);
+                    curr = curr.right;
+                }
+            }
+        }
+        return res;
+    }
 
 Given a non negative integer number num. For every numbers i in the range 0 ≤ i ≤ num calculate the number of 1's in their binary representation and return them as an array.
 
@@ -10031,9 +10147,9 @@ After running your function, the 2D grid should be:
   0  -1   3   4
 
   
-boolean[][] visited;
+
 public void wallsAndGates(int[][] rooms) {
-    visited = new visited[rooms.length][rooms[0].length];
+    
 
     for (int i = 0; i < rooms.length; i++)
         for (int j = 0; j < rooms[0].length; j++)
@@ -10041,23 +10157,42 @@ public void wallsAndGates(int[][] rooms) {
 }
 
 private void dfs(int[][] rooms, int i, int j, int d) {
-    if (i < 0 || i >= rooms.length || j < 0 || j >= rooms[0].length  || visited[i][j]) return;
+    if (i < 0 || i >= rooms.length || j < 0 || j >= rooms[0].length) return;
     
     if (rooms[i][j] < d) return;
     //skip wall
     if (rooms[i][j] == -1)return;
 
-    visited[i][j] = true;
+   
 
     rooms[i][j] = d;
     dfs(rooms, i - 1, j, d + 1);
     dfs(rooms, i + 1, j, d + 1);
     dfs(rooms, i, j - 1, d + 1);
     dfs(rooms, i, j + 1, d + 1);
-
-    visited[i][j] = false;
 }
 
+reorderArraywithArrayofIndices
+Reorder an array according to given indexes
+Given two integer arrays of same size, “arr[]” and “index[]”, reorder elements in “arr[]” according to given index array. It is not allowed to given array arr’s length.
+
+Example:
+
+Input:  arr[]   = [10, 11, 12];
+        index[] = [1, 0, 2];
+Output: arr[]   = [11, 10, 12]
+        index[] = [0,  1,  2] 
+
+Input:  arr[]   = [50, 40, 70, 60, 90]
+        index[] = [3,  0,  4,  1,  2]
+Output: arr[]   = [40, 60, 90, 50, 70]
+        index[] = [0,  1,  2,  3,   4] 
+
+public void reorder(int[] arr, int index[]){
+    int temp[] = new int[N];
+    for (int i = 0; i < N; i++)
+        temp[index[i]] = arr[i];
+}
 
 
 
@@ -11325,7 +11460,6 @@ public class Solution {
 }
 
 
-
 Suppose you have a random list of people standing in a queue. Each person is described by a pair of integers (h, k), where h is the height of the person and k is the number of people in front of this person who have a height greater than or equal to h. Write an algorithm to reconstruct the queue.
 
 Note:
@@ -11338,6 +11472,8 @@ Input:
 
 Output:
 [[5,0], [7,0], [5,2], [6,1], [4,4], [7,1]]
+
+
 
 public class Solution {
     public int[][] reconstructQueue(int[][] people) {
@@ -11567,7 +11703,7 @@ public class Solution {
 }
 
 
-Count the number of segments in a string, where a segment is defined to be a contiguous sequence of non-space characters. number of words
+Count the number of res in a string, where a segment is defined to be a contiguous sequence of non-space characters. number of words
 
 Please note that the string does not contain any non-printable characters.
 
@@ -12059,6 +12195,58 @@ public class Solution {
 }
 
 
+public boolean subsetSum(int[] A, int x){
+    int R = A.length;
+    int[] dp = new int[R + 1][x + 1];
+    for (int i = 0; i < dp.length; i++)
+        dp[i][0] = true;
+    
+    for (int i = 1; i < dp.length; i++){
+        for (int j = 1; j < dp[0].length; j++){
+            if (j >= A[i - 1])
+                dp[i][j] = dp[i - 1][j] || dp[i - 1][j -A[i - 1]];
+            else
+                dp[i][j] = dp[i - 1][j];
+        }
+    }
+    return dp[R][x];
+}
+
+Diagonal traverse
+
+1 2 3
+4 5 6
+7 8 9
+
+1 2 4 7 5 3 6 8 9
+
+public int[] findDiagonalOrder(int[][] A){
+    int R = A.length, C = A[0].length;
+    int r = 0, c = 0;
+    int[] res = new int[R * C];
+
+    for (int i = 0; i < res.length; i++){
+        res[i] = A[r][c];
+
+        if ((r + c) % 2 == 0){
+            if (c == C - 1) r++;
+            else if (r == 0) c++;
+            else {
+                r--;c++;
+            }
+        }
+
+
+
+        else {
+            if (r == R - 1)c++;
+            else if (c == 0)r+++;
+            else {
+                r++;c--;
+            }
+        }
+    }
+}
 You are given two linked lists representing two non-negative numbers. The most significant digit comes first and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
 
 You may assume the two numbers do not contain any leading zero, except the number 0 itself.
@@ -12334,7 +12522,6 @@ public class Solution {
     }
 }
 
-
 Given a sequence of n integers a1, a2, ..., an, a 132 pattern is a subsequence ai, aj, ak such that i < j < k and ai < ak < aj. Design an algorithm that takes a list of n numbers as input and checks whether there is a 132 pattern in the list.
 
 Note: n will be less than 15,000.
@@ -12536,25 +12723,16 @@ For example, given [0,1,2,4,5,7], return ["0->2","4->5","7"].
 public class Solution {
     public List<String> summaryRanges(int[] nums) {
         List<String> result = new ArrayList<>();
-        int N = nums.length;
-        if (N == 0) return result;
-        
-        int pre = nums[0];
-        String startString = "";
-        for (int i = 1; i < N; i++){
-            if (pre + 1 == nums[i]){
-                if (startString.equals(""))
-                    startString = pre + "->";
-            }
-            else {
-                result.add(startString + pre);
-                startString = "";
-            }
-            pre = nums[i];
+        for (int i = 0; i < N; i++){
+            int a = nums[i];
+            while(i + 1 < N && (A[i + 1] - A[i]) == 1)
+                i++;
+            if (a != nums[i])
+                res.add(a + "->" + nums[i]);
+            else
+                res.add(a + "");
         }
-        result.add(startString + pre);
-        return result;
-        
+        return res;
         
     }
 }
@@ -12660,40 +12838,651 @@ public class Solution {
 
 
 
+class TrieNode{
+    Map<Character, TrieNode> map;
+    boolean endOfWord;
+    public TrieNode(){
+        map = new HashMap<>();
+        endOfWord = false;
+    }
+}
+
+class Trie{
+    Trienode root;
+    public Trie(){
+        root = new TrieNode();
+    }
+    public void insert(String word){
+        TrieNode curr = root;
+        for (char c: word.toCharArray()){
+            TrieNode n = curr.map.get(c);
+            if (n == null){
+                n = new TrieNode();
+                curr.map.put(c, n);
+            }
+            curr = n;
+        }
+        curr.endOfWord = true;
+    }
+    public boolean search(String word){
+        TrieNode curr = root;
+        for (char c: word.toCharArray()){
+            TrieNode n = curr.map.get(c);
+            if (n == null)
+                return false;
+            n = curr;
+        }
+        return curr.endOfWord;
+    }
+
+    public boolean dotSearch(String word){
+        return dfs(word, 0, root);
+    }
+
+    public boolean dfs(String word, int index, TreeNode root){
+        if (index == word.length()) return root.endOfWord;
+
+        Character c = word.charAt(index);
+        for (Map.Entry<Character, TrieNode> entry: root.map.entrySet()){
+            if (c == '.' || c == entry.getKey()){
+                if (dfs(word, index + 1, entry.getValue())
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean prefix(String word){
+
+    }
+}
+
+
+
+dropbox
+
+
+import java.util.*;
+class Main{
+  public static void main(String[] a){
+    String p = "abcd";
+    String s = "thequickbrownfox"  ;
+    System.out.println(wordPatternMatch(p, s));
+  }
+  
+   public static boolean wordPatternMatch(String pattern, String str) {
+    Map<Character, String> map = new HashMap<>();
+    Set<String> set = new HashSet<>();
+    
+    return isMatch(str, 0, pattern, 0, map, set);
+  }
+  
+  static boolean isMatch(String str, int i, String pat, int j, Map<Character, String> map, Set<String> set) {
+    // base case
+    /*
+    if (i == str.length() && j == pat.length()) return true;
+    if (i == str.length() || j == pat.length()) return false;
+    */
+    if (i == str.length()) 
+        return j == pattern.length();
+    
+    // get current pattern character
+    char c = pat.charAt(j);
+    
+    // if the pattern character exists
+    if (map.containsKey(c)) {
+      String substring = map.get(c);
+      
+      // then check if we can use it to match str[i...i+s.length()]
+      if (!str.startsWith(substring, i)) {
+        return false;
+      }
+      
+      // if it can match, great, continue to match the rest
+      return isMatch(str, i + substring.length(), pat, j + 1, map, set);
+    }
+    
+    // pattern character does not exist in the map
+    for (int k = i; k < str.length(); k++) {
+      String p = str.substring(i, k + 1);
+
+      if (set.contains(p)) {
+        continue;
+      }
+
+      // create or update it
+      map.put(c, p);
+      set.add(p);
+      
+      // continue to match the rest
+      if (isMatch(str, k + 1, pat, j + 1, map, set)) {
+        return true;
+      }
+
+      // backtracking
+      map.remove(c);
+      set.remove(p);
+    }
+    
+    // we've tried our best but still no luck
+    return false;
+  }
+  
+}
 
 
 
 
 
+new problems
+
+Given a positive integer, output its complement number. The complement strategy is to flip the bits of its binary representation.
+
+Note:
+The given integer is guaranteed to fit within the range of a 32-bit signed integer.
+You could assume no leading zero bit in the integer’s binary representation.
+Example 1:
+Input: 5
+Output: 2
+Explanation: The binary representation of 5 is 101 (no leading zero bits), and its complement is 010. So you need to output 2.
+Example 2:
+Input: 1
+Output: 0
+Explanation: The binary representation of 1 is 1 (no leading zero bits), and its complement is 0. So you need to output 0.
+
+
+    public int findComplement(int num) {
+        //https://discuss.leetcode.com/topic/75605/java-very-simple-code-and-self-evident-explanation/2
+        
+        int i = 0, j = 0;
+        while (i < num){
+            i += Math.pow(2, j);
+            j++;    
+        }
+        return i - num;
+    }
+
+
+ 
+Given a List of words, return the words that can be typed using letters of alphabet on only one row's of American keyboard like the image below.
+
+
+public String[] findWords(String[] words) {
+         String[] keys = {"QWERTYUIOP","ASDFGHJKL","ZXCVBNM"};
+         Map<Character, Integer> map = new HashMap<>();
+         for (int i = 0; i < keys.length; i++){
+             for (char ch: keys[i].toCharArray())
+                map.put(ch, i);
+         }
+         
+         List<String> res = new ArrayList<>();
+         for (String word: words){
+             if (word.equals(""))
+                continue;
+             int index = map.get(Character.toUpperCase(word.charAt(0)));
+             for (char c: word.toCharArray()){
+                 c = Character.toUpperCase(c);
+                 if (map.containsKey(c) && map.get(c) != index){
+                     index = -1;
+                     break;
+                 }
+             }
+             if (index != -1)
+                res.add(word);
+             
+         }
+         String[] arr = new String[res.size()];
+         int i = 0;
+         for (String s: res)
+            arr[i++] = s;
+         return arr;
+        
+    }
+
+You are given two arrays (without duplicates) nums1 and nums2 where nums1’s elements are subset of nums2. Find all the next greater numbers for nums1's elements in the corresponding places of nums2.
+
+The Next Greater Number of a number x in nums1 is the first greater number to its right in nums2. If it does not exist, output -1 for this number.
+
+Example 1:
+Input: nums1 = [4,1,2], nums2 = [1,3,4,2].
+Output: [-1,3,-1]
+Explanation:
+    For number 4 in the first array, you cannot find the next greater number for it in the second array, so output -1.
+    For number 1 in the first array, the next greater number for it in the second array is 3.
+    For number 2 in the first array, there is no next greater number for it in the second array, so output -1.
+Example 2:
+Input: nums1 = [2,4], nums2 = [1,2,3,4].
+Output: [3,-1]
+Explanation:
+    For number 2 in the first array, the next greater number for it in the second array is 3.
+    For number 4 in the first array, there is no next greater number for it in the second array, so output -1.
+
+public int[] nextGreaterElement(int[] findNums, int[] nums) {
+        Map<Integer, Integer> map = new HashMap<>();
+        Stack<Integer> st = new Stack<>();
+        for (int n: nums){
+            while(!st.isEmpty() && st.peek() < n)
+                map.put(st.pop(), n);
+            st.push(n);
+        }
+        for (int i = 0; i < findNums.length; i++)
+            findNums[i] = map.getOrDefault(findNums[i], -1);
+        return findNums;
+    }
 
 
 
 
+Given a Binary Search Tree (BST), convert it to a Greater Tree such that every key of the original BST is changed to the original key plus sum of all keys greater than the original key in BST.
+
+Example:
+
+Input: The root of a Binary Search Tree like this:
+              5
+            /   \
+           2     13
+
+Output: The root of a Greater Tree like this:
+             18
+            /   \
+          20     13
+
+        
+    int runningSum = 0;
+    public TreeNode convertBST(TreeNode root) {
+        if (root == null) return null;
+        invertedInorder(root);
+        return root;
+    }
+    
+    public void invertedInorder(TreeNode root){
+        if (root.right != null) invertedInorder(root.right);
+        runningSum += root.val;
+        root.val = runningSum;
+        if (root.left != null) invertedInorder(root.left);
+    }   
 
 
+    palindromic permutation
+    Given a string, determine if a permutation of the string could form a palindrome.
+For example,
+"code" -> False, "aab" -> True, "carerac" -> True.
+
+public boolean palindromePermutation(String word){
+    Set<Character> set = new HashSet<>();
+    for (char c: word.toCharArray()){
+        if (set.contains(c))
+            set.remove(c);
+        else
+            set.add(c);
+    }
+    if (word.length() % 2 == 0)
+        return set.isEmpty();
+    return set.size() == 1;
+}
  
 
 
 
 
+Given a word, you need to judge whether the usage of capitals in it is right or not.
+
+We define the usage of capitals in a word to be right when one of the following cases holds:
+
+All letters in this word are capitals, like "USA".
+All letters in this word are not capitals, like "leetcode".
+Only the first letter in this word is capital if it has more than one letter, like "Google".
+Otherwise, we define that this word doesn't use capitals in a right way.
+Example 1:
+Input: "USA"
+Output: True
+Example 2:
+Input: "FlaG"
+Output: False
+
+ public boolean detectCapitalUse(String word) {
+        int countCapital = 0;
+        for (char c: word.toCharArray()){
+            if (c <= 'Z')
+                countCapital++;
+        }
+        return (countCapital == 0 || countCapital == word.length() || 
+                (countCapital == 1 && word.charAt(0) <= 'Z'));
+                
+                
+    }
 
 
+For a web developer, it is very important to know how to design a web page's size. So, given a specific rectangular web page’s area, your job by now is to design a rectangular web page, whose length L and width W satisfy the following requirements:
+
+1. The area of the rectangular web page you designed must equal to the given target area.
+
+2. The width W should not be larger than the length L, which means L >= W.
+
+3. The difference between length L and width W should be as small as possible.
+You need to output the length L and the width W of the web page you designed in sequence.
+Example:
+Input: 4
+Output: [2, 2]
+Explanation: The target area is 4, and all the possible ways to construct it are [1,4], [2,2], [4,1]. 
+But according to requirement 2, [1,4] is illegal; according to requirement 3,  [4,1] is not optimal compared to [2,2]. So the length L is 2, and the 
 
 
+public int[] constructRectangle(int A){
+    int w = Math.floor(Math.sqrt(A));
+    while(A % w != 0)
+        w--;
+    
+    int res[] = {A / w, w};
+    return res;
+}
  
 
 
+Given a non-negative integer num, repeatedly add all its digits until the result has only one digit.
 
+For example:
+
+Given num = 38, the process is like: 3 + 8 = 11, 1 + 1 = 2. Since 2 has only one digit, return it.
+
+
+public int repeatedAdd(int N){
+    int sum = 0;
+
+    while (num > 9){
+        sum = 0;
+
+        while (num > 0){
+            sum += num % 10;
+            num /= 10;
+        }
+        num = sum;
+    }
+
+    return num;
+}
  
  
  
- 
+Given a binary search tree with non-negative values, find the minimum absolute difference between values of any two nodes.
+
+Example:
+
+Input:
+
+   1
+    \
+     3
+    /
+   2
+
+Output:
+1
+
+Explanation:
+The minimum absolute difference is 1, which is the difference between 2 and 1 (or between 2 and 3).
+
+Stack<TreeNode> st = new Stack<>();
+        int minDiff2 = Integer.MAX_VALUE;
+        TreeNode prev2 = null;
+        while(!st.isEmpty() && root != null){
+            while(root != null){
+                st.push(root);
+                root = root.left;
+            }
+            root = st.pop();
+            if (prev != null)
+                minDiff2 = Math.min(minDiff2, root.val - prev2.val);
+            prev2 = root;
+            root = root.right;
+        }
+
+
+if its not a BST, traverse the tree add elements to list. sort it and return min diff.
+
+
+
+Given scores of N athletes, find their relative ranks and the people with the top three highest scores, who will be awarded medals: "Gold Medal", "Silver Medal" and "Bronze Medal".
+
+Example 1:
+Input: [5, 4, 3, 2, 1]
+Output: ["Gold Medal", "Silver Medal", "Bronze Medal", "4", "5"]
+Explanation: The first three athletes got the top three highest scores, so they got "Gold Medal", "Silver Medal" and "Bronze Medal". 
+For the left two athletes, you just need to output their relative ranks according to their scores.
+
+public String[] relativeRank(int[] A){
+    int[] copy = A.clone();
+    int N = A.length;
+    String res[] = new String[N];
+    Arrays.sort(copy);
+
+    for (int i = 0; i < N; i++){
+        int pos = Arrays.binarySearch(copy, A[i]);
+
+        if (pos == N - 1) res[i] = "Gold medal";
+        else if (pos == N - 2) res[i] = "Silver medal";
+        else if (pos == N - 3) res[i] = "Bronze medal";
+        else
+            res[i] = N - pos + "";
+    }
+}
+
+
+Given a positive integer, return its corresponding column title as appear in an Excel sheet.
+
+For example:
+
+    1 -> A
+    2 -> B
+    3 -> C
+    ...
+    26 -> Z
+    27 -> AA
+    28 -> AB 
+
+
+      public String convertToTitle(int n) {
+        StringBuilder sb = new StringBuilder();
+        while(n > 0){
+            n--;
+            
+            sb.append((char)('A' + n % 26 ));
+            
+            n /= 26;
+        }
+        return sb.reverse().toString();
+    }
+}
+
+
+
+Dist(n1, n2) = Dist(root, n1) + Dist(root, n2) - 2*Dist(root, lca) 
+public int findDistance(TreeNode root, int n1, int n2){
+    int d1 = distance(root, n1);
+    int d2 = distance(root, n2);
+    int lca = getLCA(root, n1, n2);
+    return d1 + d2 - 2 * lca;
+}
+
+public int distance(Node root, int n1){
+    if (root == null)
+        return 0;
+    
+
+    if (root.val == n1)
+        return 0;
+    if (root.val < n1)
+        return 1 + distance(root.left, n1);
+    else if (root.val > n1)
+        return 1 + distance(root.right, n1);
+    
+}
+
+
+find mode in bst/bt
+public int[] findMode(TreeNode root) {
+        /*
+        https://discuss.leetcode.com/topic/77077/ugly-but-straight-forward-java-solution
+        https://discuss.leetcode.com/topic/77335/proper-o-1-space/2
+        https://discuss.leetcode.com/topic/77079/java-ac-solution
+        https://discuss.leetcode.com/topic/77397/java-inorder-recursive-solution-beats-99-with-explanation
+         Map<Integer, Integer> map; 
+    int max = 0;
+    public int[] findMode(TreeNode root) {
+        if(root==null) return new int[0]; 
+        this.map = new HashMap<>(); 
+        
+        inorder(root); 
+        
+        List<Integer> list = new LinkedList<>();
+        for(int key: map.keySet()){
+            if(map.get(key) == max) list.add(key);
+        }
+        
+        int[] res = new int[list.size()];
+        for(int i = 0; i<res.length; i++) res[i] = list.get(i);
+        return res; 
+    }
+    
+    private void inorder(TreeNode node){
+        if(node.left!=null) inorder(node.left);
+        map.put(node.val, map.getOrDefault(node.val, 0)+1);
+        max = Math.max(max, map.get(node.val));
+        if(node.right!=null) inorder(node.right); 
+    }
+        */
+        int max = 0;
+        Stack<TreeNode> stack = new Stack<>();
+        Map<Integer, Integer> map = new HashMap<>();
+        while(root != null || !stack.isEmpty()){
+            while(root != null){
+                stack.push(root);
+                root = root.left;
+            }
+            root = stack.pop();
+            int val = root.val;
+            if (!map.containsKey(val))
+                map.put(val, 0);
+            map.put(val, map.get(val) + 1);
+            max = Math.max(max, map.get(val));
+            root = root.right;
+        }
+        
+        List<Integer> list = new LinkedList<>();
+        for(int key: map.keySet()){
+            if(map.get(key) == max) list.add(key);
+        }
+        
+        int[] res = new int[list.size()];
+        for(int i = 0; i<res.length; i++) res[i] = list.get(i);
+        return res; 
+    }
+
+
+Given a non-empty string check if it can be constructed by taking a substring of it and appending multiple copies of the substring together. You may assume the given string consists of lowercase English letters only and its length will not exceed 10000.
+
+Example 1:
+Input: "abab"
+
+Output: True
+
+Explanation: It's the substring "ab" twice.
+Example 2:
+Input: "aba"
+
+Output: False
+Example 3:
+Input: "abcabcabcabc"
+
+Output: True
+
+Explanation: It's the substring "abc" four times. (And the substring "abcabc" twice.)
+
+public boolean repeatedSubstringPattern(String str) {
+        return (str + str).substring(1, 2 * str.length() - 1).contains(str);
+}
+
+
+Given a pattern and a string str, find if str follows the same pattern.
+
+Here follow means a full match, such that there is a bijection between a letter in pattern and a non-empty word in str.
+
+Examples:
+pattern = "abba", str = "dog cat cat dog" should return true.
+pattern = "abba", str = "dog cat cat fish" should return false.
+pattern = "aaaa", str = "dog cat cat dog" should return false.
+pattern = "abba", str = "dog dog dog dog" should return false.
+Notes:
+You may assume pattern contains only lowercase letters, and str contains lowercase letters separated by a single space.
+
+public boolean wordPattern(String pattern, String str) {
+        
+        
+        Map map = new HashMap();
+        char[] characters = pattern.toCharArray();
+        String[] words = str.split(" ");
+        if (characters.length != words.length) 
+            return false;
+        for (Integer i = 0; i < characters.length; i++){
+            if (map.put(characters[i], i) != map.put(words[i], i))
+                return false;
+        }
+        return true;
+    }
 
 
 
 
+contiguous array
+given a binary array find longest sequence of 0 and 1s
+public int findMaxLength(int[] nums){
+    for (int i = 0; i < N; i++){
+        if (nums[i] == 0)nums[i] = -1;
+    }
+    Map<Integer, Integer> sumIndex = new HashMap<>();
+    sumIndex.put(0, -1);
+    int sum = 0, maxLen = 0;
+    for (int i = 0; i < N; i++){
+        sum += nums[i];
+        if(sumIndex.ocntainsKey(sum))
+            max = Math.max(max, i  - sumIndx.get(sum));
+        else
+            sumIndex.put(sum, i);
+    }
+    return max;
+}
+    read n given read4
 
 
+The API: int read4(char *buf) reads 4 characters at a time from a file.
+
+The return value is the actual number of characters read. For example, it returns 3 if there is only 3 characters left in the file.
+
+By using the read4 API, implement the function int read(char *buf, int n) that reads n characters from the file.
+
+Note: The read function may be called multiple times.
+
+    public int read(char[] buf, int n) {
+  boolean eof = false;      // end of file flag
+  int total = 0;            // total bytes have read
+  char[] tmp = new char[4]; // temp buffer
+  
+  while (!eof && total < n) {
+    int count = read4(tmp);
+    
+    // check if it's the end of the file
+    eof = count < 4;
+    
+    // get the actual count
+    count = Math.min(count, n - total);
+    
+    // copy from temp buffer to buf
+    for (int i = 0; i < count; i++) 
+      buf[total++] = tmp[i];
+  }
+  
+  return total;
+}
 
 
 
@@ -12703,21 +13492,1494 @@ public class Solution {
 Given [5, 4, 3, 2, 1],
 return false.
 
+an integer pair (i, j), where i and j are both numbers in the array and their absolute difference is k.
+
+Example 1:
+Input: [3, 1, 4, 1, 5], k = 2
+Output: 2
+Explanation: There are two 2-diff pairs in the array, (1, 3) and (3, 5).
+Although we have two 1s in the input, we should only return the number of unique pairs.
+Example 2:
+Input:[1, 2, 3, 4, 5], k = 1
+Output: 4
+Explanation: There are four 1-diff pairs in the array, (1, 2), (2, 3), (3, 4) and (4, 5).
+Example 3:
+Input: [1, 3, 1, 5, 4], k = 0
+Output: 1
+Explanation: There is one 0-diff pair in the array, (1, 1).
+Note:
+The pairs (i, j) and (j, i) count as the same pair.
+The length of the array won't exceed 10,000.
+All the integers in the given input belong to the range: [-1e7, 1e7].
+
+ public int findPairs(int[] nums, int k) {
+     if (nums == null || nums.length == 0 || k < 0)
+        return 0;
+     Map<Integer, Integer> map = new HashMap<>();
+     for (int num: nums){
+         if (!map.containsKey(num))
+            map.put(num, 0);
+         map.put(num, map.get(num) + 1);
+     }
+     
+     int count = 0;
+     for (Map.Entry<Integer, Integer> entry: map.entrySet()){
+         if (k == 0){
+             if (entry.getValue() >= 2)
+                count++;
+         }
+         else {
+             if (map.containsKey(entry.getKey() + k))
+                count++;
+         }
+     }
+     return count;
+    }
+
+
+     public int countPrimes(int n) {
+       
+        
+         boolean[] isNotPrime = new boolean[n ];
+        int count = 0;
+        for (int i = 2; i * i <= n; i++){// < Math.sqrt(n); i++){ // test numbers only within range 2 - sqrt(n) 
+            if (isNotPrime[i] == false){
+                //count++;
+                for (int j = i; i * j < n; j++)
+                    isNotPrime[j * i] = true;
+            }
+        }
+        for (int i = 2; i < isNotPrime.length; i++)
+            if (!isNotPrime[i])count++;
+        return count;
+       
+    }
+
+    convert bst to greater tree
+Input: The root of a Binary Search Tree like this:
+              5
+            /   \
+           2     13
+
+Output: The root of a Greater Tree like this:
+             18
+            /   \
+          20     13
+     */
+public class Solution {
+    int runningSum = 0;
+    public TreeNode convertBST(TreeNode root) {
+        if (root == null) return null;
+        invertedInorder(root);
+        return root;
+    }
+    
+    public void invertedInorder(TreeNode root){
+        if (root.right != null) invertedInorder(root.right);
+        runningSum += root.val;
+        root.val = runningSum;
+        if (root.left != null) invertedInorder(root.left);
+    }   
+}
+
+
+
+Given a string S, you are allowed to convert it to a palindrome by adding characters in front of it. Find and return the shortest palindrome you can find by performing this transformation.
+
+For example:
+
+Given "aacecaaa", return "aaacecaaa".
+
+Given "abcd", return "dcbabcd".
+
+ public String shortestPalindrome(String s) {
+         int i = 0, end = s.length() - 1, j = end;
+        char[] chars = s.toCharArray();
+        
+        while (i < j){
+            if (s.charAt(i) == s.charAt(j)) {
+            //if (chars[i] == chars[j]){
+                i++;j--;
+            }
+            else {
+                i = 0;
+                end--;
+                j = end;
+            }
+            
+        }
+        StringBuilder prefix = new StringBuilder(s.substring(end + 1));
+        return prefix.reverse().toString() + s;
+    }
+
+
+
+    Given a 2D board and a word, find if the word exists in the grid.
+
+The word can be constructed from letters of sequentially adjacent cell, where "adjacent" cells are those horizontally or vertically neighboring. The same letter cell may not be used more than once.
+
+For example,
+Given board =
+
+[
+  ['A','B','C','E'],
+  ['S','F','C','S'],
+  ['A','D','E','E']
+]
+word = "ABCCED", -> returns true,
+word = "SEE", -> returns true,
+word = "ABCB", -> returns false.
+
+ public boolean exist(char[][] board, String word) {
+        if (board == null || board.length == 0) return false;
+        int m = board.length, n = board[0].length;
+        boolean visited[][] = new boolean[m][n];
+        for (int i = 0; i < m; i++){
+            for (int j = 0; j < n; j++){
+                if (board[i][j] == word.charAt(0) && dfs(board, i, j, word, 0, visited))
+                    return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean dfs(char[][] b, int i, int j, String S, int index, boolean[][] visited){
+        if (index == S.length())
+            return true;
+        if (i < 0 || j < 0 || j >= b[0].length || i >= b.length || visited[i][j]
+            || S.charAt(index) != b[i][j])
+                return false;
+        visited[i][j] = true;
+        if (
+            dfs(b, i - 1, j, S, index + 1, visited)||
+            dfs(b, i, j - 1, S, index + 1, visited)||
+            dfs(b, i + 1, j, S, index + 1, visited)||
+            dfs(b, i, j + 1, S, index + 1, visited))
+          return true;
+         visited[i][j] = false;
+         return false;
+        
+    }
+
+
+
+    public int myAtoi(String str) {
+        if (str == null || str.length() == 0)
+            return 0;
+        str = str.trim();
+        int sign = 1, start = 0, N = str.length();
+        long sum = 0;
+        if (str.charAt(0) == '+'){
+            sign = 1;
+            start++;
+        }
+        else if (str.charAt(0) == '-'){
+            sign = -1;
+            start++;
+        }
+        for (int i = start; i < N; i++){
+            if (!Character.isDigit(str.charAt(i)))
+                return (int) sum * sign;
+            sum = sum * 10 + str.charAt(i) - '0';
+            if (sign == 1 && sum > Integer.MAX_VALUE)
+                return Integer.MAX_VALUE;
+            if (sign == -1 && -sum < Integer.MIN_VALUE)
+                return Integer.MIN_VALUE;
+        }
+        return (int) sum * sign;r )
+     
+        if (str == null || str.length() == 0)
+            return 0;
+        str = str.trim();
+        int sign = 1, start = 0, N = str.length();
+        long sum = 0;
+        if (str.charAt(0) == '+'){
+            sign=1;
+            start++;
+        }
+        else if (str.charAt(0) == '-'){
+            sign = -1;
+            start++;
+        }
+        for(int i = start; i < N; i++){
+            if (!Chara)
+        }
+     
+    }
+
+
+
+    Total Accepted: 166543
+Total Submissions: 510027
+Difficulty: Medium
+Contributor: LeetCode
+Given a linked list, remove the nth node from the end of list and return its head.
+
+For example,
+
+   Given linked list: 1->2->3->4->5, and n = 2.
+
+   After removing the second node from the end, the linked list becomes 1->2->3->5.
+
+       public ListNode removeNthFromEnd(ListNode head, int n) {
+        if (head == null || n == 0) return head;
+        ListNode curr = head, target = head, tail = null;
+        for (int i = 0; i < n; i++)
+            curr = curr.next;
+        while(curr != null){
+            tail = target;
+            target = target.next;
+            curr = curr.next;
+        }
+        if (target == head)
+            return head.next;
+        tail.next = target.next;
+        return head;
+        
+    }
+
+
+
+        public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (p == root || q == root || root == null) return root;
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        if (left == null && right == null) return null;
+        if (left != null && right != null) return root;
+        return (left != null)?left:right;
+        
+    }
 
 
 
 
 
+public static void sort(int[] A, int low, int high){
+    if (low >= high) return;
+    
+    int pivot = partion(A, low, high);
+    sort(A, low, pivot - 1);
+    sort(A, pivot + 1, high);
+    
+  }
+    private static int partion(int[] nums, int start, int end) {
+        int pivot = start, temp;
+        while (start <= end) {
+            while (start <= end && nums[start] <= nums[pivot]) start++;
+            while (start <= end && nums[end] > nums[pivot]) end--;
+            if (start > end) break;
+            temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+        }
+        temp = nums[end];
+        nums[end] = nums[pivot];
+        nums[pivot] = temp;
+        return end;
+    }
+
+
+     public int findKthSmallest(int[] nums, int k) {
+        int start = 0, end = nums.length - 1, index =  k;
+        while (start < end) {
+            int pivot = partion(nums, start, end);
+            if (pivot < index) start = pivot + 1; 
+            else if (pivot > index) end = pivot - 1;
+            else return nums[pivot];
+        }
+        return nums[start];
+    }
+
+
+    public int getMinDepth(TreeNode root){
+        if (root == null) return 0;
+        if (root.left == null && root.right == null)
+            return 1;
+        int left = (root.left == null)?Integer.MAX_VALUE: getMinDepth(root.left);
+        int right = (root.right == null)?Integer.MAX_VALUE: getMinDepth(root.right);
+
+        return 1 + Math.min(left, right);
+    }
+
+
+
+LeetCode 360 - Sort Transformed Array
+
+http://www.cnblogs.com/grandyang/p/5595614.html
+Given a sorted array of integers nums and integer values a, b and c. Apply a function of the form f(x) = ax2 +bx + c to each element x in the array.
+The returned array must be in sorted order.
+Expected time complexity: O(n)
+
+nums = [-4, -2, 2, 4], a = 1, b = 3, c = 5,
+
+Result: [3, 9, 15, 33]
+
+nums = [-4, -2, 2, 4], a = -1, b = 3, c = 5
+
+Result: [-23, -5, 1, 7]
+
+ public int[] sortTransformedArray(int[] nums, int a, int b, int c) {
+        PriorityQueue<Integer> q = new PriorityQueue<>();
+        for(int i = 0;i<nums.length;i++){
+            nums[i] = (a*nums[i]*nums[i]) + (b*nums[i]) + c;
+            q.offer(nums[i]);
+        }
+        int i = 0;
+        while(!q.isEmpty()){
+            nums[i++] = q.poll();
+        }
+        return nums;
+    }
 
 
 
 
+max size subarray sum k
+
+Given an array nums and a target value k, find the maximum length of a subarray that sums to k. If there isn't one, return 0 instead.
+
+Example 1:
+Given nums = [1, -1, 5, -2, 3], k = 3,
+return 4. (because the subarray [1, -1, 5, -2] sums to 3 and is the longest)
+
+Example 2:
+Given nums = [-2, -1, 2, 1], k = 1,
+return 2. (because the subarray [-1, 2] sums to 1 and is the longest)
+
+Follow Up:
+Can you do it in O(n) time?
+
+public int maxSubarraySum(int[] A, int k){
+    Map<Integer, Integer> map = new HashMap<>();
+    map.put(0, -1);
+    int sum = 0;
+    for (int i = 0; i < N; i++){
+        sum += A[i];
+        if (!map.contains(sum)){
+            map.put(sum, i);
+        }
+        if (map.contains(sum - k)){
+            int index = map.get(sum - k);
+            maxLen = max(maxLen, i - index);
+        }
+    }
+    return maxLen;
+} 
+
+
+public boolean subsetsum(int[] A, int x){
+    int R = A.length + 1, C = x + 1;
+    int dp[][] = new int[R][C];
+    for (int i = 1; i < R; i++){
+        for (int j = 0; j < C; j++){
+            if (j == 0)
+                dp[i][j] = true;
+            else if (A[i - 1] >= j)
+                dp[i][j] = dp[i - 1][j] || dp[i - 1][j - A[i-1]];
+            else 
+                dp[i][j] = dp[i - 1][j];
+        
+        }
+    }
+}
+
+
+class HitCounter{
+    Queue<Integer> q;
+    public HitCounter(){
+        q = new LinkedList<>();
+    }
+
+    public void hit(int timestamp){
+        q.offer(timestamp);
+    }
+
+    public int getHits(int timestamp){
+        while(!q.isEmpty() && timestampe - q.peek() >= 300)
+            q.poll();
+        return q.size();
+    }
+}
 
 
 
 
+Convert a given tree to its Sum Tree
+Given a Binary Tree where each node has positive and negative values. Convert this to a tree where each node contains the sum of the left and right sub trees in the original tree. The values of leaf nodes are changed to 0.
 
+For example, the following tree
+
+                  10
+               /      \
+	     -2        6
+           /   \      /  \ 
+	 8     -4    7    5
+should be changed to
+
+                 20(4-2+12+6)
+               /      \
+	   4(8-4)      12(7+5)
+           /   \      /  \ 
+	 0      0    0    0
+
+     public int sumTree(TreeNode root){
+         if (root == null) return 0;
+         int oldValue = root.val;
+
+         root.val = sumTree(root.left) + sumTree(root.right);
+
+         return root.val + oldValue; 
+     }
+
+
+
+ private boolean isContinuousTree(BTNode temp) {
+		if (temp == null)
+			return true;
+		if (temp.left != null && Math.abs(temp.data - temp.left.data) != 1)
+			return false;
+		if (temp.right != null && Math.abs(temp.data - temp.right.data) != 1)
+			return false;
+		return isContinuousTree(temp.left) && isContinuousTree(temp.right);
+	}
 	
+So the tree…
+
+    2
+   / \
+  1   3
+is changed to…
+
+       2
+      / \
+     2   3
+    /   /
+   1   3
+  /
+ 1
+And the tree
+
+            1
+          /   \
+        2      3
+      /  \
+    4     5
+is changed to
+
+               1
+             /   \
+           1      3
+          /      /
+        2       3
+      /  \
+     2    5
+    /    /
+   4   5
+  /   
+ 4 
+
+ public void doubleTree(TreeNode root){
+     if (root == null) return;
+     doubleTree(root.left);
+     doubleTree(root.right);
+     TreeNode oldLeft = root.left;
+     root.left = new TreeNode(root.val);
+     root.left.left = oldLeft;
+ }
+
+
+ ternary expression evaluator
+
+ Each number will contain only one digit.
+The conditional expressions group right-to-left (as usual in most languages).
+The condition will always be either T or F. That is, the condition will never be a digit.
+The result of the expression will always evaluate to either a digit 0-9, T or F.
+Example 1:
+
+Input: "T?2:3"
+
+Output: "2"
+
+Explanation: If true, then result is 2; otherwise result is 3.
+Example 2:
+
+Input: "F?1:T?4:5"
+
+Output: "4"
+
+Explanation: The conditional expressions group right-to-left. Using parenthesis, it is read/evaluated as:
+
+             "(F ? 1 : (T ? 4 : 5))"                   "(F ? 1 : (T ? 4 : 5))"
+          -> "(F ? 1 : 4)"                 or       -> "(T ? 4 : 5)"
+          -> "4"                                    -> "4"
+Example 3:
+
+Input: "T?T?F:5:3"
+
+Output: "F"
+
+4:1?
+public String parseTernary(String expression){
+    if (expression == null || expression.length() == 0)
+        return "";
+    Stack<Character> stack = new Stack<>();
+    for (int i = N - 1; i >= 0; i--){
+        char c = expression.charAt(i);
+
+        if(!stack.isEmpty() && stack.peek() == '?'){
+
+            stack.pop(); // pop '?'
+            char first = stack.pop();
+            stack.pop(); // pop ':'
+            char second = stack.pop();
+
+            if (c == 'T')
+                stack.push(first);
+            else
+                stack.push(second);
+        }
+        else
+            stack.push(c);
+    }
+    return String.valueOf(stack.peek());
+}
+
+
+number of connected commponents in undirected graph
+
+we use bfs, for every node, we store all of its neighbors.
+for every node we mark all of its unvisited neighbors as visited
+if there are unvisited node, we increase the count
+
+https://www.youtube.com/watch?v=bIA8HEEUxZI
+
+
+public int countComponents(int n, int[][] edges){
+    List<List<Integer>> neighbors = new ArrayList<>();
+    for (Int i = 0; i < n; i++){
+        neighbors.get(edge[0]).add(edge[1]);
+        neighbors.get(edge[1]).add(edge[0]);
+    }
+
+    boolean[] visited = new boolean[n];
+    int count = 0;
+
+    for (int i = 0; i < n; i++){
+        if(!visited[i]){
+            count++;
+            Queue<INteger> q = new LinkedList<>();
+            q.offer(i);
+
+            while(!q.isEmpty()){
+                int edge = q.poll();
+                visited[edge] = true;
+                for (int n: neighbors.get(edge)){
+                    if (!visited[n])
+                        q.offer(n);
+                }
+            }
+        }
+    }
+        
+}
+
+Minimum time difference
+Given a list of 24-hour clock time points in "Hour:Minutes" format, find the minimum minutes difference between any two time points in the list.
+
+Example 1:
+Input: ["23:59","00:00"]
+Output: 1
+Note:
+The number of time points in the given list is at least 2 and won't exceed 20000.
+The input time is legal and ranges from 00:00 to 23:59.
+
+public int minDifference(List<String> timePoints){
+    PriorityQueue<Integer> pq = new PriorityQueue<>();
+
+    for (int i = 0; i < timePoints.size(); i++){
+        int hrs = Integer.parseInt(timePoints.get(i).substring(0, 2));
+        int mins = Integer.parseInt(timePoints.get(i).substring(3));
+        pq.offer(60 * hrs + mins);
+        pq.offer(60 * (hrs + 24) + mins);
+    }
+    int min = Integer.MAX_VALUE, curr = pq.poll(), next = 0;
+    while(!pq.isEmpty()){
+        next = pq.poll();
+        min = Math.min(min, Math.abs(curr - next));
+        curr = next;
+    }
+    return min;
+}
+
+
+ It will automatically contact the police if two directly-linked houses were broken into on the same night.
+
+Determine the maximum amount of money the thief can rob tonight without alerting the police.
+
+Example 1:
+     3
+    / \
+   2   3
+    \   \ 
+     3   1
+Maximum amount of money the thief can rob = 3 + 3 + 1 = 7.
+Example 2:
+     3
+    / \
+   4   5
+  / \   \ 
+ 1   3   1
+Maximum amount of money the thief can rob = 4 + 5 = 9.
+
+
+public int rob(TreeNode root){
+    if (root == null) return 0;
+    List<Integer> res = postOrder(root);
+    return Math.max(res.get(0), res.get(1));
+}
+public List<Integer> postOrder(TreeNode root){
+    List<Integer> temp = new ArrayList<>();
+    temp.add(0);temp.add(0);
+    if (root == null) return temp;
+
+    List<Integer> left = postOrder(root.left);
+    List<Integer> right = postOrder(root.right);
+
+    temp(0) represents the value if we steal from current node. this will include the
+    value we steal from the current value + value if we don't steal from it's right and left child(left(1), right(1))
+    temp(1) represenst value if we don't steal from current node.
+    https://discuss.leetcode.com/topic/69281/java-post-order-traversal-dfs-solution-easy-understand-with-explanation
+    temp.set(0, root.val + leftValue.get(1) + rightValue.get(1));
+    temp.set(1, Math.max(leftValue.get(0), leftValue.get(1))
+                + Math.max(rightValue.get(0), rightValue.get(1)));
+    return temp;
+}
+
+
+Given a binary tree, count the number of univalue subtrees.
+A Uni-value subtree means all nodes of the subtree have the same value.
+For example:
+Given binary tree,
+              5
+             / \
+            1   5
+           / \   \
+          5   5   5
+
+
+int count = 0;
+public int countUnivalueSubtrees(TreeNode root){
+    helper(root);
+    return count;
+}
+
+public boolean helper(TreeNode node){
+    if (node == null) 
+        return true;
+    
+    boolean left = helper(node.left);
+    boolean right = helper(node.right);
+
+    if (left && right){
+        if (node.left != null && node.left.val != node.val)
+            return false;
+        if (node.right != null && node.right.val != node.val)
+            return false;
+        count++;
+        return true;
+    }
+    return false;
+}
+
+
+Read N Characters Given Read4  
+The API: int read4(char *buf) reads 4 characters at a time from a file.
+The return value is the actual number of characters read. For example, it returns 3 if there is only 3 characters left in the file.
+By using the read4 API, implement the function int read(char *buf, int n) that reads n characters from the file.
+Note:
+The read function will only be called once for each test case.
+public int read(char[] buf, int n){
+    char[] temp = new char[4];
+    int i = 0, num = 4;
+    while(i < N && num == 4){
+        num = read4(temp);
+        while(j < num && i < n){
+            buf[i++] = temp[j++];
+        }
+    }
+    return i;
+
+}
+
+
+Given a string and a string dictionary, find the longest string in the dictionary that can be formed by deleting some characters of the given string. If there are more than one possible results, return the longest word with the smallest lexicographical order. If there is no possible result, return the empty string.
+
+Example 1:
+Input:
+s = "abpcplea", d = ["ale","apple","monkey","plea"]
+
+Output: 
+"apple"
+Example 2:
+Input:
+s = "abpcplea", d = ["a","b","c"]
+
+Output: 
+"a"
+
+public String findLongestWord(String s, List<String> dict){
+    // time is O(mn) m = s.length(), n = d.length()
+
+    String longest = "";
+    for (String d: dict){
+        int len = 0;
+        for (char c: s.toCharArray()){
+            if (len < d.length() && c == d.charAt(len))
+                len++;
+        }
+        if (len == dict.length() && dict.length() >= longest.length()){
+            if (dict.lenght() > longest.length() || dict.compareTo(longest) < 0)
+                longest = dict;
+        }
+    }
+    return longest;
+}
+
+The gray code is a binary numeral system where two successive values differ in only one bit.
+
+Given a non-negative integer n representing the total number of bits in the code, print the sequence of gray code. A gray code sequence must begin with 0.
+
+For example, given n = 2, return [0,1,3,2]. Its gray code sequence is:
+
+00 - 0
+01 - 1
+11 - 3
+10 - 2
+Note:
+For a given n, a gray code sequence is not uniquely defined.
+
+For example, [0,2,3,1] is also a valid gray code sequence according to the above definition.
+
+
+public List<Integer> grayCode(int n){
+    int totalNumbers = Math.pow(n, 2);
+    List<Integer> resp = new ArrayList<>();
+    for (int i = 0; i < totalNumbers; i++){
+        int gc = i ^ (i / 2);
+        res.add(gc);
+    }
+    return res;
+}
+
+
+
+SHORTEST WORD DISTANCE 2
+his is a follow up of Shortest Word Distance. The only difference is now you are given the list of words and your method will be called repeatedly many times with different parameters. How would you optimize it?
+
+Design a class which receives a list of words in the constructor, and implements a method that takes two words word1 and word2 and return the shortest distance between these two words in the list.
+
+For example,
+Assume that words = ["practice", "makes", "perfect", "coding", "makes"].
+
+Given word1 = “coding”, word2 = “practice”, return 3.
+Given word1 = "makes", word2 = "coding", return 1.
+
+
+class WordDistance{
+    Map<String, List<String>> map;
+
+    public WordDistance(String[] words){
+        map = new HashMap<>();
+        for (int i = 0; i < words.length; i++){
+            if(!map.containsKey(words[i]))
+                map.put(words[i, new ArrayList<>());
+            map.get(words[i]).add(i)
+        }
+    }
+
+    public int shortest(String word1, String word2){
+        List<Integer> l1 = map.get(word1);
+        List<Integer> l2 = map.get(word2);
+        int min = Integer.MAX_VALUE;
+        for (int i = 0; i < l1.size(); i++){
+            for (itn j = 0; j < l2.size(); j++){
+                min = Math.min(min, Math.abs(l1.get(i) - l2.get(j)))
+            }
+        }
+        return min;
+    }
+}
+
+shortest word distance 3 what if both words are the same
+public static void main(String[] args){
+    String a[] = {"practice", "makes", "perfect", "coding", "makes"};
+    System.out.println(dis(a, "makes", "makes"));
+  }
+  public static int dis(String[] arr, String word1, String word2){
+    int p1 = -1, p2 = -1, min = Integer.MAX_VALUE;
+    int turn = 0;
+    if (word1.equals(word2)) turn = 1;
+    
+    for (int i = 0; i < arr.length; i++){
+      if (arr[i].equals(word1) && (turn == 0 || turn == 1)){
+        p1 = i;
+        turn = 2;
+        if (p1 != -1 && p2 != -1)
+          min = Math.min(min, Math.abs(p1 - p2));
+      }
+      else if (arr[i].equals(word2)&& (turn == 0 || turn == 2)){
+        p2 = i;
+        turn = 1;
+        if (p1 != -1 && p2 != -1)
+          min = Math.min(min, Math.abs(p1 - p2));
+      }
+    }
+    return min;
+  }
+  
+
+class MinHeap{
+    private List<Integer> items;
+    public MinHeap(){
+        items = new ArrayList<>();
+    }
+
+
+    private void siftUp(){
+
+    }
+
+    private void siftDown(){
+       int k = 0;
+       int l = 2 * k + 1;
+       while (l < items.size()){
+           int max = l, r = l  + 1;
+           if (r < itmes.size()){
+               if (items.get(r) > items.get(l))
+                max = r;
+           }
+           if (items.get(k) < items.get(max)){
+
+               k = max;
+               l = 2 * k + 1;
+           }
+           else
+            break;
+       }
+    }
+
+    public int poll(){
+        if (items.size() == 0) throw exception;
+        if (items.size() == 1)
+            return items.get(0);
+        int root = item.get(0);
+        items.set(0, items.get(items.size() - 1));
+        siftDown();
+        return root;
+    }
+    publlic void offer(int val){
+        items.add(val);
+        siftUp();
+    }
+
+
+}
+
+public int minMeetinRoom(Interval[] intervals){
+   Arrays.sort(intervals, new Comparator<Interval>(){
+       public int compare(Interval a, Interval b){
+           return a.start - b.start;
+       }
+   })
+   int minRoom = 1;
+   queue.offer(intervals[0].end);
+   for (int i = 1; i < N; i++){
+       if (intervals[i].start < queue.peek())
+        minRoom++;
+       else
+        queue.poll();
+
+    queue.offer(intervals[i].end);
+   }
+   return minRoom;
+
+
+zoo
+    use factory pattern to generate animals
+    make animal interface
+    zoo has cage
+    cage has animal
+    "zoo" "java" site:stackoverflow.com
+
+    abstract Animal
+        legs
+        eatsMeet
+        isColdBlooded
+        isVertebrate
+        isNocturnal
+        family
+        eat() - common defintion, override in subclass
+        move() - abstract
+        liveIn() - water or land
+
+    all animals will implement one of the above interface
+    cage
+        id
+        capacity
+
+
+ReservationSystem
+    Map<Integer, Room> rooms;
+    Map<String, customer> customers;
+    ReservationSystem(List<room> rooms){
+
+    }
+
+    public boolean makeReservation(String name, String id, String information){
+        int room = find
+    }
+
+
+// Body should ceaze to exist when Person object
+// dies
+class Person{
+    String fname, lname;
+    Body bd = new Body();
+    // constructor
+    //getter
+}
+abstract class BodyPart{
+    int lengt, width;
+    // getters
+}
+class Arm extends BodyPart{};
+class Leg extends BodyPart{};
+class Body{
+    Arm left, right;
+    Leg left, right;
+    Head head;
+}
+
+
+Given a picture consisting of black and white pixels, find the number of black lonely pixels.
+
+The picture is represented by a 2D char array consisting of 'B' and 'W', which means black and white pixels respectively.
+
+A black lonely pixel is character 'B' that located at a specific position where the same row and same column don't have any other black pixels.
+
+Example:
+
+Input: 
+[['W', 'W', 'B'],
+ ['W', 'B', 'W'],
+ ['B', 'W', 'W']]
+
+Output: 3
+Explanation: All the three 'B's are black lonely pixels.
+
+public int countLonely(int[][] M){
+    int row[] = new int[R];
+    int col[] = new int[C];
+    for (int i = 0; i < R; i++){
+        for (int j = 0; j < C; j++){
+            if (M[i][j] == 'B'){
+                row[i]++;
+                col[j]++;
+            }
+        }
+    }
+    int count = 0;
+    for (int i = 0; i < R; i++){
+        for (int j = 0; j < C; j++){
+            if(M[i][j] == 'B' && row[i] == 1 && col[j] == 1)
+                count++;
+        }
+    }
+    return count;
+}
+
+$ Deck of cards
+
+public enum Suite{ SPADE, DIAMOND, CLUB, HEART;}
+public enum CardNumber{ACE, TWO, JACK, QUEEN, KING;}
+public class Card{
+    Suite suite;
+    CardNumber number;
+    Card(Suite s, CardNumber n){
+        this.suite = s;
+        this.number = n;
+    }
+
+    // getters
+}
+
+public class Deck{
+    public List<Card> getDeck(){
+        List<Card> cardDeck = new ArrayList<>();
+        for (Suite suite: Suite.values()){
+            for (CardNumber number: CardNumber.values()){
+                Card card = new Card(suite, number);
+                cardDeck.add(card);
+            }
+        }
+        return cardDeck;
+    }
+
+    public List<Card> getShuffledDeck(){
+        return getShuffledDeck(getDeck());
+    }
+
+    public List<Card> getShuffledDeck(List<Card> cards){
+        Random rand = new Random();
+        for (int i = 0; i < 52; i++){
+            int j = rand.nextInt(52);
+            Card temp = cards.get(j);
+            cards.set(j, cards.get(i));
+            cards.set(i, temp);
+        }
+        return cards;
+    }
+}
+
+
+
+
+
+
+public enum Suit{
+    CLUB(0), DIAMOND(1), HEART(2), SPADE(3);
+    private int value;
+    private Suit(int v){
+        value = v;
+    }
+    public int getValue(){return value;}
+    public static Suit getSuitFromValue(int v){}
+}
+
+public class Deck<T extends Card>{
+    private ArrayList<T> cards;
+    private int dealtIndex = 0;
+    public void setDeckOfCard(ArrayList<T> deckOfCards){}
+    public void shuffle(){}
+    public int remainingCards(){
+        
+        return cards.size() - dealtIndex;
+    }
+    public T[] dealHand(int n){}
+    public T dealCard(){}
+}
+
+public abstract class Card{
+    private boolean available = true;
+
+}
+
+elevator shouldn't move if weight of passengers exceed capacity
+multiple elevators
+    if request comes from an elevator, service it
+    if it comes from a floor, we have to choose 
+    1) an elevator that is approaching the floor
+    2) the nearest elevator to service it.
+Elevator
+    state/ up, down, stationary
+    current floor
+    priorityqueueuprequests(floor > currentfloor)donw request(floor < curentfloor)
+    capacity
+    currentload
+    door: open/close
+    isactive: working/underrepair
+    moveUp()
+    moveDown()
+    soundAlarm()
+    openDoor()
+    closeDoor()
+
+
+// QUESTIONS TO ASK
+should different animals live in same age
+class Zoo{
+    Map<Cage, List<Animal>> cages;
+}
+abstract class Animal{
+    int legs;
+    boolean eatsMeet;
+    boolean isColdBlooded;
+    boolean isVertebrate;
+    boolean isNocturnal;
+    String family;
+    public Animal(int legs, boolean eatsMeet, ...){
+        // intialize
+    }
+    public abstract void eat(){};
+    public abstrct void move(){};
+    public abstract void live(){}; // implementation for how & where the animal lives
+}
+class Cage{
+    int id;
+    int capacity;
+    String material;
+    Keeper keeper;
+}
+    
+
+
+
+
+/// CHAT APPLICATION
+enum StatusType{
+    ONLINE, OFFLINE, AWAY;
+}
+
+class Status{
+    StatusType status;
+    String statusMessage;
+}
+class User{
+    String userName;
+    String displayName;
+    List<User> contactList;
+    List<ConnectRequest> requests;
+    StatusType currentStatus;
+    Map<User, String> messageBox;
+    public User(Server belongsTo, String uName){
+        this.belongsTo = belongsTo;
+        userName =uName;
+        displayName ="";
+        contactList = new ArrayList<>();
+        requests = new ArrayList<>();
+        messageBox = new HashMap<>();
+        currentStatus = StatusType.offline;
+    }
+
+    boolean updateStatus(String message){
+        status = message;
+    }
+
+    boolean sendRequest(String userName){
+        if(!belongsTo.userExists(userName)){
+            System.out.println("No such user");
+            return false;
+        }
+        User user = belongsTo.getUser(userName);
+        ConnectRequest send = new ConnectRequest(this, user);
+        user.requet.add(send);
+        return true;
+    }
+
+    boolean approveRequest(Request r){
+        if(!belongsTo.contains(r.receiver)){
+            System.out.println("No such user");
+            return false;
+        }
+        User user = belongsTo.get(r.receiver);
+        contactList.add(user);
+        requests.remove(r);
+        return true;
+    }
+
+    boolean denyRequest(Request r){
+        requests.remove(r);
+        return true;
+    }
+
+    public void removeContact(String uname){
+        User userToRemove = belongsTo.get(uname);
+        contactList.remove(userToRemove);
+    }
+
+    boolean sendMessage(String uname, String message){
+        User rec = belongsT.get(uname);
+
+        if (!contactList.contains(rec){
+            System.out.println("receiver not in contact list");
+            retunr false;
+        })
+        if (rec.status = StatusType.offline){
+            System.out.println("receiver not online")
+            return false;
+        }
+        if (!messageBox.contains(rec)){
+            messageBox.put(rec, new ARrayList<>());
+            rec.messageBox.put(this, new ArrayList<>());
+        }
+        messageBo.get(rec)..add(message);
+        rec.messageBox.get(this).add(message);
+        return true;
+    }
+
+    void setStatus(StatusType s){
+        currentStatus = s;
+    }
+}
+class ConnectRequest{
+    User sender, receiver;
+}
+class Server{
+    List<User> database;
+    bolean userExists(String userName){
+        for (User u: database){
+            if (u == userName)
+                returnt true;
+        }
+        return false;
+    }
+
+    void regisTration(String uname){
+        if (userExists(uname)){
+
+        }
+        else
+            database.add(uname);
+    }
+
+    void deactivate(String userName){
+        if (userExists(userName))
+            database.remove(userName);
+    }
+
+    User getUser(String userName){
+        for (User u: database){
+            if (u.username = username)
+                return u;
+        }
+        return null;
+    }
+}
+
+
+
+
+RESTAURANT DESIGN
+ have a task to design an online reservation system. Where a user can enter zip code/ no of people/time of reservation and get a list of restaurants. Assumption (User and restaurant are always in the same city)
+
+Each restaurant can have multiple tables with different number of seats. So, 2 tables that seat 4 people and 4 tables that seat 4 people.
+
+I'm having trouble coming up with the right data structures to use.
+
+My classes are as follows
+
+Restaurant : Contains timeofopening, timeOfClosing, totalNoOfSeatsAvailable Not sure how i will store table information within the restaurant. It doesn't make sense to have a separate class for the table. All the info i need is howManytables are free and what are their sizes.
+
+Reservation: This maintains the actual reservation and allows to cancel reservation
+
+ReservationSystem : contains the interface to `List checkAvailability(long time, int people)' How will this return this list? I initially thought of using a priorityQueue to maintain a queue with max no of seats available. But then i will go through that list to see if the time is correct to even make the reservation and then once a reservation is made,update this queue. One problem is the queue does all duplicates.
+
+class Table{
+    private int id;
+    private int numSeats;
+    public Table(int id, int ns){
+        this.id = id;
+        this.numSeats = ns;
+    }
+
+    // getId
+    // getNumSeats
+}
+
+class Restaurant implements Comparable{
+    private String name;
+    private Map<Integer, Table> tables;
+
+    public Restaurant(String name){
+        this.name = name;
+        this.tables = new HashMap<>();
+    }
+
+    public void addTable(Table t){
+        this.tables.put(t.getId(), t);
+    }
+
+    public void removeTable(intid){
+        return tables.get(intid);
+    }
+
+    public int getCapacity(){
+        int c = 0;
+        for (Map.Enran
+
+    public int compareTo(Restaurant r){
+        return this.getName().compareTo(r.getName());
+    }
+}
+
+
+
+/*
+Model a restaurant reservation system, where staff can a reservation, pull up, cancel reservations. The reservation system is very simple local to just one terminal at the restaurant not connected to network.
+*/
+class ReservationSystem{
+    Map<Integer, Reservation> reservationTable = new HashMap<>();
+
+    public void createReservation(int startime, String fname, String lname, int partySize){
+        Random r = new Random();
+        int reservationId = r.nextInt(2000);
+        Person reserver = new Person(fname, lname);
+        Reservation reservation = new REservation(reservationId, starTime, reserver, startime);
+        reservationTAble.put(reservationId,reservation);
+    }
+
+    public Reservation searchReservation(int id){
+        // get the entry
+    }
+
+public void cancelReservation(){
+    // remove the entry
+}
+}
+
+class Reservation{
+    int id;
+    int startTime;
+    Peson reserver;
+    int partySize;
+    // constructor
+}
+
+
+class person{
+    // callasd definition for person
+}
+
+
+
+Imagine you have a call center with three levels of employees: fresher, technical lead (TL), product manager (PM). There can be multiple employees, but only one TL or PM. An incoming telephone call must be allocated to a fresher who is free. If a fresher can’t handle the call, he or she must escalate the call to technical lead. If the TL is not free or not able to handle it, then the call should be escalated to PM. Design the classes and data structures for this problem. Implement a method getCallHandler()
+
+class NotRecommended{
+
+                class Employee{
+                    boolean available = true;
+                    boolean canhandle = true;
+                    pubic boolean handle(){
+                        return avialable && canHandle;
+                    }
+                    public void busy(){
+                        available = false;
+                    }
+
+                    public void free(){
+                        available = true;
+                    }
+
+                    public boolean canHandle(){
+                        return canHandle;
+                    }
+                    public void setCanhandle(boolean canHandle){
+                        this.candHanlde = canHandle;
+                    }
+                }
+
+                class CallCenter{
+                    Employee pm;
+                    Employee lead;
+                    List<Employee> freshers;
+
+                    public Employee getCallHandler(){
+                        for (Employee fresher: freshers){
+                            if(fresher.handle()){
+                                fresher.bush();
+                                return fresher;
+                            }
+                        }
+                        if (lead != null && lead.handle()){
+                            lead.busy();
+                            return lead;
+                        }
+                        if (pm != null && pm.handle()){
+                            pm.busy();
+                            return pm;
+                        }
+                        return null;
+                    }
+                }
+
+
+
+                class CallHandler{
+                    static final int LEVELs = 3;
+                    static final int NUM_FRESHERS = 5;
+                    List<Employee>[] employeeLevels ;
+                    Queue<Call>[] callQueues;
+                    CallHadnler(){
+                        callQueues = new LinkedList[LEVELS];
+                        employeeLevels = new ArrayList[LEVELs];
+                    }
+                    Employee getCalHandler(Call call){
+                        for (int level = call.rank; level < LEVELS - 1; level++){
+                            List<Employee> elevel = employeeLevels[level];
+                            for (Employee emp: elevel){
+                                if (emp.free)
+                                return emp;
+                            }
+                        }
+                    }
+
+                    void dispatchCall(Call call){
+                        Employee emp = getCallHandler(call);
+                        if (emp != null)
+                            emp.receiveCCall(call);
+                        else
+                            callQueues[call.rank].add(call);
+                    }
+
+                    void getNextCall(Employee e){
+
+                    }
+
+
+                }
+                class Call{
+                    int rank = 0;
+                    public void reply(String message){
+
+                    }
+
+                    public void disconnect(){
+
+                    }
+                }{
+
+                class Employee {
+                    CallHandler callHandler;
+                    int rank; // 0- fresher, 1 - technical lead, 2 - product manager
+                    boolean free;
+                
+                    Employee(int rank) {
+                        this.rank = rank;
+                    }
+                
+                    void ReceiveCall(Call call) {
+                        // receive call
+                    }
+                
+                    void CallHandled(Call call) {
+                        // call is complete
+                    }
+                
+                    void CannotHandle(Call call) { // escalate call
+                        call.rank = rank + 1;
+                        callHandler.dispatchCall(call);
+                        free = true;
+                        callHandler.getNextCall(this); // look for waiting call
+                    }
+                }
+                
+                class Fresher extends Employee {
+                    public Fresher() {
+                        super(0);
+                    }
+                }
+                
+                class TechLead extends Employee {
+                    public TechLead() {
+                        super(1);
+                    }
+                }
+                
+                class ProductManager extends Employee {
+                    public ProductManager() {
+                        super(2);
+                    }
+                }
 
 
 
@@ -12725,32 +14987,345 @@ return false.
 
 
 
+}
+
+
+///
+
+class Call{
+    int rank = 0;
+    public void reply(String message){
+        System.out.println(message);
+    }
+    public void disconnect(){
+        reply("Message")
+    }
+}
+class Employee{
+    CallHandler callHandler;
+    int rank; // 0 fresher
+    boolean free;
+    public Employee(int rank){
+        this.rank = rank;
+        free = true;
+    }
+
+    // start conve
+    public void startConveration(Call call){
+        free = false;
+    }
+
+    // end the call
+    public void callhandled(Call call){
+        call.disconnect();
+        free = true;
+        // look if theres a call in queue
+        callHandler.getNextCall(this);
+    }
+    // call not handled. escalate the call
+    public void cannotHandle(Call call){
+        call.rank = rank + 1;
+        callHandler.dispatch(call);
+        free = true;
+
+        callHandler.getNextCall(this);
+    }
+}
+
+class Fresher extends Employee{
+    public Fresher(){
+        super(0);
+    }
+}
+
+public class CallHandler{
+    final int LEVELs = 3;
+    final int NUM_FRESHERS = 5;
+    List<Employee>[] employeeLevels = new ArrayList<>[LEVELS];
+    Queue<Call>[] callQueue = new LinkedList[LEVELS];
+
+    public CallHandler(){
+        List<Employee> freshers = new ArrayList(NUM_FRESHER);
+        for (int i = 0; i < NUM_FRESHERS; i++)
+            freshers.add(new Fresher());
+        employeeLevels[0] = freshsers;
+
+        List<Employee> tls = new ArrayList();
+        for (int i = 0; i < 1; i++)
+            tls.add(new TechLead());
+        employeeLevels[1] = tls;
+
+        List<Employee> pms = new ArrayList<>();
+        for (int i = 0; i < 1; i++)
+            pms.add(new ProjectManager());
+        employeeLevels[2] = pms;
+        
+
+    }
+
+    Employee getCallHandler(Call call){
+        for (int level = 0; level < 3; level++){
+            for (Employee emp: employeeLevels[level])
+                if (emp.free)
+                    return emp;
+        }
+        return null;
+    }
+
+// routes the call to an available employee, or saves in a queue 
+    // if no employee available
+    public void dispatchCall(Call call){
+        Employee emp = getCallHandler(call);
+        if (emp != null)
+            emp.receiveCall(call);
+        else {
+            call.reply("Please wait for another employee");
+            callQueus[call.rank].add(call);
+        }
+    }
+
+    // employee got free, look for a waiting call he/she can serve
+    public void getnextCall(Employee emp){
+        for (int rank = emp.rank; rank >= 0; rank--){
+            Queue<Call> queue = callQueue[rank];
+            Call call = queue.poll();
+            if (call != null){
+                emp.ReceiveCall(call);
+                return;
+            }
+        }
+    }ra
+}
+ELEVATOR
+class Passenger{
+    // srcFloor
+    // destFloor
+    issueRequest(int dest);
+    issueAlarm();
+    issueStop();
+}
+class Elevator{
+    State state; // running open idle stopped alarmed
+    int direction;
+    int speed;
+    List<Integer> floors;
+    //Floor targettedFloors;//class number isServiced
+    openDoor(){
+        if state == running
+            return false;
+        if state == idle/stopped/alarmed
+            open
+    }
+    closeDoor(){
+        if state == alarmed || open
+            return true;
+    }
+    moveUp(){
+        if direction == down || floor == maxFloor
+            return false;
+        direction = up
+        return true;
+    }
+    moveDown(){
+        // can't move down if life is already moving up
+        if direction == up || floor == minFloor
+            return false;
+        direction = down
+        return true;
+    }
+    stop(){
+        // code for reaching nearest floor
+        direction == none
+        
+    }
+    startAlarm(){
+        stop();
+        soundAlarm;
+    }
+    
+}
 
 
 
 
+// This doesn't work when collision happens
+// you are just storing the values, whie retrieving the value
+// you are not sure to which key the value belongs to
+public class Hash<K, V>{
+ LinkedList<V>[] items;
+ public void put(K key, V value){}
+ public V get(K key);   
+}
+public class Hash<K, V>{
+    private final int MAX_SIZE = 10;
+    LinkedList<Cell<K, V>>[] items;
+    public Hash(){
+        items = new LinkedList[MAX_SIZE];
+    }
+
+    public int getHashCode(int key){
+        //
+    }
+    public void put(K key, V value){
+        int hashCode = getHashCode(key);
+        int index = hashCode % items.length;
+        if (items[index] == null){
+            items[index] = new LinkedList<Cell<K, V>>(); 
+        }
+        // update value if key is already present
+        LinkedList<Cell<K, V>> collided = items[index];
+        for (Cell<K, V> c: collided){
+            if (c.equals(key)){
+                collided.remove(c);
+                break;
+            }
+        }
+        Cell<K, V> newEntry = new Cell<K, V>(key, value);
+        collided.add(newEntry)
+    }
+    public void get(K key){
+        int index =  getHashCode(key) % index.length;
+        if (items[index] == null)
+            return null;
+        LinkedList<Cell<K, V>> collided = items[index];
+        for (Cell<K, V> c: collided){
+            if (c.equals(key))
+                return c.getValue();
+        }
+        return null;
+    }
+}
+
+class Cell<K, V>{
+    private K key;
+    private V value;
+    public Cell(K key, V value){
+        key = k;
+        value = v;
+    }
+    public boolean equivalent(Cell<K, V> c){
+        return c.getKey() == this.getKey();
+    }
+    public K getKey(){ return key;}
+    public V getValue(){return value;}
+}
 
 
+largest subtree bst
+Input: 
+      5
+    /  \
+   2    4
+ /  \
+1    3
+
+Output: 3 
+The following subtree is the maximum size BST subtree 
+   2  
+ /  \
+1    3
 
 
+Input: 
+       50
+     /    \
+  30       60
+ /  \     /  \ 
+5   20   45    70
+              /  \
+            65    80
+Output: 5
+The following subtree is the maximum size BST subtree 
+      60
+     /  \ 
+   45    70
+        /  \
+      65    80
 
+tart from root and do an inorder traversal of the tree. For each node N, check whether the subtree rooted with N is BST or not. If BST, then return size of the subtree rooted with N. Else, recur down the left and right subtrees and return the maximum of values returned by left and right subtrees.
 
+efficient method : O(n)
+use bottom up approach where for every node, we return
+the maximum size bst at that node along with largest and smallest value
+of the bst subtree rooted at that node
 
+int MAX = 0;
+public int largestBSTSubtree(TreeNode root){
+    helper(root);
+    return MAX;
+}
+public int[] helper(TreeNode root){
+    int[] res = new int[3];
+    if (root == null){
+        res[1] = Integer.MAX_VALUE;
+        res[2] = Integer.MIN_VALUE;
+        return res;
+    }
+    int[] left = helper(root.left);
+    int[] right = helper(root.right);
 
+    if (left[0] == -1 || right[0] == -1 || root.val <= left[2] ||
+    root.val >= right[1]){
+        // if root.val is smaller than largest value in leftsubtree
+        // if root.val is larger than smallest value in rightsubtree
+        res[0] = -1;
+        return res;
+    }
+    res[0] = left[0] + right[0] + 1;
+    MAX = Math.max(MAX, res[0]);
+    res[1] = Math.min(left[1], root.val);
+    res[2] = Math.max(right[2], root.val);
 
+    return res;
+}
 
+class BST{
+    Node root;
+    public BST(){
+        this.root = null;
+    }
+    public boolean find(int id){
+        Node p = root;
+        while(p != null){
+            if (p.val == id)
+                return true;
+            if (p.val > id)
+                p = p.left;
+            else
+                p = p.right;
+        }
+        return false;
+    }
+    public void add(int id){
+        Node newNode = new Node(id);
+        
+        if (root = null){
+            root = new Node;
+            return;
+        }
+        Node c = root;
+        Node parent = null;
+        while(true){
+            parent = c;
+            if (id < c.data){
+                c = c.left;
+                if (c == null){
+                    p.left = newNode;
+                    return;
+                }
 
-
-
-
-
-
-
-
-
-
-
-
+            else {
+                c = c.right;
+                if (c == null){
+                    parent.right = newNode;
+                    return;
+                }
+            }       
+            
+     
+        }
+    }
+}
 
 
 

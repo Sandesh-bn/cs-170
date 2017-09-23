@@ -19,7 +19,7 @@ public void printClosestPair(int arr[], int x){
 			leftIndex = l;
 			rightIndex = r;
 		}
-		if (temp > x)
+		if (arr[l] + arr[r] > x)
 			r--;
 		else
 			l++;
