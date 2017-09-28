@@ -975,6 +975,7 @@ public class Solution {
             }
         });
         */
+        median of 2 sorted array
         PriorityQueue<Integer> maxHeap = new PriorityQueue<>(size, Collections.reverseOrder());
         PriorityQueue<Integer> minHeap = new PriorityQueue<>(size);
         

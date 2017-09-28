@@ -117,8 +117,6 @@ var findWords = function(word){
     }
     return res;
 }
-
-
 // reverse string
 Input: "Let's take LeetCode contest"
 Output: "s'teL ekat edoCteeL tsetnoc"
@@ -369,6 +367,7 @@ var romanToInt = function(s){
     return res;
 }
 
+
 anagram
 var isAnagram = function(s, t){
     var hash = {};
@@ -597,6 +596,7 @@ var reconstructQueue = function(people) {
 };
 
 
+
 //return top k most occuring elements;
 Given [1,1,1,2,2,3] and k = 2, return [1,2].
 const topK = function(nums, k){
@@ -622,6 +622,16 @@ const topK = function(nums, k){
     return res;
 }
 
+// gvien top k most 1,2,3,45
+var topk = function(nums, k){
+    let map = new Map();
+    for (let i = 0; i < nums.length; i++){
+        if(!map.has(nums[i]))
+            map.set(nums[i], 0);
+        map.set(nums[i], map.get(nums[i]) + 1);
+    }
+
+}
 // shuffle an array
 / Init an array with set 1, 2, and 3.
 int[] nums = {1,2,3};
@@ -806,6 +816,22 @@ var postorderTraversal = function(root) {
     }
     return res;
 };
+12
+let postorder = function(root){
+    let res = [];
+    if(!root) return res;
+    let stack = [root];
+    if(stack.length){
+        if(root){
+            st.push(root);
+            res.unsfhit(root.val);
+            root = root.right;
+        }
+        else
+        root = stack.pop()left;
+    }
+}
+
 
 
 preorder traversal 
@@ -898,6 +924,9 @@ var deserialize = function(sb) {
 };
 
 
+let index = 0;
+
+
 generate subsets
 var subsets = function(nums) {
     let res = [];
@@ -917,6 +946,7 @@ var subsets = function(nums) {
     }
     return res;
 };
+
 
 binary tree right side view 
 var rightSideView = function(root) {
@@ -2039,12 +2069,7 @@ var cloneGraph = function(graph) {
     return map.get(graph.label);
 };
 
-snake game  
-    https://discuss.leetcode.com/topic/87242/java-solution-o-n-for-every-move-since-using-queue-to-check-body-position
-    https://photos.google.com/photo/AF1QipOF3hTOulKeA-Qy-v155JQCKZlkcBIacouBYiz2'
 
-https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/description/
-    memorize 
 https://leetcode.com/problems/implement-trie-prefix-tree
 class TrieNode{
     constructor(){
@@ -2620,8 +2645,6 @@ https://photos.google.com/photo/AF1QipNmK_Dzt6PHDB6LZ_A-WcEJyRI71gsdqXTH29C6
 https://photos.google.com/photo/AF1QipOuRoNahfKowAPQz7eTphk_Mwtrz2uR-gGkjODu
 https://photos.google.com/photo/AF1QipNtAJj-1kGjVqAOmuRnmDcrOBIBNDmZXGUeLfgX
 https://photos.google.com/photo/AF1QipN5fnNHbvmlbnVDDP8wZsVQDlUmBIQb7UvzC0yw
-
-
 https://leetcode.com/problems/continuous-subarray-sum/description/
 memorize: 
  for (int i = 0; i < nums.length; i++){
@@ -2637,9 +2660,6 @@ memorize:
         return false;
 
 https://leetcode.com/problems/russian-doll-envelopes/description/
-
-
-https://leetcode.com/problems/insert-delete-getrandom-o1/description/
 
 memorize: 
 var RandomizedSet = function() {
@@ -2966,7 +2986,7 @@ https://leetcode.com/problems/word-ladder/description/
 https://leetcode.com/problems/contains-duplicate-iii/description/
 https://leetcode.com/problems/decode-ways/description/
 https://leetcode.com/problems/insert-delete-getrandom-o1-duplicates-allowed
-https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/description/
+https://leetcode.com/problems/remove-duplicates-    om-sorted-array-ii/description/
         int i = 0;
         for (int num: nums){
             if (i < 2 || nums[i] > nums[i - 2])
@@ -3154,6 +3174,43 @@ watch youtube video
         return nums[low];
 
 
+course schedule 2
+var findOrder = function(numCourses, prerequisites) {
+    let list = [];
+    for (let i = 0; i < numCourses; i++)
+        list.push(new Array());
+    let map = new Map();
+    for (let p of prerequisites){
+        let e1 = p[0]; // destination
+        let e2 = p[1]; // source
+        if(!map.has(e1)){
+            map.set(e1, 0);
+        }
+        map.set(e1, map.get(e1) + 1);
+        list[e2].push(e1);
+    }
+    let q = [];
+    let res = [];
+    for (let i = 0; i < numCourses; i++){
+        if(!map.has(i)){
+            q.push(i);
+            res.push(i);
+        }
+    }
+    while(q.length){
+        let n = q.shift();
+        for (let e of list[n]){
+            map.set(e, map.get(e) - 1);
+            if (map.get(e) === 0){
+                q.push(e);
+                res.push(e);
+            }
+        }
+    }
+    if(res.length < numCourses)
+        return [];
+    return res;
+};
 https://leetcode.com/problems/search-in-rotated-sorted-array-ii/description/
 watch youtube video and memorize
 if (nums == null || nums.length == 0) return false;
